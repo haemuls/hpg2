@@ -22,6 +22,10 @@ interface Ranking {
   created: string;
 }
 
+interface ApiResponse<T> {
+  result: T;
+}
+
 const CTFProblemPage = () => {
   const params = useParams();
   const problemId = params?.id || "6";
@@ -46,9 +50,10 @@ const CTFProblemPage = () => {
       return;
     }
 
-    const fetchData = async (url: string, setter: (data: any) => void, errorMessage: string) => {
+    // 문제 데이터 가져오기
+    const fetchProblem = async () => {
       try {
-        const res = await fetch(url, {
+        const res = await fetch(`${API_BASE_URL}/${problemId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -57,45 +62,41 @@ const CTFProblemPage = () => {
         });
 
         if (!res.ok) {
-          throw new Error(`API 호출 실패: ${res.status} ${res.statusText}`);
+          throw new Error(`문제 API 호출 실패: ${res.status} ${res.statusText}`);
         }
 
-        const data = await res.json();
-        setter(data.result);
+        const data: ApiResponse<Problem> = await res.json();
+        setProblem(data.result);
       } catch (error) {
-        console.error(errorMessage, error);
+        console.error("문제 가져오기 실패:", error);
       }
     };
 
-    fetchData(`${API_BASE_URL}/${problemId}`, setProblem, "문제 가져오기 실패");
+    // 랭킹 데이터 가져오기
+    const fetchRanking = async () => {
+      try {
+        const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=3`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': '*/*',
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error(`랭킹 API 호출 실패: ${res.status} ${res.statusText}`);
+        }
+
+        const data: ApiResponse<Ranking[]> = await res.json();
+        setRanking(data.result);
+      } catch (error) {
+        console.error("랭킹 조회 실패:", error);
+      }
+    };
+
+    fetchProblem();
     fetchRanking();
   }, [problemId, token]);
-
-  const fetchRanking = async () => {
-    try {
-      const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=3`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': '*/*',
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error(`랭킹 API 호출 실패: ${res.status} ${res.statusText}`);
-      }
-
-      const data = await res.json();
-
-      if (Array.isArray(data.result)) {
-        setRanking(data.result);
-      } else {
-        setRanking([data.result]);
-      }
-    } catch (error) {
-      console.error("랭킹 조회 실패:", error);
-    }
-  };
 
   const handleSubmit = async () => {
     if (!token) return;

@@ -45,18 +45,16 @@ const GamePage = () => {
 
   useEffect(() => {
     const loadToken = async () => {
-      const token = await getValidAccessToken(membershipId);
+      const token = await getValidAccessToken();
       if (!token) {
         alert("로그인이 만료되었습니다. 다시 로그인 해주세요.");
         clearTokens();
-        router.push("/login");
-        return;
+      } else {
+        setAccessToken(token);  // 토큰을 상태에 저장
       }
-      setAccessToken(token);
     };
-
     loadToken();
-  }, [membershipId, router]);
+  }, []); // 빈 배열로 한 번만 실행
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -101,7 +99,6 @@ const GamePage = () => {
 
         setTotalPages(data.totalPages);
 
-        // 데이터 매핑
         const formattedPosts = data.content.map((post: Post) => ({
           id: post.id,
           solved: post.solved,
@@ -121,8 +118,10 @@ const GamePage = () => {
       }
     };
 
-    fetchPosts();
-  }, [accessToken, membershipId, currentPage, selectedType, size]);
+    if (accessToken) {
+      fetchPosts();
+    }
+  }, [accessToken, membershipId, currentPage, selectedType, size]); // 의존성 배열에 accessToken 추가
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

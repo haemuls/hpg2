@@ -16,7 +16,7 @@ interface Post {
   id: number;
   title: string;
   contents: string;
-  creator: { nickname: string };
+  creator: { nickname: string } | null;
   createdAt: string;
   formattedDate: string;
   type: 'notice' | 'default';
@@ -25,65 +25,77 @@ interface Post {
 interface Comment {
   id: number;
   content: string;
-  creator?: { nickname: string };
+  creator?: { nickname: string } | null;
   createdAt: string;
 }
 
-const BoardDetailPage = ({ params }: { params: { id: string } }) => {
+// BoardDetailPageProps 타입 수정
+interface BoardDetailPageProps {
+  params: Promise<{
+    id: string;  // 'id'는 string으로 정의
+  }>;
+}
+
+const BoardDetailPage: React.FC<BoardDetailPageProps> = ({ params }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const { id } = params;
-
   useEffect(() => {
-    if (!id) {
-      setError('잘못된 게시글 ID입니다.');
-      setLoading(false);
-      return;
-    }
+    const fetchParams = async () => {
+      const { id } = await params;
 
-    const fetchPost = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`${API_BASE_URL}/${id}`);
-        if (!response.ok) throw new Error('네트워크 응답이 올바르지 않습니다.');
-
-        const data = await response.json();
-        const formattedPost = {
-          ...data.result,
-          id: Number(data.result.id),
-          formattedDate: data.result.createdAt ? new Date(data.result.createdAt).toLocaleDateString() : '날짜 없음',
-          creator: data.result.creator || { nickname: '알 수 없음' },
-          type: data.result.type || 'default',
-        };
-
-        setPost(formattedPost);
-        setError('');
-      } catch (error) {
-        console.error("❌ 오류 발생:", error);
-        setError('게시글을 불러오는 중 문제가 발생했습니다.');
-      } finally {
+      if (!id) {
+        setError('잘못된 게시글 ID입니다.');
         setLoading(false);
+        return;
       }
+
+      const fetchPost = async () => {
+        setLoading(true);
+        try {
+          const response = await fetch(`${API_BASE_URL}/${id}`);
+          if (!response.ok) throw new Error('네트워크 응답이 올바르지 않습니다.');
+
+          const data = await response.json();
+          const formattedPost = {
+            ...data.result,
+            id: Number(data.result.id),
+            formattedDate: data.result.createdAt ? new Date(data.result.createdAt).toLocaleDateString() : '날짜 없음',
+            creator: data.result.creator || { nickname: '알 수 없음' },
+            type: data.result.type || 'default',
+          };
+
+          setPost(formattedPost);
+          setError('');
+        } catch (error) {
+          console.error("❌ 오류 발생:", error);
+          setError('게시글을 불러오는 중 문제가 발생했습니다.');
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      const fetchComments = async () => {
+        try {
+          const response = await fetch(`${COMMENT_API_URL}?postId=${id}`);
+          if (!response.ok) throw new Error('댓글 데이터를 가져오는 중 오류 발생');
+
+          const data = await response.json();
+          setComments(data.result || []);
+        } catch (error) {
+          console.error('❌ 댓글 로드 오류:', error);
+          setError('댓글을 불러오는 중 문제가 발생했습니다.');
+        }
+      };
+
+      fetchPost();
+      fetchComments();
     };
 
-    const fetchComments = async () => {
-      try {
-        const response = await fetch(`${COMMENT_API_URL}?postId=${id}`);
-        if (!response.ok) throw new Error('댓글 데이터를 가져오는 중 오류 발생');
-
-        const data = await response.json();
-        setComments(data.result || []);
-      } catch (error) {
-        console.error('❌ 댓글 로드 오류:', error);
-      }
-    };
-
-    fetchPost();
-    fetchComments();
-  }, [id]);
+    fetchParams();
+  }, [params]);
 
   if (loading) {
     return (
@@ -100,7 +112,7 @@ const BoardDetailPage = ({ params }: { params: { id: string } }) => {
     <section>
       <div>
         <h3>{post.title}</h3>
-        <p>작성자: {post.creator.nickname}</p>
+        <p>작성자: {post.creator?.nickname}</p>
         <p>등록일: {post.formattedDate}</p>
         <div>
           <Viewer initialValue={post.contents || "내용이 없습니다."} />
