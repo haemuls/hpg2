@@ -1,0 +1,14 @@
+/* styles/global.css */
+* {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff; /* 하얀 배경 */
+  color: #333;
+}
