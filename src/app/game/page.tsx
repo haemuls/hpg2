@@ -101,7 +101,8 @@ const GamePage = () => {
 
         setTotalPages(data.totalPages);
 
-        const formattedPosts = data.content.map((post: any) => ({
+        // 데이터 매핑
+        const formattedPosts = data.content.map((post: Post) => ({
           id: post.id,
           solved: post.solved,
           title: post.title,

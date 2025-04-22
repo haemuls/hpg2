@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [year, setYear] = useState<number>(new Date().getFullYear());
   const [nickname, setNickname] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,27 +33,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ko">
-      <head>
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="keywords" content="CTF, 해킹, 보안, 문제 풀이" />
-        <meta name="description" content="CTF 사이트 테스트용 페이지" />
-        <link rel="icon" href="/images/test_sione.jpeg" type="image/gif" />
-        <link rel="stylesheet" href="/styles/bootstrap.css" />
-        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="/styles/font-awesome.min.css" />
-        <link rel="stylesheet" href="/styles/style.css" />
-        <link rel="stylesheet" href="/styles/responsive.css" />
-        <link rel="stylesheet" href="/styles/navbar-hover.css" />
-      </head>
-      <body className="sub_page">
-        <div className="hero_area">
+    <head>
+      <title>Hack Playground - CTF 사이트</title>
+      <meta charSet="utf-8"/>
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+      <meta name="keywords" content="CTF, 해킹, 보안, 문제 풀이"/>
+      <meta name="description" content="CTF 사이트 테스트용 페이지"/>
+      <link rel="icon" href="/images/test_sione.jpeg" type="image/gif"/>
+      <link rel="stylesheet" href="/styles/bootstrap.css"/>
+      <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet"/>
+      <link rel="stylesheet" href="/styles/font-awesome.min.css"/>
+      <link rel="stylesheet" href="/styles/style.css"/>
+      <link rel="stylesheet" href="/styles/responsive.css"/>
+      <link rel="stylesheet" href="/styles/navbar-hover.css"/>
+    </head>
+    <body className="sub_page">
+    <div className="hero_area">
           <header className="header_section long_section px-0">
             <nav className="navbar navbar-expand-lg custom_nav-container">
-              <a className="navbar-brand" href="/">
+              <Link className="navbar-brand" href="/">
                 <span>Hack Playground</span>
-              </a>
+              </Link>
               <button
                 className="navbar-toggler"
                 type="button"
@@ -105,13 +106,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
 
         <footer className="footer_section">
-          <p>&copy; {year} wargame 사이트 테스트</p>
+          <p>&copy; 2025 wargame 사이트 테스트</p>
         </footer>
 
-        <script src="/js/navbar-hover.js" defer></script>
-        <script src="/js/jquery-3.4.1.min.js"></script>
-        <script src="/js/bootstrap.js"></script>
-        <script src="/js/custom.js"></script>
+        <Script src="/js/navbar-hover.js" strategy="lazyOnload" />
+        <Script src="/js/jquery-3.4.1.min.js" strategy="lazyOnload" />
+        <Script src="/js/bootstrap.js" strategy="lazyOnload" />
+        <Script src="/js/custom.js" strategy="lazyOnload" />
       </body>
     </html>
   );

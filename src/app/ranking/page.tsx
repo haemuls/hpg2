@@ -6,8 +6,15 @@ import styles from "./ranking.module.css"; // CSS 모듈
 
 const API_BASE_URL = "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/sorted-by-score";
 
+interface User {
+  rank: number;
+  nickname: string;
+  solvedCount: number;
+  lastActived: string;
+}
+
 const RankingPage = () => {
-  const [ranking, setRanking] = useState<any[]>([]);
+  const [ranking, setRanking] = useState<User[]>([]);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {

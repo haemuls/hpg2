@@ -18,6 +18,13 @@ interface Post {
   formattedDate: string;
 }
 
+interface ApiResponse {
+  result: {
+    content: Post[];
+    totalPages: number;
+  };
+}
+
 const BoardPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
@@ -26,11 +33,11 @@ const BoardPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // 관리자 여부 추가
-  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (): Promise<void> => {
     setLoading(true);
     setError("");
 
@@ -51,8 +58,8 @@ const BoardPage = () => {
         throw new Error("공지사항을 불러오는 데 실패했습니다.");
       }
 
-      const data = await response.json();
-      const formattedPosts = data.result.content.map((post: any) => ({
+      const data: ApiResponse = await response.json();
+      const formattedPosts = data.result.content.map((post) => ({
         ...post,
         id: Number(post.id),
         formattedDate: new Date(post.lastModified).toLocaleDateString(),
@@ -60,46 +67,46 @@ const BoardPage = () => {
 
       setPosts(formattedPosts);
       setTotalPages(data.result.totalPages);
-    } catch (err: any) {
-      setError(err.message || "공지사항을 불러오는 중 오류가 발생했습니다.");
+    } catch (err) {
+      setError((err as Error).message || "공지사항을 불러오는 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
-  const checkLoginStatus = () => {
+  const checkLoginStatus = (): void => {
     const token = getAccessToken();
     setIsLoggedIn(!!token);
 
     if (token) {
-      const nickName = localStorage.getItem("nickName");
-      setIsAdmin(nickName === "관리자"); // 닉네임이 '관리자'인지 확인
+      const nickName = localStorage.getItem("nickName") || "";
+      setIsAdmin(nickName === "관리자");
     }
   };
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    setCurrentPage(0); // 검색 시 페이지 초기화
-    fetchPosts(); // 검색 요청 실행
+    setCurrentPage(0);
+    fetchPosts();
   };
 
   useEffect(() => {
     fetchPosts();
     checkLoginStatus();
-  }, [sortByDateNewest, currentPage, searchTerm]); // searchTerm을 의존성에 추가
+  }, [sortByDateNewest, currentPage, searchTerm]);
 
-  const toggleSortByDate = () => {
+  const toggleSortByDate = (): void => {
     setSortByDateNewest((prev) => !prev);
     setCurrentPage(0);
   };
 
-  const goToPage = (page: number) => {
+  const goToPage = (page: number): void => {
     if (page >= 0 && page < totalPages) {
       setCurrentPage(page);
     }
   };
 
-  const handleWritePost = async () => {
+  const handleWritePost = async (): Promise<void> => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
       router.push("/login");
@@ -220,7 +227,7 @@ const BoardPage = () => {
                   type="search"
                   placeholder="제목으로 검색"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
                   type="submit"
@@ -234,7 +241,7 @@ const BoardPage = () => {
         </div>
       </div>
 
-      {isAdmin && ( // 관리자일 때만 버튼 표시
+      {isAdmin && (
         <div className={styles.writeBtnWrap}>
           <div className={styles.container}>
             <button

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from './BoardDetail.module.css';
 import { getAccessToken } from '../../../../../token';
@@ -26,6 +25,13 @@ interface Comment {
   createdAt: string;
 }
 
+interface CommentResponse {
+  id: number;
+  content: string;
+  creator?: { nickname: string };
+  createdAt: string;
+}
+
 const BoardDetailPage = () => {
   const params = useParams();
   const [post, setPost] = useState<Post | null>(null);
@@ -33,8 +39,7 @@ const BoardDetailPage = () => {
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);  // error 상태를 string으로 명시
 
   const fetchPost = async (id: string) => {
     setLoading(true);
@@ -51,10 +56,14 @@ const BoardDetailPage = () => {
         formattedDate: new Date(data.result.createdAt).toLocaleDateString(),
         creator: data.result.creator || { nickname: '알 수 없음' },
       });
-    } catch (error) {
-      setError('게시글을 불러오는 중 문제가 발생했습니다.');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('게시글 데이터를 불러오는 중 문제가 발생했습니다.');
+      }
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
 
@@ -66,18 +75,22 @@ const BoardDetailPage = () => {
       });
 
       if (!response.ok) throw new Error('댓글 데이터를 불러오는 데 실패했습니다.');
-      const data = await response.json();
+      const data: { result: CommentResponse[] } = await response.json();
 
       setComments(
-        data.result.map((c: any) => ({
+        data.result.map((c) => ({
           id: c.id,
           content: c.content,
           creator: c.creator || { nickname: '익명 사용자' },
           createdAt: c.createdAt,
         }))
       );
-    } catch (error) {
-      setError('댓글 데이터를 불러오는 중 문제가 발생했습니다.');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('댓글 데이터를 불러오는 중 문제가 발생했습니다.');
+      }
     }
   };
 
@@ -129,15 +142,17 @@ const BoardDetailPage = () => {
         },
       ]);
       setNewComment('');
-    } catch (error) {
-      setError('댓글 등록 중 문제가 발생했습니다.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            setError(error.message);
+        } else {
+            setError('댓글 등록 중 문제가 발생했습니다.');
+        }
+        }
   };
 
   if (loading) return <p>게시글을 불러오는 중입니다...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return <p>{error}</p>;  // error 상태를 화면에 표시
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
 
   return (
@@ -151,7 +166,6 @@ const BoardDetailPage = () => {
           <Viewer initialValue={post.contents} />
         </div>
 
-        {/* 댓글 작성 폼을 댓글 목록 위로 이동 */}
         <div className={styles.commentSection}>
           <h4 className={styles.commentTitle}>댓글</h4>
           <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
@@ -171,12 +185,11 @@ const BoardDetailPage = () => {
                   <p>
                     <strong>{c.creator?.nickname || '익명 사용자'}</strong>
                   </p>
-                  <p className={styles.commentContent}>{c.content}</p> {/* 댓글 내용에만 들여쓰기 적용 */}
+                  <p className={styles.commentContent}>{c.content}</p>
                   <span className={styles.commentMeta}> | {new Date(c.createdAt).toLocaleDateString()}</span>
                 </li>
             ))}
           </ul>
-
         </div>
       </div>
     </section>

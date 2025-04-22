@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import './BoardDetail.module.css';
 
 const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Viewer), { ssr: false });
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards";
 const COMMENT_API_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments`;
 
 interface Post {
@@ -33,7 +34,6 @@ const BoardDetailPage = ({ params }: { params: { id: string } }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const router = useRouter();
 
   const { id } = params;
 
@@ -103,20 +103,20 @@ const BoardDetailPage = ({ params }: { params: { id: string } }) => {
         <p>작성자: {post.creator.nickname}</p>
         <p>등록일: {post.formattedDate}</p>
         <div>
-          <Viewer initialValue={post.contents || "내용이 없습니다."}/>
+          <Viewer initialValue={post.contents || "내용이 없습니다."} />
         </div>
         <div>
           <h4>댓글</h4>
           {comments.length === 0 ? (
-              <p>아직 댓글이 없습니다.</p>
+            <p>아직 댓글이 없습니다.</p>
           ) : (
-              comments.map((c) => (
-                  <div key={c.id} className="border-b border-gray-300 py-4">
-                    <p className="font-semibold">{c.creator?.nickname || '익명 사용자'}</p>
-                    <p>{c.content}</p>
-                    <p className="text-sm text-gray-500">{new Date(c.createdAt).toLocaleString()}</p>
-                  </div>
-              ))
+            comments.map((c) => (
+              <div key={c.id} className="border-b border-gray-300 py-4">
+                <p className="font-semibold">{c.creator?.nickname || '익명 사용자'}</p>
+                <p>{c.content}</p>
+                <p className="text-sm text-gray-500">{new Date(c.createdAt).toLocaleString()}</p>
+              </div>
+            ))
           )}
         </div>
       </div>

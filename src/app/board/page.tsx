@@ -10,12 +10,20 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
+// 게시글 타입 정의
 interface Post {
   id: number;
   title: string;
   creator: string;
   lastModified: string;
   formattedDate: string;
+}
+
+interface BoardResponse {
+  result: {
+    content: Post[];
+    totalPages: number;
+  };
 }
 
 const BoardPage = () => {
@@ -48,17 +56,16 @@ const BoardPage = () => {
         throw new Error("게시글을 불러오는 데 실패했습니다.");
       }
 
-      const data = await response.json();
-      const formattedPosts = data.result.content.map((post: any) => ({
+      const data: BoardResponse = await response.json();
+      const formattedPosts = data.result.content.map((post) => ({
         ...post,
-        id: Number(post.id),
         formattedDate: new Date(post.lastModified).toLocaleDateString(),
       }));
 
       setPosts(formattedPosts);
       setTotalPages(data.result.totalPages);
-    } catch (err: any) {
-      setError(err.message || "게시글을 불러오는 중 오류가 발생했습니다.");
+    } catch (err: unknown) {
+      setError((err instanceof Error ? err.message : "게시글을 불러오는 중 오류가 발생했습니다."));
     } finally {
       setLoading(false);
     }

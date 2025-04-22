@@ -8,17 +8,31 @@ import { getAccessToken } from '../../../../token';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
+interface Problem {
+  title: string;
+  creator: string;
+  level: number;
+  problemFile?: string;
+  content: string;
+  dockerfileLink?: string;
+}
+
+interface Ranking {
+  nickname: string;
+  created: string;
+}
+
 const CTFProblemPage = () => {
   const params = useParams();
   const problemId = params?.id || "6";
 
-  const [problem, setProblem] = useState<any>(null);
-  const [flag, setFlag] = useState("");
-  const [message, setMessage] = useState("");
+  const [problem, setProblem] = useState<Problem | null>(null);
+  const [flag, setFlag] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [comments, setComments] = useState<string[]>([]);
-  const [newComment, setNewComment] = useState("");
-  const [ranking, setRanking] = useState<any[]>([]);
-  const [vmAddress, setVmAddress] = useState("");
+  const [newComment, setNewComment] = useState<string>("");
+  const [ranking, setRanking] = useState<Ranking[]>([]);
+  const [vmAddress, setVmAddress] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -73,11 +87,10 @@ const CTFProblemPage = () => {
 
       const data = await res.json();
 
-      // 랭킹에 여러 명을 추가 (최대 3명)
       if (Array.isArray(data.result)) {
         setRanking(data.result);
       } else {
-        setRanking([data.result]); // 단일 사용자일 경우
+        setRanking([data.result]);
       }
     } catch (error) {
       console.error("랭킹 조회 실패:", error);
@@ -99,7 +112,6 @@ const CTFProblemPage = () => {
       });
 
       if (!res.ok) {
-        const errorText = await res.text();
         setMessage("정답 확인 중 오류가 발생했습니다.");
         return;
       }
@@ -128,7 +140,7 @@ const CTFProblemPage = () => {
   const formatTime = (timeString: string) => {
     const date = new Date(timeString);
     const year = date.getFullYear();
-    const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줍니다.
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     const hours = date.getHours();
     const minutes = date.getMinutes();
@@ -184,10 +196,10 @@ const CTFProblemPage = () => {
           ranking.map((user, index) => (
             <div key={index} className="ranking-item">
               <span className="rank">
-                {index === 0 ? "👑" : index + 1} {/* 1위는 금색 왕관 */}
+                {index === 0 ? "👑" : index + 1}
               </span>
               <span className="username">{user.nickname}</span>
-              <span className="solved-time">{formatTime(user.created)}</span> {/* 푼 시간 */}
+              <span className="solved-time">{formatTime(user.created)}</span>
             </div>
           ))
         ) : (
