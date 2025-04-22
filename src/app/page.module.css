@@ -1,0 +1,34 @@
+.stats-boxes {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.stats-box {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stats-box h4 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.stats-box p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #555;
+}
+
+.smallText {
+  font-size: 1.3em;
+  line-height: 1.4;
+  color: #444;
+}
+

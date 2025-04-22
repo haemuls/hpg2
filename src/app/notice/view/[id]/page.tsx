@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import '../../../../../styles/BoardDetail.module.css';
+import './BoardDetail.module.css';
 
 const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Viewer), { ssr: false });
 
