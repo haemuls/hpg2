@@ -31,5 +31,6 @@
     ".next/types/**/*.ts",
     "external.d.ts",
     "types/**/*.d.ts" // 추가된 부분
-  ]
+  ],
+  "exclude": ["node_modules"]
 }
