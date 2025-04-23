@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import styles from "./board.module.css";
@@ -28,13 +28,13 @@ interface ApiResponse {
 const BoardPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState("");
   const [sortByDateNewest, setSortByDateNewest] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
 
   const fetchPosts = async (): Promise<void> => {
@@ -67,8 +67,8 @@ const BoardPage = () => {
 
       setPosts(formattedPosts);
       setTotalPages(data.result.totalPages);
-    } catch (err: unknown) {
-      setError((err instanceof Error ? err.message : "공지사항을 불러오는 중 오류가 발생했습니다."));
+    } catch (err) {
+      setError((err as Error).message || "공지사항을 불러오는 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
@@ -126,14 +126,14 @@ const BoardPage = () => {
         }),
       });
 
-      const data: boolean = await response.json();
+      const data = await response.json();
 
-      if (response.ok && data) {
+      if (response.ok && data === true) {
         router.push("/board/write");
       } else {
         alert("토큰이 유효하지 않습니다.");
       }
-    } catch (err: unknown) {
+    } catch (err) {
       alert("토큰 검증 중 오류가 발생했습니다.");
       console.error(err);
     }

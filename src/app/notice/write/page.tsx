@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { getValidAccessToken, clearTokens, getMembershipId } from '../../../../token';
 import styles from './BoardWritePage.module.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
 
 const ToastEditor = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Editor), {
   ssr: false,
@@ -17,17 +16,22 @@ const API_BASE_URL = 'http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.co
 
 const BoardWritePage = () => {
   const [title, setTitle] = useState('');
-  const editorRef = useRef<Editor | null>(null);  // 'Editor' 타입 지정
+  const [nickname, setNickname] = useState<string | null>(null);
+  const editorRef = useRef<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     const storedMembershipId = getMembershipId();
-    if (!storedMembershipId) {
+    const storedNickname = localStorage.getItem('nickname');
+
+    if (!storedMembershipId || !storedNickname) {
       alert('로그인이 필요합니다.');
       clearTokens();
       router.push('/login');
       return;
     }
+
+    setNickname(storedNickname);
 
     const loadToken = async () => {
       const token = await getValidAccessToken();
