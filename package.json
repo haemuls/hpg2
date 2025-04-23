@@ -33,7 +33,7 @@
     "eslint-config-next": "15.2.0",
     "next": "^15.3.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "overrides": {
     "@toast-ui/react-editor": {
