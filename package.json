@@ -7,11 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "install": "npm install --legacy-peer-deps"
+    "install": "npm install"
   },
   "dependencies": {
-    "@toast-ui/editor": "^3.2.2",
-    "@toast-ui/react-editor": "^3.2.3",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
     "ckeditor5": "^45.0.0",
@@ -34,11 +32,5 @@
     "next": "^15.3.1",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "overrides": {
-    "@toast-ui/react-editor": {
-      "react": "^19.1.0",
-      "react-dom": "^19.1.0"
-    }
   }
 }
