@@ -22,7 +22,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "typeRoots": ["./node_modules/@types", "./types", "./node_modules/react-bootstrap","./node_modules"]
   },
   "include": [
     "next-env.d.ts",
