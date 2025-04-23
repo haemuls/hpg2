@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // API URLs
-const BASE_URL = 'http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com'; // api 기본주소
+const BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com'; // api 기본주소
 const LOGIN_URL = `${BASE_URL}/login`; // 로그인 요청 url
 const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`; // 토큰 검증 요청 url
 const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`; // 엑세스 토큰 갱신

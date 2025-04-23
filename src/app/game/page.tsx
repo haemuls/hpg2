@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "./game.module.css";
 import { getValidAccessToken, clearTokens } from "../../../token";
 
-const API_URL = "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed";
+const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed";
 
 interface Post {
   id: number;

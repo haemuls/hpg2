@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getAccessToken } from "../../../token";
 import styles from "./ranking.module.css"; // CSS 모듈
 
-const API_BASE_URL = "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/sorted-by-score";
+const API_BASE_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/sorted-by-score";
 
 interface User {
   rank: number;

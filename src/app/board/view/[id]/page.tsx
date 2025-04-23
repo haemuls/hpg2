@@ -45,7 +45,7 @@ const BoardDetailPage = () => {
     setLoading(true);
     try {
       const token = getAccessToken();
-      const response = await fetch(`http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards/${id}`, {
+      const response = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -70,7 +70,7 @@ const BoardDetailPage = () => {
   const fetchComments = async (id: string) => {
     try {
       const token = getAccessToken();
-      const response = await fetch(`http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/board/${id}`, {
+      const response = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/board/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

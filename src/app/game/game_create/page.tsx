@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import "../../../../public/styles/bootstrap.css";
 import "../../../../public/styles/notice.css";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 
 type WargameProblem = {
   title: string;

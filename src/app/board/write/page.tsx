@@ -15,7 +15,7 @@ const ToastEditor = dynamic(() => import('@toast-ui/react-editor').then((mod) =>
   ssr: false,
 });
 
-const API_BASE_URL = 'http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
+const API_BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
 
 const BoardWritePage = () => {
   const [title, setTitle] = useState('');

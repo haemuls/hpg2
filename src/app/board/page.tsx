@@ -8,7 +8,7 @@ import { getAccessToken } from "../../../token";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+  "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
 // 게시글 타입 정의
 interface Post {

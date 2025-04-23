@@ -10,7 +10,7 @@ type ProblemStats = {
 
 const fetchProblemStats = async (): Promise<ProblemStats> => {
   try {
-    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
     const res = await fetch(`${BASE_URL}/api/problems/statistics`, {
       method: 'GET',
       headers: {

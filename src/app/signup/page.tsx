@@ -20,7 +20,7 @@ const SignupPage = () => {
       return;
     }
 
-    const response = await fetch('http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users', {
+    const response = await fetch('https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
