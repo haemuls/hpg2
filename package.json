@@ -17,7 +17,6 @@
     "cors": "^2.8.5",
     "jwt-decode": "^4.0.0",
     "react": "^19.1.0",
-    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.1.0",
     "source-map-js": "^1.2.1"
   },
