@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
+import Link from 'next/link';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [nickname, setNickname] = useState<string | null>(null);
 
   useEffect(() => {
@@ -14,15 +13,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       setNickname(savedNickname);
     }
 
-    const updateNickname = () => {
-      const newNickname = localStorage.getItem('nickname');
-      setNickname(newNickname);
+    const updateNickname = (event: CustomEvent) => {
+      setNickname(event.detail); // 이벤트로 전달된 닉네임 설정
     };
 
-    window.addEventListener('nicknameUpdated', updateNickname);
+    window.addEventListener('nicknameUpdated', updateNickname as EventListener);
 
     return () => {
-      window.removeEventListener('nicknameUpdated', updateNickname);
+      window.removeEventListener('nicknameUpdated', updateNickname as EventListener);
     };
   }, []);
 
@@ -33,23 +31,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ko">
-    <head>
-      <title>Hack Playground - CTF 사이트</title>
-      <meta charSet="utf-8"/>
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-      <meta name="keywords" content="CTF, 해킹, 보안, 문제 풀이"/>
-      <meta name="description" content="CTF 사이트 테스트용 페이지"/>
-      <link rel="icon" href="/images/test_sione.jpeg" type="image/gif"/>
-      <link rel="stylesheet" href="/styles/bootstrap.css"/>
-      <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet"/>
-      <link rel="stylesheet" href="/styles/font-awesome.min.css"/>
-      <link rel="stylesheet" href="/styles/style.css"/>
-      <link rel="stylesheet" href="/styles/responsive.css"/>
-      <link rel="stylesheet" href="/styles/navbar-hover.css"/>
-    </head>
-    <body className="sub_page">
-    <div className="hero_area">
+      <head>
+        <title>Hack Playground - CTF 사이트</title>
+        <meta charSet="utf-8"/>
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="keywords" content="CTF, 해킹, 보안, 문제 풀이"/>
+        <meta name="description" content="CTF 사이트 테스트용 페이지"/>
+        <link rel="icon" href="/images/test_sione.jpeg" type="image/gif"/>
+        <link rel="stylesheet" href="/styles/bootstrap.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="/styles/font-awesome.min.css"/>
+        <link rel="stylesheet" href="/styles/style.css"/>
+        <link rel="stylesheet" href="/styles/responsive.css"/>
+        <link rel="stylesheet" href="/styles/navbar-hover.css"/>
+      </head>
+      <body className="sub_page">
+        <div className="hero_area">
           <header className="header_section long_section px-0">
             <nav className="navbar navbar-expand-lg custom_nav-container">
               <Link className="navbar-brand" href="/">
@@ -108,12 +106,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="footer_section">
           <p>&copy; 2025 wargame 사이트 테스트</p>
         </footer>
-
-        <Script src="/js/navbar-hover.js" strategy="lazyOnload" />
-        <Script src="/js/jquery-3.4.1.min.js" strategy="lazyOnload" />
-        <Script src="/js/bootstrap.js" strategy="lazyOnload" />
-        <Script src="/js/custom.js" strategy="lazyOnload" />
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

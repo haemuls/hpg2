@@ -50,11 +50,11 @@ const GamePage = () => {
         alert("로그인이 만료되었습니다. 다시 로그인 해주세요.");
         clearTokens();
       } else {
-        setAccessToken(token);  // 토큰을 상태에 저장
+        setAccessToken(token);
       }
     };
     loadToken();
-  }, []); // 빈 배열로 한 번만 실행
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -121,7 +121,7 @@ const GamePage = () => {
     if (accessToken) {
       fetchPosts();
     }
-  }, [accessToken, membershipId, currentPage, selectedType, size]); // 의존성 배열에 accessToken 추가
+  }, [accessToken, membershipId, currentPage, selectedType, size]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,19 +142,19 @@ const GamePage = () => {
 
   const getLevelIcon = (level: string | null) => {
     if (!level) {
-      return "❓"; // 레벨이 없으면 물음표 이모티콘
+      return "❓";
     }
 
     const levelNumber = parseInt(level, 10);
     if (levelNumber === 1) {
-      return "⭐"; // 레벨 1은 별 한 개
+      return "⭐";
     } else if (levelNumber === 2) {
-      return "⭐⭐"; // 레벨 2는 별 두 개
+      return "⭐⭐";
     } else if (levelNumber === 3) {
-      return "⭐⭐⭐"; // 레벨 3은 별 세 개
+      return "⭐⭐⭐";
     }
 
-    return "❓"; // 그 외의 경우는 물음표 이모티콘
+    return "❓";
   };
 
   return (
@@ -163,19 +163,6 @@ const GamePage = () => {
         <div className={styles.container}>
           <h3>문제</h3>
         </div>
-      </div>
-
-      <div className={styles.pagination}>
-        {totalPages > 0 &&
-          Array.from({ length: totalPages }, (_, index) => (
-            <span
-              key={index}
-              className={`${styles.pageNumber} ${index === currentPage ? styles.active : ""}`}
-              onClick={() => goToPage(index)}
-            >
-              {index + 1}
-            </span>
-          ))}
       </div>
 
       <div className={styles.problemTypeSelector}>
@@ -230,7 +217,7 @@ const GamePage = () => {
                       <td>
                         <Link href={`/game/${post.id}`}>{post.title}</Link>
                       </td>
-                      <td>{post.correctRate !== null ? `${post.correctRate}%` : "-"}</td>
+                      <td>{post.correctRate !== null ? `${post.correctRate.toFixed(1)}%` : "-"}</td>
                       <td>
                         <ClientDate date={post.lastModified} />
                       </td>
@@ -245,6 +232,19 @@ const GamePage = () => {
             </table>
           )}
         </div>
+      </div>
+
+      <div className={styles.pagination}>
+        {totalPages > 0 &&
+          Array.from({ length: totalPages }, (_, index) => (
+            <span
+              key={index}
+              className={`${styles.pageNumber} ${index === currentPage ? styles.active : ""}`}
+              onClick={() => goToPage(index)}
+            >
+              {index + 1}
+            </span>
+          ))}
       </div>
 
       <div className={styles.boardSearch}>

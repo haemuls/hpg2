@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from './BoardDetail.module.css';
 import { getAccessToken } from '../../../../../token';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 const Viewer = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Viewer), { ssr: false });
 
@@ -34,6 +34,7 @@ interface CommentResponse {
 
 const BoardDetailPage = () => {
   const params = useParams();
+  const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
@@ -94,6 +95,36 @@ const BoardDetailPage = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!post) return;
+
+    const token = getAccessToken();
+    if (!token) {
+      setError('로그인이 필요합니다.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards/${post.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error('게시글 삭제에 실패했습니다.');
+
+      // 삭제 후, 게시글 목록 페이지로 이동
+      router.push('/board'); // 게시글 목록 페이지로 이동
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('게시글 삭제 중 문제가 발생했습니다.');
+      }
+    }
+  };
+
   useEffect(() => {
     const loadParams = async () => {
       const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
@@ -148,12 +179,17 @@ const BoardDetailPage = () => {
         } else {
             setError('댓글 등록 중 문제가 발생했습니다.');
         }
-        }
+    } finally {
+        setIsSubmitting(false);
+    }
   };
 
   if (loading) return <p>게시글을 불러오는 중입니다...</p>;
   if (error) return <p>{error}</p>;  // error 상태를 화면에 표시
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
+
+  // 게시글 작성자만 삭제 버튼을 볼 수 있도록 조건 추가
+  const canDelete = post.creator.nickname === localStorage.getItem('nickname');
 
   return (
     <section className={styles.container}>
@@ -165,6 +201,13 @@ const BoardDetailPage = () => {
         <div className={styles.viewerContainer}>
           <Viewer initialValue={post.contents} />
         </div>
+
+        {/* 삭제 버튼 추가 (작성자만 보이도록 조건 설정) */}
+        {canDelete && (
+          <button onClick={handleDelete} className={styles.btnDelete}>
+            게시글 삭제
+          </button>
+        )}
 
         <div className={styles.commentSection}>
           <h4 className={styles.commentTitle}>댓글</h4>

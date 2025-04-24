@@ -28,7 +28,11 @@ const LoginPage = () => {
           localStorage.setItem('jwtToken', jwtToken);
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('membershipId', membershipId);
-          localStorage.setItem('nickName', nickName);
+          localStorage.setItem('nickname', nickName);
+
+          // 닉네임 업데이트 이벤트 발생
+          const event = new CustomEvent('nicknameUpdated', { detail: nickName });
+          window.dispatchEvent(event);
 
           alert(`WELCOME to Hacker's playground, ${nickName}!`);
           router.push('/');

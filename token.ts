@@ -7,6 +7,16 @@ const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`; // 토큰 검증 요청
 const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`; // 엑세스 토큰 갱신
 const USER_INFO_URL = `${BASE_URL}/api/users`; // 사용자 정보 가져오는 api
 
+// 사용자 정보 타입 정의
+interface UserInfo {
+  id: number;
+  name: string;
+  email: string;
+  nickname: string;
+  membershipId: string;
+  // 필요한 필드를 여기에 추가하세요
+}
+
 // 로그인 요청
 export const login = async (account: string, password: string) => {
   try {
@@ -62,7 +72,7 @@ export const refreshAccessToken = async (
 };
 
 // 사용자 정보 요청
-export const getUserInfo = async (): Promise<any> => {
+export const getUserInfo = async (): Promise<UserInfo> => {
   try {
     const membershipId = localStorage.getItem('membershipId');
     if (!membershipId) {
@@ -75,7 +85,7 @@ export const getUserInfo = async (): Promise<any> => {
     }
 
     // API 요청 보내기
-    const response = await axios.get(`${USER_INFO_URL}/${membershipId}`, {
+    const response = await axios.get<UserInfo>(`${USER_INFO_URL}/${membershipId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',

@@ -23,6 +23,11 @@ const RankingPage = () => {
   }, []);
 
   useEffect(() => {
+    // 초기 상태 처리: token이 null일 때는 작업하지 않음
+    if (token === null) {
+      return;
+    }
+
     if (!token) {
       alert("토큰이 존재하지 않습니다. 로그인 후 다시 시도해주세요.");
       return;
@@ -73,7 +78,7 @@ const RankingPage = () => {
                 <td className={styles.cell}>{user.rank}</td>
                 <td className={styles.cell}>{user.nickname}</td>
                 <td className={styles.cell}>{user.solvedCount}</td>
-                <td className={styles.cell}>{new Date(user.lastActived).toLocaleString()}</td>
+                <td className={styles.cell}>{new Date(user.lastActived).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

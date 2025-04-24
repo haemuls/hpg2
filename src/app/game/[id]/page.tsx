@@ -22,29 +22,42 @@ interface Ranking {
   created: string;
 }
 
+interface Comment {
+  id: number;
+  creator: {
+    nickname: string;
+  };
+  createdAt: string;
+  content: string;
+}
+
 interface ApiResponse<T> {
   result: T;
 }
 
 const CTFProblemPage = () => {
   const params = useParams();
-  const problemId = params?.id || "6";
+  const problemId = Array.isArray(params?.id) ? params.id[0] : params?.id || "6"; // 수정된 부분
 
   const [problem, setProblem] = useState<Problem | null>(null);
   const [flag, setFlag] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [comments, setComments] = useState<string[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]); // 댓글 데이터 배열로 수정
   const [newComment, setNewComment] = useState<string>("");
   const [ranking, setRanking] = useState<Ranking[]>([]);
   const [vmAddress, setVmAddress] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
+  const [isTokenLoaded, setIsTokenLoaded] = useState(false);
 
   useEffect(() => {
     const storedToken = getAccessToken();
     setToken(storedToken);
+    setIsTokenLoaded(true); // 토큰 로딩 완료
   }, []);
 
   useEffect(() => {
+    if (!isTokenLoaded) return; // 토큰 로딩 완료 전에는 실행하지 않음
+
     if (!token) {
       alert("토큰이 존재하지 않습니다. 로그인 후 다시 시도해주세요.");
       return;
@@ -72,6 +85,28 @@ const CTFProblemPage = () => {
       }
     };
 
+    // 댓글 데이터 가져오기
+    const fetchComments = async () => {
+      try {
+        const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/comments`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': '*/*',
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error(`댓글 API 호출 실패: ${res.status} ${res.statusText}`);
+        }
+
+        const data: ApiResponse<Comment[]> = await res.json();
+        setComments(data.result);
+      } catch (error) {
+        console.error("댓글 가져오기 실패:", error);
+      }
+    };
+
     // 랭킹 데이터 가져오기
     const fetchRanking = async () => {
       try {
@@ -95,8 +130,9 @@ const CTFProblemPage = () => {
     };
 
     fetchProblem();
+    fetchComments(); // 댓글 데이터 가져오는 함수 추가
     fetchRanking();
-  }, [problemId, token]);
+  }, [problemId, token, isTokenLoaded]);
 
   const handleSubmit = async () => {
     if (!token) return;
@@ -125,10 +161,28 @@ const CTFProblemPage = () => {
     }
   };
 
-  const handleAddComment = () => {
-    if (newComment.trim() !== "") {
-      setComments([...comments, newComment]);
-      setNewComment("");
+  const handleAddComment = async () => {
+    if (newComment.trim() === "") return;
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/problems/${problemId}/comments`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: newComment }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`댓글 작성 실패: ${res.status} ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      setComments((prevComments) => [...prevComments, data.result]);
+      setNewComment(""); // 댓글 작성 후 입력값 초기화
+    } catch (error) {
+      console.error("댓글 작성 실패:", error);
     }
   };
 
@@ -224,16 +278,14 @@ const CTFProblemPage = () => {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         ></textarea>
-        <button onClick={handleAddComment} className="submit-button comment-button">
+        <button onClick={handleAddComment} className="button comment-button">
           댓글 작성
         </button>
         <div className="comment-list">
-          {comments.map((comment, index) => (
-            <div key={index} className="comment-item">
-              <p className="comment-text">{comment}</p>
-              <div className="reply-section">
-                <button className="reply-button">대댓글</button>
-              </div>
+          {comments.map((comment) => (
+            <div key={comment.id} className="comment-item">
+              <p><strong>{comment.creator?.nickname || "익명"}</strong> <span>{formatTime(comment.createdAt)}</span></p>
+              <p>{comment.content}</p>
             </div>
           ))}
         </div>
