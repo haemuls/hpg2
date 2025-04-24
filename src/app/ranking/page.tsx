@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { getAccessToken } from "../../../token";
 import styles from "./ranking.module.css"; // CSS 모듈
 
 const API_BASE_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/sorted-by-score";
@@ -15,47 +14,47 @@ interface User {
 
 const RankingPage = () => {
   const [ranking, setRanking] = useState<User[]>([]);
-  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedToken = getAccessToken();
-    setToken(storedToken);
-  }, []);
+    const fetchAllRankingData = async () => {
+      let allUsers: User[] = [];
+      let currentPage = 0;
+      const pageSize = 10;
 
-  useEffect(() => {
-    // 초기 상태 처리: token이 null일 때는 작업하지 않음
-    if (token === null) {
-      return;
-    }
+      while (true) {
+        try {
+          const res = await fetch(`${API_BASE_URL}?page=${currentPage}&size=${pageSize}`, {
+            method: 'GET',
+            headers: {
+              'Accept': '*/*',
+            },
+          });
 
-    if (!token) {
-      alert("토큰이 존재하지 않습니다. 로그인 후 다시 시도해주세요.");
-      return;
-    }
+          if (!res.ok) {
+            throw new Error(`랭킹 API 호출 실패: ${res.status} ${res.statusText}`);
+          }
 
-    const fetchRankingData = async () => {
-      try {
-        const res = await fetch(API_BASE_URL, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': '*/*',
-          },
-        });
+          const data = await res.json();
+          allUsers = [...allUsers, ...data.result.content];
 
-        if (!res.ok) {
-          throw new Error(`랭킹 API 호출 실패: ${res.status} ${res.statusText}`);
+          // 마지막 페이지 확인
+          const totalPages = data.result.totalPages;
+          if (currentPage + 1 >= totalPages) {
+            break;
+          }
+
+          currentPage += 1; // 다음 페이지로 이동
+        } catch (error) {
+          console.error("랭킹 조회 실패:", error);
+          break;
         }
-
-        const data = await res.json();
-        setRanking(data.result.content);
-      } catch (error) {
-        console.error("랭킹 조회 실패:", error);
       }
+
+      setRanking(allUsers); // 모든 데이터를 상태에 저장
     };
 
-    fetchRankingData();
-  }, [token]);
+    fetchAllRankingData();
+  }, []);
 
   return (
     <div className={styles.ranking}>

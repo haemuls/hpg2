@@ -76,6 +76,14 @@ a {
   color: #4AD395;
 }
 
+.login__image {
+  display: block;
+  margin: 1rem auto; /* 위아래 여백 추가 및 중앙 정렬 */
+  max-width: 200px; /* 이미지의 최대 너비 */
+  height: auto; /* 비율 유지 */
+  border-radius: 10px; /* 둥근 모서리 (선택 사항) */
+}
+
 .login__input {
   border: none;
   outline: none;
@@ -102,6 +110,7 @@ a {
 }
 
 .login__button {
+  margin-top: 16px;
   display: block;
   width: 100%;
   max-width: 500px; /* 버튼의 최대 너비 */

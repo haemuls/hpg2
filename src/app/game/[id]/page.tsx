@@ -59,7 +59,7 @@ const CTFProblemPage = () => {
     if (!isTokenLoaded) return; // 토큰 로딩 완료 전에는 실행하지 않음
 
     if (!token) {
-      alert("토큰이 존재하지 않습니다. 로그인 후 다시 시도해주세요.");
+      alert("로그인이 필요한 서비스입니다.");
       return;
     }
 
@@ -110,7 +110,7 @@ const CTFProblemPage = () => {
     // 랭킹 데이터 가져오기
     const fetchRanking = async () => {
       try {
-        const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=3`, {
+        const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=5`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

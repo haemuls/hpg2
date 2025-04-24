@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./game.module.css";
-import { getValidAccessToken, clearTokens } from "../../../token";
 
 const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed";
 
@@ -37,23 +36,15 @@ const GamePage = () => {
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [size] = useState(10);
+  const [size] = useState(25);
+  const [isAdmin, setIsAdmin] = useState(false); // 관리자 상태 추가
   const router = useRouter();
 
   const membershipId = typeof window !== "undefined" ? localStorage.getItem("membershipId") || "99999" : "99999";
-  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadToken = async () => {
-      const token = await getValidAccessToken();
-      if (!token) {
-        alert("로그인이 만료되었습니다. 다시 로그인 해주세요.");
-        clearTokens();
-      } else {
-        setAccessToken(token);
-      }
-    };
-    loadToken();
+    const adminStatus = localStorage.getItem("isAdmin") === "true";
+    setIsAdmin(adminStatus);
   }, []);
 
   useEffect(() => {
@@ -61,36 +52,29 @@ const GamePage = () => {
       setLoading(true);
       setError("");
 
-      if (!accessToken) {
-        setLoading(false);
-        return;
-      }
-
       try {
         const params = new URLSearchParams({
           userId: membershipId,
           type: "WARGAME",
+          kind: selectedType === "전체" ? "" : selectedType,
+          sortKind: "correctRate",
           desc: "true",
           page: currentPage.toString(),
           size: size.toString(),
         });
 
-        if (selectedType !== "전체") {
-          params.append("kind", selectedType);
-        }
-
         const url = `${API_URL}?${params.toString()}`;
+
         const response = await fetch(url, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
           },
         });
 
         if (!response.ok) {
           if (response.status === 403) {
-            throw new Error("권한이 없습니다. 다시 로그인 해주세요.");
+            throw new Error("권한이 없습니다.");
           }
           throw new Error("네트워크 응답이 올바르지 않습니다.");
         }
@@ -118,10 +102,8 @@ const GamePage = () => {
       }
     };
 
-    if (accessToken) {
-      fetchPosts();
-    }
-  }, [accessToken, membershipId, currentPage, selectedType, size]);
+    fetchPosts();
+  }, [membershipId, currentPage, selectedType, size]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -272,13 +254,15 @@ const GamePage = () => {
 
       <div className={styles.writeButtonWrap}>
         <div className={styles.container}>
-          <button
-            type="button"
-            className={styles.btnDark}
-            onClick={handleCreateButtonClick}
-          >
-            문제 출제
-          </button>
+          {isAdmin && ( // isAdmin이 true일 때만 버튼 표시
+            <button
+              type="button"
+              className={styles.btnDark}
+              onClick={handleCreateButtonClick}
+            >
+              문제 출제
+            </button>
+          )}
         </div>
       </div>
     </section>

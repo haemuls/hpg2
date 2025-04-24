@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image'; // Image 컴포넌트 import
 import { login } from '../../../token';
 import '../../../public/styles/login1.css';
 
@@ -30,7 +31,6 @@ const LoginPage = () => {
           localStorage.setItem('membershipId', membershipId);
           localStorage.setItem('nickname', nickName);
 
-          // 닉네임 업데이트 이벤트 발생
           const event = new CustomEvent('nicknameUpdated', { detail: nickName });
           window.dispatchEvent(event);
 
@@ -88,6 +88,15 @@ const LoginPage = () => {
             </div>
 
             <a href="#" className="login__forgot">비밀번호 찾기</a>
+
+            {/* next/image로 이미지 추가 */}
+            <Image
+              src="/images/github.png" // public 폴더 안의 이미지 경로
+              alt="Login Decoration"
+              width={50}  // 이미지 크기 설정
+              height={50} // 이미지 크기 설정
+              className="login__image"
+            />
 
             <button
               type="submit"
