@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { login } from '../../../token';
 import '../../../public/styles/login1.css';
 import '../../../public/styles/google.css';
