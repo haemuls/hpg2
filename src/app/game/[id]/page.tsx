@@ -37,13 +37,13 @@ interface ApiResponse<T> {
 
 const CTFProblemPage = () => {
   const params = useParams();
-  const router = useRouter(); // useRouter 추가
-  const problemId = Array.isArray(params?.id) ? params.id[0] : params?.id || "6"; // 수정된 부분
+  const router = useRouter();
+  const problemId = Array.isArray(params?.id) ? params.id[0] : params?.id || "6";
 
   const [problem, setProblem] = useState<Problem | null>(null);
   const [flag, setFlag] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [comments, setComments] = useState<Comment[]>([]); // 댓글 데이터 배열로 수정
+  const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>("");
   const [ranking, setRanking] = useState<Ranking[]>([]);
   const [vmAddress, setVmAddress] = useState<string>("");
@@ -65,7 +65,6 @@ const CTFProblemPage = () => {
       return;
     }
 
-    // 문제 데이터 가져오기
     const fetchProblem = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/${problemId}`, {
@@ -87,7 +86,6 @@ const CTFProblemPage = () => {
       }
     };
 
-    // 댓글 데이터 가져오기
     const fetchComments = async () => {
       try {
         const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/comments`, {
@@ -109,7 +107,6 @@ const CTFProblemPage = () => {
       }
     };
 
-    // 랭킹 데이터 가져오기
     const fetchRanking = async () => {
       try {
         const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=5`, {
@@ -125,14 +122,20 @@ const CTFProblemPage = () => {
         }
 
         const data: ApiResponse<Ranking[]> = await res.json();
-        setRanking(data.result);
+
+        // result가 배열이 아니면 객체로 반환됨
+        if (Array.isArray(data.result)) {
+          setRanking(data.result);
+        } else {
+          setRanking([data.result]); // 객체를 배열로 감싸서 상태에 저장
+        }
       } catch (error) {
         console.error("랭킹 조회 실패:", error);
       }
     };
 
     fetchProblem();
-    fetchComments(); // 댓글 데이터 가져오는 함수 추가
+    fetchComments();
     fetchRanking();
   }, [problemId, token, isTokenLoaded]);
 
