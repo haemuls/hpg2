@@ -47,40 +47,40 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <link rel="stylesheet" href="/styles/navbar-hover.css"/>
       </head>
       <body className="sub_page">
-        <div className="hero_area">
-          <header className="header_section long_section px-0">
-            <nav className="navbar navbar-expand-lg custom_nav-container">
-              <Link className="navbar-brand" href="/">
-                <span>Hack Playground</span>
-              </Link>
-              <button
+      <div className="hero_area">
+        <header className="header_section long_section px-0">
+          <nav className="navbar navbar-expand-lg custom_nav-container">
+            <Link className="navbar-brand" href="/">
+              <span>Hack Playground</span>
+            </Link>
+            <button
                 className="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarSupportedContent"
-              >
-                <span> </span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav d-flex mx-auto flex-column flex-lg-row align-items-center">
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/">HOME</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/notice">Notice</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/game">GAME</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/ranking">Ranking</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/board">자유 게시판</Link>
-                  </li>
-                </ul>
-                <div className="quote_btn-container">
-                  {nickname ? (
+            >
+              <span> </span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul className="navbar-nav d-flex mx-auto flex-column flex-lg-row align-items-center">
+                <li className="nav-item">
+                  <Link className="nav-link" href="/">HOME</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/notice">Notice</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/game">GAME</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/ranking">Ranking</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="/board">자유 게시판</Link>
+                </li>
+              </ul>
+              <div className="quote_btn-container">
+                {nickname ? (
                     <Dropdown>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         {nickname}
@@ -89,23 +89,28 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                  ) : (
+                ) : (
                     <Link href="/login">
                       <span>Login</span>
                       <i className="fa fa-user" aria-hidden="true"></i>
                     </Link>
-                  )}
-                </div>
+                )}
               </div>
-            </nav>
-          </header>
-        </div>
+            </div>
+          </nav>
+        </header>
+      </div>
 
-        <main>{children}</main>
+      <main>{children}</main>
 
-        <footer className="footer_section">
-          <p>&copy; 2025 wargame 사이트 테스트</p>
-        </footer>
+      <footer className="footer_section">
+        <p>&copy; 2025 wargame 사이트 테스트</p>
+      </footer>
+
+      <script src="/js/navbar-hover.js" defer></script>
+      <script src="/js/jquery-3.4.1.min.js"></script>
+      <script src="/js/bootstrap.js"></script>
+      <script src="/js/custom.js"></script>
       </body>
     </html>
   );

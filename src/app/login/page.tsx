@@ -1,13 +1,10 @@
-'use client';
+'use client'; // 최상단에 추가하여 클라이언트 컴포넌트로 설정
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-// import Image from 'next/image';
 import { login } from '../../../token';
-import '../../../public/styles/login1.css';
-import '../../../public/styles/google.css';
-// import { GoogleLogin, CredentialResponse } from '@react-oauth/google'; // 구글 관련 주석 처리
+import styles from './login1.module.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -35,8 +32,6 @@ const LoginPage = () => {
 
           const event = new CustomEvent('nicknameUpdated', { detail: nickName });
           window.dispatchEvent(event);
-
-          alert(`WELCOME to Hacker's playground, ${nickName}!`);
           router.push('/');
         } else {
           setErrorMessage('잘못된 응답을 받았습니다. 다시 시도해 주세요.');
@@ -52,84 +47,50 @@ const LoginPage = () => {
     }
   };
 
-  // const handleGoogleLoginSuccess = (response: CredentialResponse) => {
-  //   const { credential } = response;
-  //   if (credential) {
-  //     console.log('Google 로그인 성공:', credential);
-  //     alert('Google 로그인 성공!');
-  //     router.push('/');
-  //   }
-  // };
-
-  // const handleGoogleLoginFailure = () => {
-  //   console.error('Google 로그인 실패');
-  //   setErrorMessage('Google 로그인에 실패했습니다.');
-  // };
-
   return (
-    <div className="login">
-      <div className="login__content">
-        <div className="login__forms">
-          <form onSubmit={handleSubmit} className="login__register" id="login-in">
-            <h1 className="login__title">로그인</h1>
+    <div className={styles.login}>
+      <div className={styles.loginContent}>
+        <div className={styles.loginForms}>
+          <form onSubmit={handleSubmit} className={styles.loginRegister} id="login-in">
+            <h1 className={styles.loginTitle}>로그인</h1>
 
-            {errorMessage && <p className="login__error">{errorMessage}</p>}
+            {errorMessage && <p className={styles.loginError}>{errorMessage}</p>}
 
-            <div className="login__box">
-              <i className="bx bx-user login__icon"></i>
+            <div className={styles.loginBox}>
+              <i className={`bx bx-user ${styles.loginIcon}`}></i>
               <input
                 type="text"
                 placeholder="아이디"
-                className="login__input"
+                className={styles.loginInput}
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
-            <div className="login__box">
-              <i className="bx bx-lock login__icon"></i>
+            <div className={styles.loginBox}>
+              <i className={`bx bx-lock ${styles.loginIcon}`}></i>
               <input
                 type="password"
                 placeholder="비밀번호"
-                className="login__input"
+                className={styles.loginInput}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <a href="#" className="login__forgot">비밀번호 찾기</a>
-            {/* <div className="login__external-options">
-              <button
-                className="login__github"
-                onClick={() => alert('GitHub 로그인 버튼 클릭됨!')}
-              >
-                <Image
-                  src="/images/github.png"
-                  alt="GitHub Login"
-                  width={50}
-                  height={50}
-                  className="login__image"
-                />
-              </button>
-
-              <GoogleLogin
-                onSuccess={handleGoogleLoginSuccess}
-                onError={handleGoogleLoginFailure}
-                useOneTap
-              />
-            </div> */}
+            <a href="#" className={styles.loginForgot}>비밀번호 찾기</a>
 
             <button
               type="submit"
-              className="login__button"
+              className={styles.loginButton}
               disabled={loading}
             >
               {loading ? '로그인 중...' : '로그인'}
             </button>
 
-            <Link href="/signup" className="login__signin login__signin--signup">
+            <Link href="/signup" className={`${styles.loginSignin} ${styles.loginSigninSignup}`}>
               회원가입
             </Link>
           </form>
