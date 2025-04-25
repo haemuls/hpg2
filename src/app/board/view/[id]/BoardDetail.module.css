@@ -8,7 +8,9 @@
 }
 
 .titleRow {
-  display: block;
+  display: flex; /* 플렉스를 사용하여 삭제 버튼 배치 */
+  justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 정렬 */
   margin-bottom: 10px;
 }
 
@@ -45,6 +47,22 @@
   margin-top: 40px;
   padding-bottom: 30px;
   border-bottom: 2px solid #ccc;
+}
+
+.btnDelete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto; /* 버튼을 우측으로 정렬 */
+}
+
+.btnDelete:hover {
+  background-color: #c82333;
 }
 
 .commentSection {

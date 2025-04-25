@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image'; // Image 컴포넌트 import
+import Image from 'next/image';
 import { login } from '../../../token';
 import '../../../public/styles/login1.css';
+import '../../../public/styles/google.css';
+// import { GoogleLogin, CredentialResponse } from '@react-oauth/google'; // 구글 관련 주석 처리
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -42,17 +44,27 @@ const LoginPage = () => {
       } else {
         setErrorMessage('아이디 또는 비밀번호가 올바르지 않습니다.');
       }
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('로그인 오류:', error);
-      if (error instanceof Error) {
-        setErrorMessage('로그인 중 오류가 발생했습니다.');
-      } else {
-        setErrorMessage('알 수 없는 오류가 발생했습니다.');
-      }
+      setErrorMessage('로그인 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
     }
   };
+
+  // const handleGoogleLoginSuccess = (response: CredentialResponse) => {
+  //   const { credential } = response;
+  //   if (credential) {
+  //     console.log('Google 로그인 성공:', credential);
+  //     alert('Google 로그인 성공!');
+  //     router.push('/');
+  //   }
+  // };
+
+  // const handleGoogleLoginFailure = () => {
+  //   console.error('Google 로그인 실패');
+  //   setErrorMessage('Google 로그인에 실패했습니다.');
+  // };
 
   return (
     <div className="login">
@@ -88,15 +100,26 @@ const LoginPage = () => {
             </div>
 
             <a href="#" className="login__forgot">비밀번호 찾기</a>
+            {/* <div className="login__external-options">
+              <button
+                className="login__github"
+                onClick={() => alert('GitHub 로그인 버튼 클릭됨!')}
+              >
+                <Image
+                  src="/images/github.png"
+                  alt="GitHub Login"
+                  width={50}
+                  height={50}
+                  className="login__image"
+                />
+              </button>
 
-            {/* next/image로 이미지 추가 */}
-            <Image
-              src="/images/github.png" // public 폴더 안의 이미지 경로
-              alt="Login Decoration"
-              width={50}  // 이미지 크기 설정
-              height={50} // 이미지 크기 설정
-              className="login__image"
-            />
+              <GoogleLogin
+                onSuccess={handleGoogleLoginSuccess}
+                onError={handleGoogleLoginFailure}
+                useOneTap
+              />
+            </div> */}
 
             <button
               type="submit"

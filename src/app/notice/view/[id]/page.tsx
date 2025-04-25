@@ -10,7 +10,7 @@ const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Vi
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards";
-const COMMENT_API_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/comments`;
+const COMMENT_API_URL = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments`;
 
 interface Post {
   id: number;

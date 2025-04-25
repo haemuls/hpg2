@@ -19,11 +19,12 @@ const RankingPage = () => {
     const fetchAllRankingData = async () => {
       let allUsers: User[] = [];
       let currentPage = 0;
-      const pageSize = 10;
+      const pageSize = 25;
+      const types = "WARGAME";
 
       while (true) {
         try {
-          const res = await fetch(`${API_BASE_URL}?page=${currentPage}&size=${pageSize}`, {
+          const res = await fetch(`${API_BASE_URL}?type=${types}&page=${currentPage}&size=${pageSize}`, {
             method: 'GET',
             headers: {
               'Accept': '*/*',

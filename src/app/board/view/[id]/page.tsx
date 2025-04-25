@@ -40,7 +40,7 @@ const BoardDetailPage = () => {
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);  // error 상태를 string으로 명시
+  const [error, setError] = useState<string | null>(null);
 
   const fetchPost = async (id: string) => {
     setLoading(true);
@@ -50,7 +50,7 @@ const BoardDetailPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (!response.ok) throw new Error('게시글 데이터를 불러오는 데 실패했습니다.');
+      if (!response.ok) throw new Error('게시글 로딩 오류!');
       const data = await response.json();
       setPost({
         ...data.result,
@@ -61,36 +61,44 @@ const BoardDetailPage = () => {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError('게시글 데이터를 불러오는 중 문제가 발생했습니다.');
+        setError('게시글 로딩 오류!');
       }
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   const fetchComments = async (id: string) => {
     try {
       const token = getAccessToken();
+      if (!token) {
+        setError('로그인 하세요!');
+        router.push('/login'); // 로그인 페이지로 리디렉션
+        return;
+      }
+
       const response = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/board/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (!response.ok) throw new Error('댓글 데이터를 불러오는 데 실패했습니다.');
+      if (!response.ok) throw new Error('댓글 로딩 오류!');
       const data: { result: CommentResponse[] } = await response.json();
 
       setComments(
-        data.result.map((c) => ({
-          id: c.id,
-          content: c.content,
-          creator: c.creator || { nickname: '익명 사용자' },
-          createdAt: c.createdAt,
-        }))
+        data.result
+          .map((c) => ({
+            id: c.id,
+            content: c.content,
+            creator: c.creator || { nickname: '익명 사용자' },
+            createdAt: c.createdAt,
+          }))
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // 최신순 정렬
       );
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError('댓글 데이터를 불러오는 중 문제가 발생했습니다.');
+        setError('댓글 로딩 오류!');
       }
     }
   };
@@ -113,9 +121,7 @@ const BoardDetailPage = () => {
       });
 
       if (!response.ok) throw new Error('게시글 삭제에 실패했습니다.');
-
-      // 삭제 후, 게시글 목록 페이지로 이동
-      router.push('/board'); // 게시글 목록 페이지로 이동
+      router.push('/board');
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -144,14 +150,14 @@ const BoardDetailPage = () => {
     setIsSubmitting(true);
     try {
       const token = getAccessToken();
-
       if (!token) throw new Error('로그인이 필요합니다.');
 
-      const response = await fetch('http://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments', {
+      const response = await fetch('https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
+          Accept: '*/*',
         },
         body: JSON.stringify({
           type: 'PROBLEM',
@@ -163,32 +169,33 @@ const BoardDetailPage = () => {
       if (!response.ok) throw new Error('댓글 등록에 실패했습니다.');
       const data = await response.json();
 
-      setComments((prev) => [
-        ...prev,
-        {
-          id: data.result.id,
-          content: data.result.content,
-          creator: { nickname: data.result.creator.nickname },
-          createdAt: data.result.createdAt,
-        },
-      ]);
+      setComments((prev) =>
+        [
+          {
+            id: data.result.id,
+            content: data.result.content,
+            creator: { nickname: data.result.creator.nickname },
+            createdAt: data.result.createdAt,
+          },
+          ...prev,
+        ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // 최신순 정렬
+      );
       setNewComment('');
     } catch (error: unknown) {
-        if (error instanceof Error) {
-            setError(error.message);
-        } else {
-            setError('댓글 등록 중 문제가 발생했습니다.');
-        }
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('댓글 등록 중 문제가 발생했습니다.');
+      }
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
   if (loading) return <p>게시글을 불러오는 중입니다...</p>;
-  if (error) return <p>{error}</p>;  // error 상태를 화면에 표시
+  if (error) return <p>{error}</p>;
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
 
-  // 게시글 작성자만 삭제 버튼을 볼 수 있도록 조건 추가
   const canDelete = post.creator.nickname === localStorage.getItem('nickname');
 
   return (
@@ -202,10 +209,9 @@ const BoardDetailPage = () => {
           <Viewer initialValue={post.contents} />
         </div>
 
-        {/* 삭제 버튼 추가 (작성자만 보이도록 조건 설정) */}
         {canDelete && (
           <button onClick={handleDelete} className={styles.btnDelete}>
-            게시글 삭제
+            삭제
           </button>
         )}
 
@@ -213,9 +219,9 @@ const BoardDetailPage = () => {
           <h4 className={styles.commentTitle}>댓글</h4>
           <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
             <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="댓글을 입력하세요..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="댓글을 입력하세요..."
             />
             <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
               {isSubmitting ? '등록 중...' : '등록'}
@@ -224,13 +230,15 @@ const BoardDetailPage = () => {
 
           <ul>
             {comments.map((c) => (
-                <li key={c.id} className={styles.commentItem}>
-                  <p>
-                    <strong>{c.creator?.nickname || '익명 사용자'}</strong>
-                  </p>
-                  <p className={styles.commentContent}>{c.content}</p>
-                  <span className={styles.commentMeta}> | {new Date(c.createdAt).toLocaleDateString()}</span>
-                </li>
+              <li key={c.id} className={styles.commentItem}>
+                <p>
+                  <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+                </p>
+                <p className={styles.commentContent}>{c.content}</p>
+                <span className={styles.commentMeta}>
+                  | {new Date(c.createdAt).toLocaleDateString()}
+                </span>
+              </li>
             ))}
           </ul>
         </div>

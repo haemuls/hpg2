@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import '../../../../public/styles/game_start.css';
 import { getAccessToken } from '../../../../token';
 
@@ -37,6 +37,7 @@ interface ApiResponse<T> {
 
 const CTFProblemPage = () => {
   const params = useParams();
+  const router = useRouter(); // useRouter 추가
   const problemId = Array.isArray(params?.id) ? params.id[0] : params?.id || "6"; // 수정된 부분
 
   const [problem, setProblem] = useState<Problem | null>(null);
@@ -60,6 +61,7 @@ const CTFProblemPage = () => {
 
     if (!token) {
       alert("로그인이 필요한 서비스입니다.");
+      router.push("/login"); // 로그인 페이지로 리다이렉트
       return;
     }
 
