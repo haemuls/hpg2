@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
@@ -13,7 +13,7 @@ interface Problem {
   creator: string;
   level: number;
   problemFile?: string;
-  content: string;
+  detail: string;
   dockerfileLink?: string;
 }
 
@@ -149,7 +149,7 @@ const CTFProblemPage = () => {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Accept": "*/*",
+          "Accept": '*/*',
         },
       });
 
@@ -170,13 +170,17 @@ const CTFProblemPage = () => {
     if (newComment.trim() === "") return;
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/problems/${problemId}/comments`, {
+      const res = await fetch(`${API_BASE_URL}/api/comments`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: newComment }),
+        body: JSON.stringify({
+          type: "PROBLEM", // type을 "PROBLEM"으로 설정
+          parentId: 0, // 부모 댓글 ID는 0으로 설정
+          contents: newComment, // 기존 content는 contents로 변경
+        }),
       });
 
       if (!res.ok) {
@@ -210,79 +214,91 @@ const CTFProblemPage = () => {
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <h1>
-          {problem.title}{" "}
-          <span style={{fontSize: '0.5em'}}>made by {problem.creator}</span>
-        </h1>
+    <div>
+      <div className="window">
+        <div className="title-bar">
+          <span className="title">CTF 문제 상세보기</span>
+          <button className="close-button">X</button>
+        </div>
 
-        <p>
-          Level: <span style={{color: "gold"}}>{'⭐'.repeat(problem.level)}</span>
-        </p>
+        <div className="container">
+          <div className="card">
+            <h1>
+              {problem.title}{" "}
+              <span style={{ fontSize: '0.5em' }}>made by {problem.creator}</span>
+            </h1>
 
-        {problem.problemFile ? (
-          <p>
-            문제 파일:{" "}
-            <a
-              href={`${FILE_BASE_URL}/${problemId}/download`}
-              download
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{color: "blue", textDecoration: "underline"}}
-            >
-              다운로드
-            </a>
-          </p>
-        ) : (
-          <p>문제 파일 없음</p>
-        )}
-        <p>{problem.content}</p>
+            <p>
+              Level: <span style={{ color: "gold" }}>{'⭐'.repeat(problem.level)}</span>
+            </p>
 
-        <input
-          type="text"
-          placeholder="플래그를 입력하세요"
-          value={flag}
-          onChange={(e) => setFlag(e.target.value)}
-          className="input"
-        />
-        <button onClick={handleSubmit} className="button">제출</button>
-        {message && <p className="message">{message}</p>}
-      </div>
+            {problem.problemFile ? (
+              <p>
+                문제 파일:{" "}
+                <a
+                  href={`${FILE_BASE_URL}/${problemId}/download`}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="download-link"
+                >
+                  다운로드
+                </a>
+              </p>
+            ) : (
+              <p>문제 파일 없음</p>
+            )}
+            <p>{problem.detail}</p>
 
-      <div className="ranking-box">
-        <h3>랭킹</h3>
-        {ranking.length > 0 ? (
-          ranking.map((user, index) => (
-            <div key={index} className="ranking-item">
-              <span className="rank">
-                {index === 0 ? "👑" : index + 1}
-              </span>
-              <span className="username">{user.nickname}</span>
-              <span className="solved-time">{formatTime(user.created)}</span>
+            {/* 플래그 입력 박스와 제출 버튼을 나란히 배치 */}
+            <div className="flag-input-box">
+              <input
+                type="text"
+                placeholder="플래그를 입력하세요"
+                value={flag}
+                onChange={(e) => setFlag(e.target.value)}
+                className="flag-input"
+              />
+              <button onClick={handleSubmit} className="flag-submit-button">제출</button>
             </div>
-          ))
-        ) : (
-          <p>아직 풀이한 사용자가 없습니다.</p>
-        )}
+
+            {message && <div className="message">{message}</div>}
+          </div>
+
+          <div className="ranking-box">
+            <h3>랭킹</h3>
+            {ranking.length > 0 ? (
+              ranking.map((user, index) => (
+                <div key={index} className="ranking-item">
+                  <span className="rank">{index === 0 ? "👑" : index + 1}</span>
+                  <span className="username">{user.nickname}</span>
+                  <span className="solved-time">{formatTime(user.created)}</span>
+                </div>
+              ))
+            ) : (
+              <div>아직 풀이한 사용자가 없습니다.</div>
+            )}
+          </div>
+
+          <div className="card">
+            <h2>VM 주소</h2>
+            <button onClick={handleShowVmAddress} className="button vm-button">
+              VM 주소 보기
+            </button>
+            {vmAddress && <div className="vm-address">{vmAddress}</div>}
+          </div>
+        </div>
       </div>
 
-      <div className="card">
-        <h2>VM 주소</h2>
-        <button onClick={handleShowVmAddress} className="button vm-button">
-          VM 주소 보기
-        </button>
-        {vmAddress && <p className="vm-address">{vmAddress}</p>}
-      </div>
-
-      <div className="card">
+      {/* 댓글 박스는 window 외부로 이동 */}
+      <div className="comment-box">
         <h2>댓글</h2>
         <textarea
-          className="textarea"
           placeholder="댓글을 작성하세요"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-        ></textarea>
+          className="textarea"
+        />
         <button onClick={handleAddComment} className="button comment-button">
           댓글 작성
         </button>

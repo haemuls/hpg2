@@ -1,4 +1,4 @@
-'use client'; // 최상단에 추가하여 클라이언트 컴포넌트로 설정
+'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';

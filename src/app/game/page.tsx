@@ -199,7 +199,7 @@ const GamePage = () => {
                       <td>
                         <Link href={`/game/${post.id}`}>{post.title}</Link>
                       </td>
-                      <td>{post.correctRate !== null ? `${post.correctRate.toFixed(1)}%` : "-"}</td>
+                      <td>{post.correctRate !== null ? `${post.correctRate.toFixed(0)}%` : "-"}</td>
                       <td>
                         <ClientDate date={post.lastModified} />
                       </td>

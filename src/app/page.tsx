@@ -56,36 +56,50 @@ const HomePage = () => {
   }, []);
 
   return (
-    <section className={styles.aboutSection}>
-      <div className={styles.container}>
-        <div className={styles.row}>
-          <div className={styles.column}>
-            <div className={styles.imgBox}>
-              <img src="/images/logo.png" alt="CTF 사이트 테스트용 이미지" />
+    <div>
+      {/* 기존 내용 */}
+      <section className={styles.aboutSection}>
+        <div className={styles.container}>
+          <div className={styles.row}>
+            <div className={styles.column}>
+              <div className={styles.imgBox}>
+                <img src="/images/logo.png" alt="CTF 사이트 테스트용 이미지" />
+              </div>
             </div>
-          </div>
-          <div className={styles.column}>
-            <div className={styles.detailBox}>
-              <h3 className={styles.smallText}>
-                워게임 문제 서비스 HPlayground는 보안 관련 교육 및 커뮤니티 형성을 목표로 하고 있습니다.
-                <br />
-                부산권부터 점차 확산되어, 현재 전국 2개 정보 보안 동아리가 문제 제작, 풀이에 참여하고 있습니다.
-              </h3>
-              <div className={styles.statsBoxes}>
-                <div className={styles.statsBox}>
-                  <h4>문제 개수</h4>
-                  <p>{isLoading ? '로딩 중...' : solvedProblems}</p>
-                </div>
-                <div className={styles.statsBox}>
-                  <h4>최근 출제된 문제</h4>
-                  <p>{isLoading ? '로딩 중...' : newProblems}</p>
+            <div className={styles.column}>
+              <div className={styles.detailBox}>
+                <h3 className={styles.smallText}>
+                  워게임 문제 서비스 HPlayground는 보안 관련 교육 및 커뮤니티 형성을 목표로 하고 있습니다.
+                  <br />
+                  부산권부터 점차 확산되어, 현재 전국 2개 정보 보안 동아리가 문제 제작, 풀이에 참여하고 있습니다.
+                </h3>
+                <div className={styles.statsBoxes}>
+                  <div className={styles.statsBox}>
+                    <h4>문제 개수</h4>
+                    <p>{isLoading ? '로딩 중...' : solvedProblems}</p>
+                  </div>
+                  <div className={styles.statsBox}>
+                    <h4>최근 출제된 문제</h4>
+                    <p>{isLoading ? '로딩 중...' : newProblems}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Notion iframe 임베딩 */}
+      <section className={styles.notionsSection}>
+        <iframe
+            src="https://lake-middle-d9f.notion.site/ebd/1db0ebc77a6b80fba6faff7068412a7c"
+            width="100%"
+            height="3900"  // 고정된 높이를 사용하여 iframe을 스크롤할 수 있도록 설정
+            frameBorder="0"
+            allowFullScreen
+        />
+      </section>
+    </div>
   );
 };
 
