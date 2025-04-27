@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { login } from '../../../token';
 import styles from './login1.module.css';
+import './globals.css';
+
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');

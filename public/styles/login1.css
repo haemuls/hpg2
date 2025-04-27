@@ -1,7 +1,9 @@
 /* 기본 스타일 초기화 */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
 
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -22,7 +24,7 @@ a {
 }
 
 .login {
-  display: flex; /* 부모 요소를 flex로 변경하여 중앙 정렬 */
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -35,13 +37,13 @@ a {
 }
 
 .login__forms {
-  position: center;
-  height: auto; /* 자동으로 높이 조정 */
+  position: relative; /* 수정된 부분: 'center' -> 'relative' */
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* 수직 위쪽 정렬 */
-  align-items: center; /* 수평 중앙 정렬 */
-  width: 100%; /* 부모 요소에 맞게 100% 너비 설정 */
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
 .login__register,
@@ -78,10 +80,10 @@ a {
 
 .login__image {
   display: block;
-  margin: 1rem auto; /* 위아래 여백 추가 및 중앙 정렬 */
-  max-width: 200px; /* 이미지의 최대 너비 */
-  height: auto; /* 비율 유지 */
-  border-radius: 10px; /* 둥근 모서리 (선택 사항) */
+  margin: 1rem auto;
+  max-width: 200px;
+  height: auto;
+  border-radius: 10px;
 }
 
 .login__input {
@@ -113,9 +115,9 @@ a {
   margin-top: 16px;
   display: block;
   width: 100%;
-  max-width: 500px; /* 버튼의 최대 너비 */
+  max-width: 500px;
   padding: 1rem;
-  margin: 2rem auto; /* 수평으로 자동 중앙 정렬 */
+  margin: 2rem auto;
   background-color: #4AD395;
   color: #fff;
   font-weight: 600;
@@ -182,9 +184,9 @@ a {
     align-items: center;
   }
 
-  /* .login__register와 .login__create의 위치가 겹치는 부분 수정 */
-  .login__register, .login__create {
-    position: relative; /* 절대 위치에서 상대 위치로 변경하여 겹치지 않도록 수정 */
-    bottom: 0; /* 위쪽으로 밀림 */
+  .login__register,
+  .login__create {
+    position: relative; /* 수정된 부분 */
+    bottom: 0;
   }
 }

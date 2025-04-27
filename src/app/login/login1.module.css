@@ -1,42 +1,19 @@
-/* 기본 스타일 초기화 */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
-
-/* 전역 스타일 적용 */
-:global {
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: "Open Sans", sans-serif;
-    font-size: 0.938rem;
-    color: #23004d;
-  }
-
-  h1 {
-    margin: 0;
-  }
-
-  a {
-    text-decoration: none;
-  }
-}
-
+/* 로그인 화면에 대한 로컬 스타일 */
 .login {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0 1.5rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
-.loginContent {
+.login__content {
   display: grid;
 }
 
-.loginForms {
+.login__forms {
+  position: relative;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -45,7 +22,8 @@
   width: 100%;
 }
 
-.loginRegister {
+.login__register,
+.login__create {
   width: 100%;
   background-color: #f2f2f2;
   padding: 2rem 1rem;
@@ -56,12 +34,12 @@
   animation-name: animateLogin;
 }
 
-.loginTitle {
+.login__title {
   font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.loginBox {
+.login__box {
   display: grid;
   grid-template-columns: max-content 1fr;
   column-gap: 0.5rem;
@@ -71,12 +49,20 @@
   border-radius: 0.5rem;
 }
 
-.loginIcon {
+.login__icon {
   font-size: 1.5rem;
-  color: #4ad395;
+  color: #4AD395;
 }
 
-.loginInput {
+.login__image {
+  display: block;
+  margin: 1rem auto;
+  max-width: 200px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.login__input {
   border: none;
   outline: none;
   font-size: 0.938rem;
@@ -85,13 +71,13 @@
   width: 100%;
 }
 
-.loginInput::placeholder {
+.login__input::placeholder {
   font-size: 0.938rem;
   font-family: "Open Sans", sans-serif;
   color: #a49eac;
 }
 
-.loginForgot {
+.login__forgot {
   display: block;
   width: max-content;
   margin-left: auto;
@@ -101,14 +87,14 @@
   color: #a49eac;
 }
 
-.loginButton {
+.login__button {
   margin-top: 16px;
   display: block;
   width: 100%;
   max-width: 500px;
   padding: 1rem;
   margin: 2rem auto;
-  background-color: #4ad395;
+  background-color: #4AD395;
   color: #fff;
   font-weight: 600;
   text-align: center;
@@ -116,17 +102,30 @@
   transition: 0.3s;
 }
 
-.loginButton:hover {
+.login__button:hover {
   background-color: #65bf97;
 }
 
-.loginSignin {
+.login__account,
+.login__signin,
+.login__signup {
   font-weight: 600;
   font-size: 0.813rem;
 }
 
-.loginSigninSignup {
-  color: #4ad395;
+.login__account--account,
+.login__signin--account,
+.login__signup--account {
+  color: #23004d;
+}
+
+.login__account--signin,
+.login__account--signup,
+.login__signin--signin,
+.login__signin--signup,
+.login__signup--signin,
+.login__signup--signup {
+  color: #4AD395;
   cursor: pointer;
 }
 
@@ -139,30 +138,5 @@
   }
   100% {
     transform: scale(1, 1);
-  }
-}
-
-@media screen and (min-width: 576px) {
-  .loginForms {
-    width: 348px;
-    justify-self: center;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .login {
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  .loginContent {
-    grid-template-columns: repeat(2, max-content);
-    justify-content: center;
-    align-items: center;
-  }
-
-  .loginRegister {
-    position: relative;
-    bottom: 0;
   }
 }
