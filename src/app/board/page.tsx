@@ -34,23 +34,31 @@ const BoardPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");  // 검색어 상태 추가
+  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
   const router = useRouter();
+
+  const maxPageButtons = 5; // 페이지 번호 최대 개수
+
+  // 페이지 그룹 계산 (ex: 1-5, 6-10 등)
+  const pageGroupStart = Math.floor(currentPage / maxPageButtons) * maxPageButtons;
+  const pageGroupEnd = Math.min(pageGroupStart + maxPageButtons, totalPages);
 
   const fetchPosts = async () => {
     setLoading(true);
     setError("");
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/boards?type=FREE&page=${currentPage}&size=25&sortByNewest=${sortByDateNewest}&search=${encodeURIComponent(searchTerm)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      // 검색어가 있을 경우 검색 API 호출
+      const endpoint = searchTerm
+        ? `${API_BASE_URL}/api/boards/search?type=FREE&keyword=${encodeURIComponent(searchTerm)}&page=${currentPage}&size=25`
+        : `${API_BASE_URL}/api/boards?type=FREE&page=${currentPage}&size=25&sortByNewest=${sortByDateNewest}`;
+
+      const response = await fetch(endpoint, {
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("게시글을 불러오는 데 실패했습니다.");
@@ -65,7 +73,11 @@ const BoardPage = () => {
       setPosts(formattedPosts);
       setTotalPages(data.result.totalPages);
     } catch (err: unknown) {
-      setError((err instanceof Error ? err.message : "게시글을 불러오는 중 오류가 발생했습니다."));
+      setError(
+        err instanceof Error
+          ? err.message
+          : "게시글을 불러오는 중 오류가 발생했습니다."
+      );
     } finally {
       setLoading(false);
     }
@@ -78,14 +90,9 @@ const BoardPage = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCurrentPage(0);  // 검색 시 페이지 초기화
-    fetchPosts();  // 검색 요청 실행
+    setCurrentPage(0); // 검색 시 페이지 초기화
+    fetchPosts(); // 검색 요청 실행
   };
-
-  useEffect(() => {
-    fetchPosts();
-    checkLoginStatus();
-  }, [sortByDateNewest, currentPage, searchTerm]);  // searchTerm을 의존성에 추가
 
   const toggleSortByDate = () => {
     setSortByDateNewest((prev) => !prev);
@@ -130,6 +137,11 @@ const BoardPage = () => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    fetchPosts();
+    checkLoginStatus();
+  }, [sortByDateNewest, currentPage]); // searchTerm 의존성 배열에서 제거
 
   return (
     <section className={styles.notice}>
@@ -192,24 +204,59 @@ const BoardPage = () => {
               </table>
 
               <div className={styles.pagination}>
-                {Array.from({ length: totalPages }, (_, index) => (
+                {currentPage > 0 && (
                   <span
-                    key={index}
-                    className={`${styles.pageNumber} ${
-                      index === currentPage ? styles.active : ""
-                    }`}
-                    onClick={() => goToPage(index)}
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(0)}
                   >
-                    {index + 1}
+                    {"<<"}
+                  </span>
+                )}
+
+                {currentPage > maxPageButtons - 1 && (
+                  <span
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(currentPage - maxPageButtons)}
+                  >
+                    {"<"}
+                  </span>
+                )}
+
+                {Array.from({ length: pageGroupEnd - pageGroupStart }, (_, index) => (
+                  <span
+                    key={pageGroupStart + index}
+                    className={`${styles.pageNumber} ${
+                      currentPage === pageGroupStart + index ? styles.active : ""
+                    }`}
+                    onClick={() => goToPage(pageGroupStart + index)}
+                  >
+                    {pageGroupStart + index + 1}
                   </span>
                 ))}
+
+                {currentPage < totalPages - maxPageButtons && (
+                  <span
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(currentPage + maxPageButtons)}
+                  >
+                    {">"}
+                  </span>
+                )}
+
+                {currentPage < totalPages - 1 && (
+                  <span
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(totalPages - 1)}
+                  >
+                    {">>"}
+                  </span>
+                )}
               </div>
             </>
           )}
         </div>
       </div>
 
-      {/* 검색창을 게시글 목록 하단으로 이동 */}
       <div id="board-search">
         <div className={styles.container}>
           <div className={styles.searchWindow}>
@@ -219,7 +266,7 @@ const BoardPage = () => {
                   type="search"
                   placeholder="제목으로 검색"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}  // 검색어 입력
+                  onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력
                 />
                 <button
                   type="submit"

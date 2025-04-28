@@ -10,42 +10,36 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [nickname, setNickname] = useState<string | null>(null);
 
   useEffect(() => {
+    // 로컬 스토리지에서 닉네임과 토큰을 가져옵니다.
     const savedNickname = localStorage.getItem('nickname');
+    const jwtToken = localStorage.getItem('jwtToken');
+
     if (savedNickname) {
       setNickname(savedNickname);
     }
 
+    // 토큰 유효성 체크
     const checkTokenValidity = async () => {
-      const jwtToken = localStorage.getItem('jwtToken');
       if (!jwtToken) {
-        clearTokens();
-        setNickname(null);
+        clearTokens();  // 토큰이 없으면 초기화
+        setNickname(null);  // 닉네임도 초기화
         return;
       }
 
       const isValid = await validateToken(jwtToken);
       if (!isValid) {
-        clearTokens();
-        setNickname(null);
+        clearTokens();  // 토큰이 유효하지 않으면 초기화
+        setNickname(null);  // 닉네임 초기화
       }
     };
 
     checkTokenValidity();
 
-    const updateNickname = (event: CustomEvent) => {
-      setNickname(event.detail);
-    };
-
-    window.addEventListener('nicknameUpdated', updateNickname as EventListener);
-
-    return () => {
-      window.removeEventListener('nicknameUpdated', updateNickname as EventListener);
-    };
-  }, []);
+  }, []);  // 빈 배열로 의존성 설정하여 한번만 실행되게 함
 
   const handleLogout = () => {
-    clearTokens();
-    setNickname(null);
+    clearTokens();  // 로그아웃 시 토큰 삭제
+    setNickname(null);  // 닉네임 초기화
   };
 
   return (

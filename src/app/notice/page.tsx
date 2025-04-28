@@ -89,7 +89,7 @@ const BoardPage = () => {
     setCurrentPage(0);
     fetchPosts();
   };
-
+ 
   useEffect(() => {
     fetchPosts();
     checkLoginStatus();

@@ -19,7 +19,7 @@ interface Problem {
 
 interface Ranking {
   nickname: string;
-  created: string;
+  firstBlood: string;
 }
 
 interface Comment {
@@ -67,7 +67,7 @@ const CTFProblemPage = () => {
 
     const fetchProblem = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/${problemId}`, {
+        const res = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/${problemId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -88,7 +88,7 @@ const CTFProblemPage = () => {
 
     const fetchComments = async () => {
       try {
-        const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/comments`, {
+        const res = await fetch(`${FILE_BASE_URL}/api/comments/problem/${problemId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -169,6 +169,14 @@ const CTFProblemPage = () => {
   const handleAddComment = async () => {
     if (newComment.trim() === "") return;
 
+    if (!token) {
+      console.log("토큰이 없습니다.");
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    console.log("전송할 토큰:", token);
+
     try {
       const res = await fetch(`${API_BASE_URL}/api/comments`, {
         method: 'POST',
@@ -177,9 +185,9 @@ const CTFProblemPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: "PROBLEM", // type을 "PROBLEM"으로 설정
-          parentId: 0, // 부모 댓글 ID는 0으로 설정
-          contents: newComment, // 기존 content는 contents로 변경
+          type: "PROBLEM", // "PROBLEM"으로 설정
+          parentId: problemId, // 부모 댓글 ID는 문제 ID로 설정
+          contents: newComment, // 댓글 내용
         }),
       });
 
@@ -188,10 +196,11 @@ const CTFProblemPage = () => {
       }
 
       const data = await res.json();
-      setComments((prevComments) => [...prevComments, data.result]);
+      setComments((prevComments) => [...prevComments, data.result]); // 새 댓글을 댓글 목록에 추가
       setNewComment(""); // 댓글 작성 후 입력값 초기화
     } catch (error) {
       console.error("댓글 작성 실패:", error);
+      alert("댓글 작성 중 오류가 발생했습니다.");
     }
   };
 
@@ -217,80 +226,75 @@ const CTFProblemPage = () => {
     <div>
       <div className="window">
         <div className="title-bar">
-          <span className="title">CTF 문제 상세보기</span>
+          <span className="title">{problem.title}</span>
+          <span className="level" style={{ color: "gold" }}>
+            {"⭐".repeat(problem.level)}
+          </span>
           <button className="close-button">X</button>
         </div>
 
-        <div className="container">
-          <div className="card">
-            <h1>
-              {problem.title}{" "}
-              <span style={{ fontSize: '0.5em' }}>made by {problem.creator}</span>
-            </h1>
-
-            <p>
-              Level: <span style={{ color: "gold" }}>{'⭐'.repeat(problem.level)}</span>
-            </p>
-
-            {problem.problemFile ? (
-              <p>
-                문제 파일:{" "}
-                <a
-                  href={`${FILE_BASE_URL}/${problemId}/download`}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="download-link"
-                >
-                  다운로드
-                </a>
-              </p>
-            ) : (
-              <p>문제 파일 없음</p>
-            )}
-            <p>{problem.detail}</p>
-
-            {/* 플래그 입력 박스와 제출 버튼을 나란히 배치 */}
-            <div className="flag-input-box">
-              <input
-                type="text"
-                placeholder="플래그를 입력하세요"
-                value={flag}
-                onChange={(e) => setFlag(e.target.value)}
-                className="flag-input"
-              />
-              <button onClick={handleSubmit} className="flag-submit-button">제출</button>
-            </div>
-
-            {message && <div className="message">{message}</div>}
-          </div>
-
-          <div className="ranking-box">
-            <h3>랭킹</h3>
-            {ranking.length > 0 ? (
-              ranking.map((user, index) => (
-                <div key={index} className="ranking-item">
-                  <span className="rank">{index === 0 ? "👑" : index + 1}</span>
-                  <span className="username">{user.nickname}</span>
-                  <span className="solved-time">{formatTime(user.created)}</span>
-                </div>
-              ))
-            ) : (
-              <div>아직 풀이한 사용자가 없습니다.</div>
-            )}
-          </div>
-
-          <div className="card">
-            <h2>VM 주소</h2>
-            <button onClick={handleShowVmAddress} className="button vm-button">
-              VM 주소 보기
-            </button>
-            {vmAddress && <div className="vm-address">{vmAddress}</div>}
-          </div>
-        </div>
+        {problem.problemFile ? (
+          <p>
+            문제 파일:{" "}
+            <a
+              href={`${FILE_BASE_URL}/${problem.id}/download`}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="download-link"
+            >
+              다운로드
+            </a>
+          </p>
+        ) : (
+          <p>문제 파일 없음</p>
+        )}
+        <p>{problem.detail}</p>
       </div>
 
-      {/* 댓글 박스는 window 외부로 이동 */}
+      {/* 플래그 입력 박스 */}
+      <div className="card">
+        <h2>플래그 입력</h2>
+        <div>
+          <input
+            type="text"
+            placeholder="플래그를 입력하세요"
+            value={flag}
+            onChange={(e) => setFlag(e.target.value)}
+            className="flag-input"
+          />
+          <button onClick={handleSubmit} className="flag-submit-button">
+            제출
+          </button>
+        </div>
+        {message && <div className="message">{message}</div>}
+      </div>
+
+      <div className="ranking-box">
+        <h3>랭킹</h3>
+        {ranking.length > 0 ? (
+          ranking.map((user, index) => (
+            <div key={index} className="ranking-item">
+              <span className="rank">{index === 0 ? "👑" : index + 1}</span>
+              <span className="username">{user.nickname}</span>
+              <span className="solved-time">{formatTime(user.firstBlood)}</span>
+            </div>
+          ))
+        ) : (
+          <div>아직 풀이한 사용자가 없습니다.</div>
+        )}
+      </div>
+
+      {/* VM 주소 */}
+      <div className="card">
+        <h2>VM 주소</h2>
+        <button onClick={handleShowVmAddress} className="button vm-button">
+          VM 주소 보기
+        </button>
+        {vmAddress && <div className="vm-address">{vmAddress}</div>}
+      </div>
+
+      {/* 댓글 */}
       <div className="comment-box">
         <h2>댓글</h2>
         <textarea
@@ -305,7 +309,9 @@ const CTFProblemPage = () => {
         <div className="comment-list">
           {comments.map((comment) => (
             <div key={comment.id} className="comment-item">
-              <p><strong>{comment.creator?.nickname || "익명"}</strong> <span>{formatTime(comment.createdAt)}</span></p>
+              <p>
+                <strong>{comment.creator?.nickname || "익명"}</strong> <span>{formatTime(comment.createdAt)}</span>
+              </p>
               <p>{comment.content}</p>
             </div>
           ))}

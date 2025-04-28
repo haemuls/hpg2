@@ -89,14 +89,14 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Notion iframe 임베딩 */}
       <section className={styles.notionsSection}>
         <iframe
             src="https://lake-middle-d9f.notion.site/ebd/1db0ebc77a6b80fba6faff7068412a7c"
             width="100%"
-            height="3900"  // 고정된 높이를 사용하여 iframe을 스크롤할 수 있도록 설정
+            height="4000"
             frameBorder="0"
             allowFullScreen
+            scrolling="no"
         />
       </section>
     </div>

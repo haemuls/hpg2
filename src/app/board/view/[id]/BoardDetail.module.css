@@ -200,4 +200,10 @@
   .commentMeta {
     font-size: 0.65em;
   }
+
+  /* BoardDetail.module.css */
+.largeFont {
+  font-size: 18px; /* Adjust the size as needed */
+}
+
 }

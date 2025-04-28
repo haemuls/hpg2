@@ -254,7 +254,6 @@ const GamePage = () => {
 
       <div className={styles.writeButtonWrap}>
         <div className={styles.container}>
-          {isAdmin && ( // isAdmin이 true일 때만 버튼 표시
             <button
               type="button"
               className={styles.btnDark}
@@ -262,7 +261,6 @@ const GamePage = () => {
             >
               문제 출제
             </button>
-          )}
         </div>
       </div>
     </section>

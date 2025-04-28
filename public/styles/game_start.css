@@ -17,6 +17,7 @@ body {
   margin: 1.5rem auto; /* 마진 줄이기 */
   padding: 0; /* 패딩 제거 */
   overflow: hidden;
+  min-height: 500px;
 }
 
 /* 타이틀 바 스타일 */
@@ -54,7 +55,7 @@ body {
   padding: 1rem;
   margin-top: 0;
   overflow-x: auto; /* 수평 스크롤 허용 */
-  width: 55%;
+  width: 100%; /* 너비를 100%로 설정 */
 }
 
 /* 카드 스타일 */
@@ -63,12 +64,14 @@ body {
   border-radius: 10px; /* 반경 줄이기 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
-  padding: 0.75rem; /* 패딩 줄이기 */
+  padding: 0.5rem; /* 패딩 줄이기 */
   transition: box-shadow 0.3s ease;
-  width: 90%; /* 부모 요소에 맞춰 크기 조정 */
+  width: 50%; /* 크기 줄이기 */
   overflow: auto;
   justify-content: center;
+  align-self: center; /* 중앙 정렬 */
 }
+
 
 .card:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -156,14 +159,18 @@ input:focus, textarea:focus {
   font-size: 0.95em; /* 폰트 크기 줄이기 */
   margin-top: 10px; /* 마진 줄이기 */
 }
-
 /* VM 주소 */
 .vm-address {
   background-color: #e3e3e8;
-  padding: 10px; /* 패딩 줄이기 */
+  padding: 4px; /* 패딩 줄이기 */
   border-radius: 10px; /* 반경 줄이기 */
-  font-size: 1em; /* 폰트 크기 유지 */
+  font-size: 0.9em; /* 폰트 크기 줄이기 */
   margin-top: 10px; /* 마진 줄이기 */
+  width: 50%; /* 다른 박스들과 너비 동일하게 설정 */
+  margin-left: auto;
+  margin-right: auto;
+  display: block; /* 수평 중앙 정렬 */
+  box-sizing: border-box; /* 패딩을 포함한 크기 계산 */
 }
 
 /* VM 버튼 */
@@ -171,8 +178,11 @@ input:focus, textarea:focus {
   background-color: #007aff;
   color: white;
   border-radius: 10px; /* 반경 줄이기 */
-  padding: 5px 10px; /* 패딩 절반으로 줄이기 */
+  padding: 5px 8px; /* 패딩 줄이기 */
   cursor: pointer;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .vm-button:hover {
@@ -205,7 +215,7 @@ input:focus, textarea:focus {
 /* 댓글 입력창 */
 .textarea {
   width: 80%; /* 부모 요소에 맞춰 100% 너비 */
-  height: 40px; /* 고정된 높이 설정 */
+  height: 10px; /* 고정된 높이 설정 */
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;

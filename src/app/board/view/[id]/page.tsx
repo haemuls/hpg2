@@ -160,7 +160,7 @@ const BoardDetailPage = () => {
           Accept: '*/*',
         },
         body: JSON.stringify({
-          type: 'PROBLEM',
+          type: 'BOARD',
           parentId: post?.id || 0,
           contents: newComment,
         }),
@@ -205,7 +205,7 @@ const BoardDetailPage = () => {
         <p className={styles.metaInfo}>
           <span>{post.creator.nickname}</span> | <span>{post.formattedDate}</span>
         </p>
-        <div className={styles.viewerContainer}>
+        <div className={`${styles.viewerContainer} ${styles.largeFont}`}>
           <Viewer initialValue={post.contents} />
         </div>
 

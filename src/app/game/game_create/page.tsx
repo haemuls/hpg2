@@ -104,56 +104,56 @@ export default function WargameForm() {
   };
 
   return (
-    <div className="card p-4 w-full max-w-2xl mx-auto">
-      <div className="card-content">
-        {/** 필드 렌더링 */}
-        <div className="form-group">
-          <label>제목</label>
-          <input name="title" value={problem.title} onChange={handleChange} className="input" />
-        </div>
-        <div className="form-group">
-          <label>작성자</label>
-          <input name="creator" value={problem.creator} onChange={handleChange} className="input" />
-        </div>
-        <div className="form-group">
-          <label>문제 설명</label>
-          <textarea
-            name="detail"
-            value={problem.detail}
-            onChange={handleChange}
-            className="textarea"
-          />
-        </div>
-        <div className="form-group">
-          <label>문제 종류</label>
-          <select name="kind" value={problem.kind} onChange={handleChange} className="select">
-            <option value="웹해킹">웹해킹</option>
-            <option value="포너블">포너블</option>
-            <option value="리버싱">리버싱</option>
-            <option value="암호학">암호학</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>난이도</label>
-          <select name="level" value={problem.level} onChange={handleChange} className="select">
-            <option value="⭐">⭐ (쉬움)</option>
-            <option value="⭐⭐">⭐⭐ (보통)</option>
-            <option value="⭐⭐⭐">⭐⭐⭐ (어려움)</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>정답 플래그</label>
-          <input name="flag" value={problem.flag} onChange={handleChange} className="input" />
-        </div>
-        <div className="form-group">
-          <label>Dockerfile 링크</label>
-          <input name="dockerfileLink" value={problem.dockerfileLink} onChange={handleChange} className="input" />
-        </div>
-        <div className="form-group">
-          <label>파일 업로드</label>
-          <input type="file" onChange={handleFileChange} className="input" />
-        </div>
-        <button className="button mt-4 w-full" onClick={handleSubmit}>
+    <div className="container">
+      <h3 className="pageTitle">문제 제출</h3>
+      <div className="form-group">
+        <label>제목</label>
+        <input name="title" value={problem.title} onChange={handleChange} className="problemSelector" />
+      </div>
+      <div className="form-group">
+        <label>작성자</label>
+        <input name="creator" value={problem.creator} onChange={handleChange} className="problemSelector" />
+      </div>
+      <div className="form-group">
+        <label>문제 설명</label>
+        <textarea
+          name="detail"
+          value={problem.detail}
+          onChange={handleChange}
+          className="textarea problemSelector"
+        />
+      </div>
+      <div className="form-group">
+        <label>문제 종류</label>
+        <select name="kind" value={problem.kind} onChange={handleChange} className="problemSelector">
+          <option value="웹해킹">웹해킹</option>
+          <option value="포너블">포너블</option>
+          <option value="리버싱">리버싱</option>
+          <option value="암호학">암호학</option>
+        </select>
+      </div>
+      <div className="form-group">
+        <label>난이도</label>
+        <select name="level" value={problem.level} onChange={handleChange} className="problemSelector">
+          <option value="⭐">⭐ (쉬움)</option>
+          <option value="⭐⭐">⭐⭐ (보통)</option>
+          <option value="⭐⭐⭐">⭐⭐⭐ (어려움)</option>
+        </select>
+      </div>
+      <div className="form-group">
+        <label>정답 플래그</label>
+        <input name="flag" value={problem.flag} onChange={handleChange} className="problemSelector" />
+      </div>
+      <div className="form-group">
+        <label>Dockerfile 링크</label>
+        <input name="dockerfileLink" value={problem.dockerfileLink} onChange={handleChange} className="problemSelector" />
+      </div>
+      <div className="form-group">
+        <label>파일 업로드</label>
+        <input type="file" onChange={handleFileChange} className="problemSelector" />
+      </div>
+      <div className="writeButtonWrap">
+        <button className="btnDark" onClick={handleSubmit}>
           문제 제출
         </button>
       </div>
