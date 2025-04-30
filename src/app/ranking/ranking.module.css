@@ -10,6 +10,7 @@
 .rankingTitle {
   width: 100%;
   text-align: center;
+
 }
 
 .rankingTitle h3 {
@@ -19,6 +20,7 @@
   font-weight: 500;
   margin: 0;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .container {
@@ -62,22 +64,43 @@
   cursor: pointer;
 }
 
-/* 드롭다운 왼쪽 정렬 */
-.dropdown {
-  padding: 10px;
-  font-size: 1.1rem;
-  background-color: #495057;
-  color: white;
-  border-radius: 5px;
-  border: none;
-  width: 200px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-family: Arial, sans-serif;
-  display: block;
-  margin-left: 0; /* 왼쪽 여백 0으로 설정 */
+/* Button Styles */
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.dropdown:hover {
-  background-color: #343a40;
+.filterButton {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  background-color: #f4f4f4;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.filterButton:hover {
+  background-color: #4e555b;
+  color: white;
+  transform: scale(1.05);
+}
+
+.filterButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+}
+
+.activeButton {
+  background-color: #4e555b;
+  color: white;
+  border-color: #4e555b;
+}
+
+.activeButton:hover {
+  background-color: #4e555b;
+  transform: none;
 }

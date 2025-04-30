@@ -38,6 +38,8 @@ const GamePage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [size] = useState(25);
   const [isAdmin, setIsAdmin] = useState(false); // 관리자 상태 추가
+  const [sortKind, setSortKind] = useState(""); // 기본적으로 정렬 기준 없음
+  const [desc, setDesc] = useState(true); // 기본적으로 내림차순 정렬
   const router = useRouter();
 
   const membershipId = typeof window !== "undefined" ? localStorage.getItem("membershipId") || "99999" : "99999";
@@ -46,6 +48,14 @@ const GamePage = () => {
     const adminStatus = localStorage.getItem("isAdmin") === "true";
     setIsAdmin(adminStatus);
   }, []);
+
+  const handleSort = (column: string) => {
+    // 정렬 기준을 정답율 또는 마지막 수정일로만 제한
+    if (column === "correctRate" || column === "lastModified") {
+      setSortKind(column);
+      setDesc(prevDesc => (prevDesc && column === sortKind) ? !prevDesc : true);
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -57,8 +67,8 @@ const GamePage = () => {
           userId: membershipId,
           type: "WARGAME",
           kind: selectedType === "전체" ? "" : selectedType,
-          sortKind: "correctRate",
-          desc: "true",
+          sortKind: sortKind,  // 동적으로 선택된 정렬 기준
+          desc: desc.toString(),  // 내림차순/오름차순 여부
           page: currentPage.toString(),
           size: size.toString(),
         });
@@ -103,7 +113,7 @@ const GamePage = () => {
     };
 
     fetchPosts();
-  }, [membershipId, currentPage, selectedType, size]);
+  }, [membershipId, currentPage, selectedType, size, sortKind, desc]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,11 +186,31 @@ const GamePage = () => {
               <thead>
                 <tr>
                   <th scope="col" className={styles.thNum}></th>
-                  <th scope="col" className={styles.thNum}>문제 번호</th>
-                  <th scope="col" className={styles.thDifficulty}>난이도</th>
-                  <th scope="col" className={styles.thTitle}>문제 제목</th>
-                  <th scope="col" className={styles.thAccuracy}>정답율</th>
-                  <th scope="col" className={styles.thDate}>마지막 수정일</th>
+                  <th scope="col" className={styles.thNum}>
+                    문제 번호
+                  </th>
+                  <th scope="col" className={styles.thDifficulty}>
+                    난이도
+                  </th>
+                  <th scope="col" className={styles.thTitle}>
+                    문제 제목
+                  </th>
+                  <th
+                    scope="col"
+                    className={styles.thAccuracy}
+                    onClick={() => handleSort("correctRate")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    정답율
+                  </th>
+                  <th
+                    scope="col"
+                    className={styles.thDate}
+                    onClick={() => handleSort("lastModified")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    마지막 수정일
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -254,13 +284,13 @@ const GamePage = () => {
 
       <div className={styles.writeButtonWrap}>
         <div className={styles.container}>
-            <button
-              type="button"
-              className={styles.btnDark}
-              onClick={handleCreateButtonClick}
-            >
-              문제 출제
-            </button>
+          <button
+            type="button"
+            className={styles.writeButton}
+            onClick={handleCreateButtonClick}
+          >
+            문제 만들기
+          </button>
         </div>
       </div>
     </section>

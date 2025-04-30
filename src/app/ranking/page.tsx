@@ -72,17 +72,17 @@ const RankingPage = () => {
     <div className={styles.ranking}>
       <div className={styles.rankingTitle}>
         <h3>랭킹</h3>
-        <select
-          className={styles.dropdown}
-          value={selectedType}
-          onChange={(e) => setSelectedType(e.target.value)}
-        >
+        <div className={styles.buttonGroup}>
           {typeOptions.map((option) => (
-            <option key={option.value} value={option.value}>
+            <button
+              key={option.value}
+              className={`${styles.filterButton} ${selectedType === option.value ? styles.activeButton : ''}`}
+              onClick={() => setSelectedType(option.value)}
+            >
               {option.label}
-            </option>
+            </button>
           ))}
-        </select>
+        </div>
       </div>
       <div className={styles.container}>
         {isLoading ? (

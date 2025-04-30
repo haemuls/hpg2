@@ -47,6 +47,10 @@ const LoginPage = () => {
     }
   };
 
+  const redirectToOAuth = (provider: string) => {
+    window.location.href = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${provider}`;
+  };
+
   return (
     <div className={styles.login}>
       <div className={styles.loginContent}>
@@ -93,6 +97,23 @@ const LoginPage = () => {
             <Link href="/signup" className={`${styles.loginSignin} ${styles.loginSigninSignup}`}>
               회원가입
             </Link>
+
+            <div className={styles.socialLogin}>
+              <button
+                type="button"
+                className={styles.socialButton}
+                onClick={() => redirectToOAuth('google')}
+              >
+                Google로 로그인
+              </button>
+              <button
+                type="button"
+                className={styles.socialButton}
+                onClick={() => redirectToOAuth('github')}
+              >
+                GitHub로 로그인
+              </button>
+            </div>
           </form>
         </div>
       </div>
