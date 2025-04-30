@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from 'next/navigation';
-import '../../../../public/styles/game_start.css';
+import styles from './game_start.module.css';  // CSS Module 임포트
 import { getAccessToken } from '../../../../token';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
@@ -57,7 +57,7 @@ const CTFProblemPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!isTokenLoaded) return; // 토큰 로딩 완료 전에는 실행하지 않음
+    if (!isTokenLoaded) return;
 
     if (!token) {
       alert("로그인이 필요한 서비스입니다.");
@@ -122,8 +122,6 @@ const CTFProblemPage = () => {
         }
 
         const data: ApiResponse<Ranking[]> = await res.json();
-
-        // result가 배열이 아니면 객체로 반환됨
         if (Array.isArray(data.result)) {
           setRanking(data.result);
         } else {
@@ -144,7 +142,6 @@ const CTFProblemPage = () => {
 
     try {
       const url = `${FILE_BASE_URL}/api/problems/${problemId}/solve?flag=${encodeURIComponent(flag)}`;
-
       const res = await fetch(url, {
         method: "GET",
         headers: {
@@ -170,12 +167,9 @@ const CTFProblemPage = () => {
     if (newComment.trim() === "") return;
 
     if (!token) {
-      console.log("토큰이 없습니다.");
       alert("로그인이 필요합니다.");
       return;
     }
-
-    console.log("전송할 토큰:", token);
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/comments`, {
@@ -212,110 +206,69 @@ const CTFProblemPage = () => {
 
   const formatTime = (timeString: string) => {
     const date = new Date(timeString);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-
-    return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day} ${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   };
 
   return (
-    <div>
-      <div className="window">
-        <div className="title-bar">
-          <span className="title">{problem.title}</span>
-          <span className="level" style={{ color: "gold" }}>
-            {"⭐".repeat(problem.level)}
-          </span>
-          <button className="close-button">X</button>
-        </div>
-
-        {problem.problemFile ? (
-          <p>
-            문제 파일:{" "}
-            <a
-              href={`${FILE_BASE_URL}/${problem.id}/download`}
-              download
-              target="_blank"
-              rel="noopener noreferrer"
-              className="download-link"
-            >
-              다운로드
-            </a>
-          </p>
-        ) : (
-          <p>문제 파일 없음</p>
-        )}
+    <div className={styles.game_start}>
+      <h1>{problem.title}</h1>
+      <p>작성자: {problem.creator}</p>
+      <p>레벨: {problem.level}</p>
+      <div className={styles.problemDetails}>
         <p>{problem.detail}</p>
+        {problem.dockerfileLink && (
+          <button onClick={handleShowVmAddress}>VM 주소 보기</button>
+        )}
+        {vmAddress && <p>VM 주소: {vmAddress}</p>}
       </div>
 
-      {/* 플래그 입력 박스 */}
-      <div className="card">
-        <h2>플래그 입력</h2>
-        <div>
-          <input
-            type="text"
-            placeholder="플래그를 입력하세요"
-            value={flag}
-            onChange={(e) => setFlag(e.target.value)}
-            className="flag-input"
-          />
-          <button onClick={handleSubmit} className="flag-submit-button">
-            제출
-          </button>
-        </div>
-        {message && <div className="message">{message}</div>}
+      <div>
+        <h3>정답 제출</h3>
+        <input
+          type="text"
+          value={flag}
+          onChange={(e) => setFlag(e.target.value)}
+          placeholder="정답을 입력하세요"
+        />
+        <button onClick={handleSubmit}>정답 제출</button>
+        <p>{message}</p>
       </div>
 
-      <div className="ranking-box">
-        <h3>랭킹</h3>
-        {ranking.length > 0 ? (
-          ranking.map((user, index) => (
-            <div key={index} className="ranking-item">
-              <span className="rank">{index === 0 ? "👑" : index + 1}</span>
-              <span className="username">{user.nickname}</span>
-              <span className="solved-time">{formatTime(user.firstBlood)}</span>
+      <div>
+        <h3>댓글</h3>
+        {comments.length > 0 ? (
+          comments.map((comment) => (
+            <div className={styles.comment} key={comment.id}>
+              <strong className={styles.creator}>{comment.creator.nickname}</strong>
+              <p>{comment.content}</p>
+              <small>{formatTime(comment.createdAt)}</small>
             </div>
           ))
         ) : (
-          <div>아직 풀이한 사용자가 없습니다.</div>
+          <p>댓글이 없습니다.</p>
         )}
-      </div>
 
-      {/* VM 주소 */}
-      <div className="card">
-        <h2>VM 주소</h2>
-        <button onClick={handleShowVmAddress} className="button vm-button">
-          VM 주소 보기
-        </button>
-        {vmAddress && <div className="vm-address">{vmAddress}</div>}
-      </div>
-
-      {/* 댓글 */}
-      <div className="comment-box">
-        <h2>댓글</h2>
         <textarea
-          placeholder="댓글을 작성하세요"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          className="textarea"
+          placeholder="댓글을 입력하세요"
         />
-        <button onClick={handleAddComment} className="button comment-button">
-          댓글 작성
-        </button>
-        <div className="comment-list">
-          {comments.map((comment) => (
-            <div key={comment.id} className="comment-item">
-              <p>
-                <strong>{comment.creator?.nickname || "익명"}</strong> <span>{formatTime(comment.createdAt)}</span>
-              </p>
-              <p>{comment.content}</p>
-            </div>
-          ))}
-        </div>
+        <button onClick={handleAddComment}>댓글 추가</button>
+      </div>
+
+      <div>
+        <h3>랭킹</h3>
+        {ranking.length > 0 ? (
+          <ul>
+            {ranking.map((rank, index) => (
+              <li key={index}>
+                {rank.nickname} - 첫 번째 정답: {rank.firstBlood}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>랭킹 정보가 없습니다.</p>
+        )}
       </div>
     </div>
   );

@@ -12,8 +12,8 @@
   justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
   align-items: center; /* 수직 정렬 */
   margin-bottom: 10px;
-  width: 100%; /* 추가된 속성 */
-  flex-grow: 1; /* 추가된 속성 */
+  width: 100%;
+  flex-grow: 1;
 }
 
 .title {
@@ -138,7 +138,6 @@
   margin-top: 5px;
 }
 
-/* 수정 버튼 스타일 */
 .commentEdit {
   color: blue; /* 수정 버튼 색상 */
   cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
@@ -150,7 +149,6 @@
   color: darkblue; /* 마우스를 올릴 때 색상 변경 */
 }
 
-/* 삭제 버튼 스타일 */
 .commentDelete {
   color: red; /* 삭제 버튼 색상 */
   cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
