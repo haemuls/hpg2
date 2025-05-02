@@ -10,7 +10,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-1
 
 type WargameProblem = {
   title: string;
-  creator: string;
+  creator: string;  // 작성자 제거
   detail: string;
   source: string;
   kind: string;
@@ -89,7 +89,7 @@ export default function WargameForm() {
         ...problem,
         type: "WARGAME", // 고정된 타입
         reviewer: "",
-        tags: [],
+        tags: [], // 태그는 빈 배열로 설정 (필요시 수정 가능)
         level: levelMap[problem.level] ?? 1,
       };
 

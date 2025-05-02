@@ -55,7 +55,7 @@ const BoardPage = () => {
 
       const response = await fetch(endpoint, {
         headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
+          Authorization: `Bearer ${getAccessToken()}`, // 이미 로그인 상태에 대한 토큰 사용
           "Content-Type": "application/json",
         },
       });
@@ -85,7 +85,7 @@ const BoardPage = () => {
 
   const checkLoginStatus = () => {
     const token = getAccessToken();
-    setIsLoggedIn(!!token);
+    setIsLoggedIn(!!token); // 한 번만 호출해서 로그인 상태를 설정
   };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -101,7 +101,9 @@ const BoardPage = () => {
 
   const goToPage = (page: number) => {
     if (page >= 0 && page < totalPages) {
-      setCurrentPage(page);
+      setCurrentPage(page); // 유효한 페이지일 경우 페이지 이동
+    } else {
+      alert("유효하지 않은 페이지입니다."); // 유효하지 않은 페이지에 대한 피드백
     }
   };
 
@@ -140,8 +142,8 @@ const BoardPage = () => {
 
   useEffect(() => {
     fetchPosts();
-    checkLoginStatus();
-  }, [sortByDateNewest, currentPage]); // searchTerm 의존성 배열에서 제거
+    checkLoginStatus(); // 컴포넌트 마운트 시 로그인 상태 체크
+  }, [sortByDateNewest, currentPage]);
 
   return (
     <section className={styles.notice}>

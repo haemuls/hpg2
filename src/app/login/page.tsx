@@ -206,7 +206,7 @@ const LoginPage = () => {
   };
 
   const redirectToOAuth = (provider: string) => {
-    window.location.href = `http://192.168.219.100:3000/oauth2/authorization/${provider}`;
+    window.location.href = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${provider}`;
   };
 
   return (
