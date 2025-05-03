@@ -1,81 +1,36 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
-import { clearTokens, getValidAccessToken } from '../../token';
-import axios from 'axios';
+import { validateToken, clearTokens } from '../../token';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const [nickname, setNickname] = useState<string | null>(null);
-  const [activeUsers, setActiveUsers] = useState<number>(0);
+  const [nickname, setNickname] = useState<string | null>(localStorage.getItem('nickname'));
 
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const jwtToken = localStorage.getItem('jwtToken');
-      const storedNickname = localStorage.getItem('nickname');
+    const jwtToken = localStorage.getItem('jwtToken');
 
-      // 로컬 스토리지에서 토큰과 닉네임을 읽어오고 상태를 설정합니다.
-      if (jwtToken && storedNickname) {
-        setNickname(storedNickname);
-      } else {
+    if (!jwtToken) {
+      clearTokens();
+      setNickname(null);
+      return;
+    }
+
+    const checkTokenValidity = async () => {
+      const isValid = await validateToken(jwtToken);
+      if (!isValid) {
+        clearTokens();
         setNickname(null);
       }
     };
 
-    // 첫 렌더링 시 로그인 상태 체크
-    checkLoginStatus();
-
-    // storage 이벤트 리스너 등록 (로컬 스토리지 변경 시 상태 업데이트)
-    const handleStorageChange = () => {
-      checkLoginStatus(); // 로컬 스토리지 변경 시 상태 업데이트
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []); // 빈 배열을 사용하여 한 번만 실행되도록 설정
-
-  useEffect(() => {
-    if (nickname) {
-      const fetchActiveUsers = async () => {
-        try {
-          const response = await axios.get(
-            'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active',
-            {
-              params: { namespace: 'wargame' },
-              headers: { Accept: '*/*' },
-            }
-          );
-
-          // 응답 구조를 확인 후 적절히 처리
-          const activeUsersData = response.data;  // 예시로 response.data를 그대로 활용
-
-          if (Array.isArray(activeUsersData)) {
-            setActiveUsers(activeUsersData.length); // 배열인 경우 길이를 사용
-          } else if (activeUsersData && typeof activeUsersData === 'object') {
-            setActiveUsers(Object.keys(activeUsersData).length); // 객체인 경우 키의 길이를 사용
-          } else {
-            setActiveUsers(0); // 그 외의 경우 0명으로 설정
-          }
-
-        } catch (error) {
-          console.error('Failed to fetch active users:', error);
-        }
-      };
-
-      fetchActiveUsers();
-    }
-  }, [nickname]); // nickname이 변경될 때마다 실행
+    checkTokenValidity();
+  }, []);
 
   const handleLogout = () => {
     clearTokens();
-    localStorage.removeItem('jwtToken'); // JWT 토큰 삭제
-    localStorage.removeItem('nickname'); // 닉네임 삭제
-    setNickname(null); // 상태 초기화
+    setNickname(null);
   };
 
   return (
@@ -148,10 +103,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                         {nickname}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item>
-                          <strong>접속 중:</strong> {activeUsers}명
-                        </Dropdown.Item>
-                        <Dropdown.Divider />
                         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
@@ -173,9 +124,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <p>&copy; 2025 wargame 사이트 테스트</p>
         </footer>
 
+        {/* 비동기 로드 스크립트 */}
         <Script src="/js/jquery-3.4.1.min.js" strategy="beforeInteractive" />
         <Script src="/js/bootstrap.js" strategy="beforeInteractive" />
         <Script src="/js/navbar-hover.js" strategy="beforeInteractive" />
+        <Script src="/js/custom.js" strategy="lazyOnload" />
       </body>
     </html>
   );

@@ -101,23 +101,19 @@ export default function WargameForm() {
         "Authorization": `Bearer ${accessToken}`,
       };
 
-      let body: FormData | string;
+      // FormData 생성
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(problemData));  // 문제 데이터를 JSON으로 전송
       if (file) {
-        // 파일이 있는 경우 FormData 사용
-        const formData = new FormData();
-        formData.append('data', JSON.stringify(problemData));  // JSON 데이터 추가
-        formData.append('file', file);  // 파일 추가
-        body = formData;
-      } else {
-        // 파일이 없는 경우 JSON 데이터 전송
-        headers["Content-Type"] = "application/json";
-        body = JSON.stringify(problemData);
+        formData.append('file', file);  // 파일이 있으면 추가
       }
+
+      console.log("Form Data (JSON + File):", formData);
 
       const response = await fetch(`${API_BASE_URL}`, {
         method: "POST",
-        headers,  // 설정된 헤더 사용
-        body,     // FormData 또는 JSON 데이터 본문으로 전송
+        headers,  // Content-Type을 설정하지 않음
+        body: formData,  // FormData를 본문으로 전송
       });
 
       console.log("Response Status:", response.status);
