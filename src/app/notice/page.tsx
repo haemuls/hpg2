@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import styles from "./board.module.css";
@@ -10,6 +10,7 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
+// 게시글 타입 정의
 interface Post {
   id: number;
   title: string;
@@ -18,7 +19,7 @@ interface Post {
   formattedDate: string;
 }
 
-interface ApiResponse {
+interface BoardResponse {
   result: {
     content: Post[];
     totalPages: number;
@@ -28,85 +29,86 @@ interface ApiResponse {
 const BoardPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState("");
   const [sortByDateNewest, setSortByDateNewest] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
 
-  const fetchPosts = async (): Promise<void> => {
+  const maxPageButtons = 5;
+
+
+  const pageGroupStart = Math.floor(currentPage / maxPageButtons) * maxPageButtons;
+  const pageGroupEnd = Math.min(pageGroupStart + maxPageButtons, totalPages);
+
+  const fetchPosts = async () => {
     setLoading(true);
     setError("");
 
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/boards?type=ANNOUNCE&page=${currentPage}&size=25&sortByNewest=${sortByDateNewest}&search=${encodeURIComponent(
-          searchTerm
-        )}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const endpoint = searchTerm
+        ? `${API_BASE_URL}/api/boards/search?type=ANNOUNCE&keyword=${encodeURIComponent(searchTerm)}&page=${currentPage}&size=25`
+        : `${API_BASE_URL}/api/boards?type=ANNOUNCE&page=${currentPage}&size=25&sortByNewest=${sortByDateNewest}`;
+
+      const response = await fetch(endpoint, {
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("공지사항을 불러오는 데 실패했습니다.");
       }
 
-      const data: ApiResponse = await response.json();
+      const data: BoardResponse = await response.json();
       const formattedPosts = data.result.content.map((post) => ({
         ...post,
-        id: Number(post.id),
         formattedDate: new Date(post.lastModified).toLocaleDateString(),
       }));
 
       setPosts(formattedPosts);
       setTotalPages(data.result.totalPages);
     } catch (err: unknown) {
-      setError((err instanceof Error ? err.message : "공지사항을 불러오는 중 오류가 발생했습니다."));
+      setError(
+        err instanceof Error
+          ? err.message
+          : "공지사항을 불러오는 중 오류가 발생했습니다."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const checkLoginStatus = (): void => {
+  const checkLoginStatus = () => {
     const token = getAccessToken();
     setIsLoggedIn(!!token);
-
-    if (token) {
-      const nickName = localStorage.getItem("nickName") || "";
-      setIsAdmin(nickName === "관리자");
-    }
   };
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCurrentPage(0);
     fetchPosts();
   };
- 
-  useEffect(() => {
-    fetchPosts();
-    checkLoginStatus();
-  }, [sortByDateNewest, currentPage, searchTerm]);
 
-  const toggleSortByDate = (): void => {
+  const toggleSortByDate = () => {
     setSortByDateNewest((prev) => !prev);
     setCurrentPage(0);
   };
 
-  const goToPage = (page: number): void => {
-    if (page >= 0 && page < totalPages) {
-      setCurrentPage(page);
-    }
-  };
+  const goToPage = (page: number) => {
+  if (page >= 0 && page < totalPages) {
+    setCurrentPage(page);
+    fetchPosts();
+  } else {
+    alert("유효하지 않은 페이지입니다.");
+  }
+};
 
-  const handleWritePost = async (): Promise<void> => {
+
+  const handleWritePost = async () => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
       router.push("/login");
@@ -126,18 +128,23 @@ const BoardPage = () => {
         }),
       });
 
-      const data: boolean = await response.json();
+      const data = await response.json();
 
-      if (response.ok && data) {
+      if (response.ok && data === true) {
         router.push("/board/write");
       } else {
         alert("토큰이 유효하지 않습니다.");
       }
-    } catch (err: unknown) {
+    } catch (err) {
       alert("토큰 검증 중 오류가 발생했습니다.");
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    fetchPosts();
+    checkLoginStatus();
+  }, [sortByDateNewest, currentPage]);
 
   return (
     <section className={styles.notice}>
@@ -180,8 +187,7 @@ const BoardPage = () => {
                         <td>
                           {sortByDateNewest
                             ? currentPage * 25 + index + 1
-                            : totalPages * 25 -
-                              (currentPage * 25 + index)}
+                            : totalPages * 25 - (currentPage * 25 + index)}
                         </td>
                         <td>
                           <Link href={`/board/view/${post.id}`}>
@@ -201,17 +207,53 @@ const BoardPage = () => {
               </table>
 
               <div className={styles.pagination}>
-                {Array.from({ length: totalPages }, (_, index) => (
+                {currentPage > 0 && (
                   <span
-                    key={index}
-                    className={`${styles.pageNumber} ${
-                      index === currentPage ? styles.active : ""
-                    }`}
-                    onClick={() => goToPage(index)}
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(0)}
                   >
-                    {index + 1}
+                    {"<<"}
+                  </span>
+                )}
+
+                {currentPage > maxPageButtons - 1 && (
+                  <span
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(currentPage - maxPageButtons)}
+                  >
+                    {"<"}
+                  </span>
+                )}
+
+                {Array.from({ length: pageGroupEnd - pageGroupStart }, (_, index) => (
+                  <span
+                    key={pageGroupStart + index}
+                    className={`${styles.pageNumber} ${
+                      currentPage === pageGroupStart + index ? styles.active : ""
+                    }`}
+                    onClick={() => goToPage(pageGroupStart + index)}
+                  >
+                    {pageGroupStart + index + 1}
                   </span>
                 ))}
+
+                {currentPage < totalPages - maxPageButtons && (
+                  <span
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(currentPage + maxPageButtons)}
+                  >
+                    {">"}
+                  </span>
+                )}
+
+                {currentPage < totalPages - 1 && (
+                  <span
+                    className={styles.pageNumber}
+                    onClick={() => goToPage(totalPages - 1)}
+                  >
+                    {">>"}
+                  </span>
+                )}
               </div>
             </>
           )}
@@ -227,7 +269,7 @@ const BoardPage = () => {
                   type="search"
                   placeholder="제목으로 검색"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력
                 />
                 <button
                   type="submit"
@@ -241,19 +283,17 @@ const BoardPage = () => {
         </div>
       </div>
 
-      {isAdmin && (
-        <div className={styles.writeBtnWrap}>
-          <div className={styles.container}>
-            <button
-              type="button"
-              className={styles.btn}
-              onClick={handleWritePost}
-            >
-              공지사항 작성
-            </button>
-          </div>
+      <div className={styles.writeBtnWrap}>
+        <div className={styles.container}>
+          <button
+            type="button"
+            className={styles.btn}
+            onClick={handleWritePost}
+          >
+            공지사항 작성
+          </button>
         </div>
-      )}
+      </div>
     </section>
   );
 };

@@ -34,12 +34,12 @@ const BoardPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
+  const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
 
-  const maxPageButtons = 5; // 페이지 번호 최대 개수
+  const maxPageButtons = 5;
 
-  // 페이지 그룹 계산 (ex: 1-5, 6-10 등)
+
   const pageGroupStart = Math.floor(currentPage / maxPageButtons) * maxPageButtons;
   const pageGroupEnd = Math.min(pageGroupStart + maxPageButtons, totalPages);
 
@@ -48,14 +48,13 @@ const BoardPage = () => {
     setError("");
 
     try {
-      // 검색어가 있을 경우 검색 API 호출
       const endpoint = searchTerm
         ? `${API_BASE_URL}/api/boards/search?type=FREE&keyword=${encodeURIComponent(searchTerm)}&page=${currentPage}&size=25`
         : `${API_BASE_URL}/api/boards?type=FREE&page=${currentPage}&size=25&sortByNewest=${sortByDateNewest}`;
 
       const response = await fetch(endpoint, {
         headers: {
-          Authorization: `Bearer ${getAccessToken()}`, // 이미 로그인 상태에 대한 토큰 사용
+          Authorization: `Bearer ${getAccessToken()}`,
           "Content-Type": "application/json",
         },
       });
@@ -85,13 +84,13 @@ const BoardPage = () => {
 
   const checkLoginStatus = () => {
     const token = getAccessToken();
-    setIsLoggedIn(!!token); // 한 번만 호출해서 로그인 상태를 설정
+    setIsLoggedIn(!!token);
   };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCurrentPage(0); // 검색 시 페이지 초기화
-    fetchPosts(); // 검색 요청 실행
+    setCurrentPage(0);
+    fetchPosts();
   };
 
   const toggleSortByDate = () => {
@@ -100,12 +99,14 @@ const BoardPage = () => {
   };
 
   const goToPage = (page: number) => {
-    if (page >= 0 && page < totalPages) {
-      setCurrentPage(page); // 유효한 페이지일 경우 페이지 이동
-    } else {
-      alert("유효하지 않은 페이지입니다."); // 유효하지 않은 페이지에 대한 피드백
-    }
-  };
+  if (page >= 0 && page < totalPages) {
+    setCurrentPage(page);
+    fetchPosts();
+  } else {
+    alert("유효하지 않은 페이지입니다.");
+  }
+};
+
 
   const handleWritePost = async () => {
     if (!isLoggedIn) {
@@ -142,7 +143,7 @@ const BoardPage = () => {
 
   useEffect(() => {
     fetchPosts();
-    checkLoginStatus(); // 컴포넌트 마운트 시 로그인 상태 체크
+    checkLoginStatus();
   }, [sortByDateNewest, currentPage]);
 
   return (

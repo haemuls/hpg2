@@ -1,45 +1,36 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
-import Script from 'next/script'; // Next.js의 Script 컴포넌트
+import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 import { validateToken, clearTokens } from '../../token';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const [nickname, setNickname] = useState<string | null>(null);
+  const [nickname, setNickname] = useState<string | null>(localStorage.getItem('nickname'));
 
   useEffect(() => {
-    // 로컬 스토리지에서 닉네임과 토큰을 가져옵니다.
-    const savedNickname = localStorage.getItem('nickname');
     const jwtToken = localStorage.getItem('jwtToken');
 
-    if (savedNickname) {
-      setNickname(savedNickname);
+    if (!jwtToken) {
+      clearTokens();
+      setNickname(null);
+      return;
     }
 
-    // 토큰 유효성 체크
     const checkTokenValidity = async () => {
-      if (!jwtToken) {
-        clearTokens();  // 토큰이 없으면 초기화
-        setNickname(null);  // 닉네임도 초기화
-        return;
-      }
-
       const isValid = await validateToken(jwtToken);
       if (!isValid) {
-        clearTokens();  // 토큰이 유효하지 않으면 초기화
-        setNickname(null);  // 닉네임 초기화
+        clearTokens();
+        setNickname(null);
       }
     };
 
     checkTokenValidity();
-
-  }, []);  // 빈 배열로 의존성 설정하여 한번만 실행되게 함
+  }, []);
 
   const handleLogout = () => {
-    clearTokens();  // 로그아웃 시 토큰 삭제
-    setNickname(null);  // 닉네임 초기화
+    clearTokens();
+    setNickname(null);
   };
 
   return (
