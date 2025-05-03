@@ -1,0 +1,325 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titleRow {
+  display: flex; /* 플렉스를 사용하여 삭제 버튼 배치 */
+  justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 정렬 */
+  margin-bottom: 10px;
+  width: 100%; /* 추가된 속성 */
+  flex-grow: 1; /* 추가된 속성 */
+}
+
+.title {
+  font-size: 28px;
+  margin: 0;
+  padding-bottom: 10px;
+  position: relative;
+  color: #333;
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+  max-width: 80%; /* 최대 너비 제한 */
+}
+
+.metaInfo {
+  padding: 4px 0;
+  border-bottom: none;
+  color: #333;
+}
+
+.metaInfo.last {
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.metaInfo.last::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #007bff;
+  margin-top: 5px;
+}
+
+
+.viewerContainer {
+  margin-top: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.btnDelete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto; /* 버튼을 우측으로 정렬 */
+}
+
+.btnDelete:hover {
+  background-color: #c82333;
+}
+
+.commentSection {
+  margin-top: 60px;
+}
+
+.commentTitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #007bff;
+  color: #333;
+}
+
+.formGroup {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.formGroup textarea {
+  width: 100%;
+  padding: 15px;
+  padding-right: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.btnPrimary {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  height: 80px;
+  width: 90px;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #495057;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnPrimary:hover {
+  background-color: #495057;
+}
+
+.commentItem p {
+  margin: 3px;
+  padding: 0;
+}
+
+.commentItem p.commentContent {
+  text-indent: 10px; /* 댓글 내용에만 들여쓰기 적용 */
+}
+
+.commentItem strong {
+  display: block; /* 닉네임을 블록 요소로 처리하여 새로운 줄에서 시작하도록 설정 */
+  margin-bottom: 5px; /* 닉네임과 콘텐츠 간에 간격 추가 */
+}
+
+.commentMeta {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* 수정 버튼 스타일 */
+.commentEdit {
+  color: blue; /* 수정 버튼 색상 */
+  cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
+  text-decoration: underline; /* 하이퍼링크 스타일 */
+  margin-right: 10px; /* 버튼 간격 추가 */
+  margin-left: 10px
+}
+
+.commentEdit:hover {
+  color: darkblue; /* 마우스를 올릴 때 색상 변경 */
+}
+
+/* 삭제 버튼 스타일 */
+.commentDelete {
+  color: red; /* 삭제 버튼 색상 */
+  cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
+  text-decoration: underline; /* 하이퍼링크 스타일 */
+  margin-left: 1px; /* 버튼 간격 추가 */
+}
+
+.commentDelete:hover {
+  color: darkred; /* 마우스를 올릴 때 색상 변경 */
+}
+
+.flagSection {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.flagTitle {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+}
+
+.flagForm {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.flagInput {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.flagButton {
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #495057;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.flagButton:hover {
+  background-color: #495057;
+}
+
+.flagMessage {
+  margin-top: 10px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.vmSection {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.vmButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.vmButton:hover {
+  background-color: #5a6268;
+}
+
+.vmAddress {
+  margin-top: 10px;
+  font-family: monospace;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.vm-address {
+  /* vm 주소 보기 스타일 */
+  color: #333;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.submit-answer {
+  /* 정답 제출 부분 스타일 */
+  background-color: #f2f2f2;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .viewerContainer {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .commentSection {
+    margin-top: 40px;
+  }
+
+  .commentTitle {
+    font-size: 18px;
+  }
+
+  .formGroup textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btnPrimary {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .commentMeta {
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .viewerContainer {
+    margin-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .commentSection {
+    margin-top: 30px;
+  }
+
+  .formGroup textarea {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .btnPrimary {
+    width: 70px;
+    font-size: 11px;
+  }
+
+  .commentMeta {
+    font-size: 0.65em;
+  }
+
+}
