@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
-import { validateToken, clearTokens } from '../../token';
+import { clearTokens } from '../../token';
 import axios from 'axios';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
