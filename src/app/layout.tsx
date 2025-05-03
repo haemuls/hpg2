@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
-import { clearTokens } from '../../token';
+import { clearTokens, getValidAccessToken } from '../../token';
 import axios from 'axios';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -12,10 +12,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [activeUsers, setActiveUsers] = useState<number>(0);
 
   useEffect(() => {
-    const checkLoginStatus = () => {
+    const checkLoginStatus = async () => {
       const jwtToken = localStorage.getItem('jwtToken');
       const storedNickname = localStorage.getItem('nickname');
 
+      // 로컬 스토리지에서 토큰과 닉네임을 읽어오고 상태를 설정합니다.
       if (jwtToken && storedNickname) {
         setNickname(storedNickname);
       } else {
@@ -26,9 +27,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     // 첫 렌더링 시 로그인 상태 체크
     checkLoginStatus();
 
-    // storage 이벤트 리스너 등록
+    // storage 이벤트 리스너 등록 (로컬 스토리지 변경 시 상태 업데이트)
     const handleStorageChange = () => {
-      checkLoginStatus(); // localStorage 변경 시 상태 업데이트
+      checkLoginStatus(); // 로컬 스토리지 변경 시 상태 업데이트
     };
 
     window.addEventListener('storage', handleStorageChange);
@@ -36,7 +37,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, []); // 빈 배열을 사용하여 한 번만 실행되도록 설정
 
   useEffect(() => {
     if (nickname) {
@@ -49,7 +50,18 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               headers: { Accept: '*/*' },
             }
           );
-          setActiveUsers(Object.keys(response.data || {}).length);
+
+          // 응답 구조를 확인 후 적절히 처리
+          const activeUsersData = response.data;  // 예시로 response.data를 그대로 활용
+
+          if (Array.isArray(activeUsersData)) {
+            setActiveUsers(activeUsersData.length); // 배열인 경우 길이를 사용
+          } else if (activeUsersData && typeof activeUsersData === 'object') {
+            setActiveUsers(Object.keys(activeUsersData).length); // 객체인 경우 키의 길이를 사용
+          } else {
+            setActiveUsers(0); // 그 외의 경우 0명으로 설정
+          }
+
         } catch (error) {
           console.error('Failed to fetch active users:', error);
         }
@@ -57,11 +69,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
       fetchActiveUsers();
     }
-  }, [nickname]);
+  }, [nickname]); // nickname이 변경될 때마다 실행
 
   const handleLogout = () => {
     clearTokens();
-    setNickname(null);
+    localStorage.removeItem('jwtToken'); // JWT 토큰 삭제
+    localStorage.removeItem('nickname'); // 닉네임 삭제
+    setNickname(null); // 상태 초기화
   };
 
   return (

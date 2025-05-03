@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { login } from '../../../token';
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
-import { Helmet } from 'react-helmet';
 
 // 글로벌 스타일 정의
 const GlobalStyle = createGlobalStyle`
@@ -210,12 +209,6 @@ const LoginPage = () => {
 
   return (
     <>
-      <Helmet>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </Helmet>
       <GlobalStyle />
       <LoginWrapper>
         <LoginContent>
