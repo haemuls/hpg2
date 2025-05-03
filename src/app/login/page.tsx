@@ -5,11 +5,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { login } from '../../../token';
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
+import { Helmet } from 'react-helmet';
 
 // 글로벌 스타일 정의
 const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
-
   * {
     box-sizing: border-box;
   }
@@ -211,6 +210,12 @@ const LoginPage = () => {
 
   return (
     <>
+      <Helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
       <GlobalStyle />
       <LoginWrapper>
         <LoginContent>
@@ -219,23 +224,23 @@ const LoginPage = () => {
               <LoginTitle>로그인</LoginTitle>
               {errorMessage && <p>{errorMessage}</p>}
               <LoginBox>
-                <LoginIcon className="bx bx-user"/>
+                <LoginIcon className="bx bx-user" />
                 <LoginInput
-                    type="text"
-                    placeholder="아이디"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  placeholder="아이디"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </LoginBox>
               <LoginBox>
-                <LoginIcon className="bx bx-lock"/>
+                <LoginIcon className="bx bx-lock" />
                 <LoginInput
-                    type="password"
-                    placeholder="비밀번호"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="비밀번호"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </LoginBox>
               <LoginForgot href="#">비밀번호 찾기</LoginForgot>
@@ -243,7 +248,7 @@ const LoginPage = () => {
                 {loading ? '로그인 중...' : '로그인'}
               </LoginButton>
               <LoginSignin href="/signup">회원가입</LoginSignin>
-              <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <SocialButton onClick={() => redirectToOAuth('google')}>Google로 로그인</SocialButton>
                 <SocialButton onClick={() => redirectToOAuth('github')}>GitHub로 로그인</SocialButton>
               </div>

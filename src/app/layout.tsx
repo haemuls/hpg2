@@ -8,51 +8,56 @@ import { validateToken, clearTokens } from '../../token';
 import axios from 'axios';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const [nickname, setNickname] = useState<string | null>(null); // 초기값 null
+  const [nickname, setNickname] = useState<string | null>(null);
   const [activeUsers, setActiveUsers] = useState<number>(0);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedNickname = localStorage.getItem('nickname');
-      setNickname(storedNickname);
-
+    const checkLoginStatus = () => {
       const jwtToken = localStorage.getItem('jwtToken');
-      if (!jwtToken) {
-        clearTokens();
+      const storedNickname = localStorage.getItem('nickname');
+
+      if (jwtToken && storedNickname) {
+        setNickname(storedNickname);
+      } else {
         setNickname(null);
-        return;
-      }
-
-      const checkTokenValidity = async () => {
-        const isValid = await validateToken(jwtToken);
-        if (!isValid) {
-          clearTokens();
-          setNickname(null);
-        }
-      };
-
-      checkTokenValidity();
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchActiveUsers = async () => {
-      try {
-        const response = await axios.get(
-          'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active',
-          {
-            params: { namespace: 'wargame' },
-            headers: { Accept: '*/*' },
-          }
-        );
-        setActiveUsers(Object.keys(response.data || {}).length);
-      } catch (error) {
-        console.error('Failed to fetch active users:', error);
       }
     };
 
-    fetchActiveUsers();
+    // 첫 렌더링 시 로그인 상태 체크
+    checkLoginStatus();
+
+    // storage 이벤트 리스너 등록
+    const handleStorageChange = () => {
+      checkLoginStatus(); // localStorage 변경 시 상태 업데이트
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
+
+  useEffect(() => {
+    if (nickname) {
+      const fetchActiveUsers = async () => {
+        try {
+          const response = await axios.get(
+            'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active',
+            {
+              params: { namespace: 'wargame' },
+              headers: { Accept: '*/*' },
+            }
+          );
+          setActiveUsers(Object.keys(response.data || {}).length);
+        } catch (error) {
+          console.error('Failed to fetch active users:', error);
+        }
+      };
+
+      fetchActiveUsers();
+    }
+  }, [nickname]);
 
   const handleLogout = () => {
     clearTokens();
@@ -157,7 +162,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <Script src="/js/jquery-3.4.1.min.js" strategy="beforeInteractive" />
         <Script src="/js/bootstrap.js" strategy="beforeInteractive" />
         <Script src="/js/navbar-hover.js" strategy="beforeInteractive" />
-        <Script src="/js/custom.js" strategy="lazyOnload" />
       </body>
     </html>
   );
