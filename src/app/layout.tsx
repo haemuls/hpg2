@@ -4,9 +4,11 @@ import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 import { validateToken, clearTokens } from '../../token';
+import axios from 'axios';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [nickname, setNickname] = useState<string | null>(localStorage.getItem('nickname'));
+  const [activeUsers, setActiveUsers] = useState<number>(0);
 
   useEffect(() => {
     const jwtToken = localStorage.getItem('jwtToken');
@@ -26,6 +28,25 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     };
 
     checkTokenValidity();
+  }, []);
+
+  useEffect(() => {
+    const fetchActiveUsers = async () => {
+      try {
+        const response = await axios.get(
+          'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active',
+          {
+            params: { namespace: 'wargame' },
+            headers: { Accept: '*/*' },
+          }
+        );
+        setActiveUsers(Object.keys(response.data || {}).length);
+      } catch (error) {
+        console.error('Failed to fetch active users:', error);
+      }
+    };
+
+    fetchActiveUsers();
   }, []);
 
   const handleLogout = () => {
@@ -103,6 +124,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                         {nickname}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
+                        <Dropdown.Item>
+                          <strong>접속 중:</strong> {activeUsers}명
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
                         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
@@ -124,7 +149,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <p>&copy; 2025 wargame 사이트 테스트</p>
         </footer>
 
-        {/* 비동기 로드 스크립트 */}
         <Script src="/js/jquery-3.4.1.min.js" strategy="beforeInteractive" />
         <Script src="/js/bootstrap.js" strategy="beforeInteractive" />
         <Script src="/js/navbar-hover.js" strategy="beforeInteractive" />
