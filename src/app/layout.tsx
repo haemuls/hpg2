@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
@@ -7,27 +8,31 @@ import { validateToken, clearTokens } from '../../token';
 import axios from 'axios';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const [nickname, setNickname] = useState<string | null>(localStorage.getItem('nickname'));
+  const [nickname, setNickname] = useState<string | null>(null); // 초기값 null
   const [activeUsers, setActiveUsers] = useState<number>(0);
 
   useEffect(() => {
-    const jwtToken = localStorage.getItem('jwtToken');
+    if (typeof window !== 'undefined') {
+      const storedNickname = localStorage.getItem('nickname');
+      setNickname(storedNickname);
 
-    if (!jwtToken) {
-      clearTokens();
-      setNickname(null);
-      return;
-    }
-
-    const checkTokenValidity = async () => {
-      const isValid = await validateToken(jwtToken);
-      if (!isValid) {
+      const jwtToken = localStorage.getItem('jwtToken');
+      if (!jwtToken) {
         clearTokens();
         setNickname(null);
+        return;
       }
-    };
 
-    checkTokenValidity();
+      const checkTokenValidity = async () => {
+        const isValid = await validateToken(jwtToken);
+        if (!isValid) {
+          clearTokens();
+          setNickname(null);
+        }
+      };
+
+      checkTokenValidity();
+    }
   }, []);
 
   useEffect(() => {
