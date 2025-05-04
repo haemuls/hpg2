@@ -111,7 +111,6 @@ export default function WargameForm() {
         Authorization: `Bearer ${accessToken}`,
       };
 
-      let response;
       const formData = new FormData();
       formData.append("data", new Blob([JSON.stringify(problemData)], { type: "application/json" }));
 
@@ -122,7 +121,7 @@ export default function WargameForm() {
       console.log("handleSubmit: FormData with file created:", formData);
 
       // 헤더에서 Content-Type을 제거하고, FormData를 body로 전송
-      response = await fetch(API_BASE_URL, {
+      const response = await fetch(API_BASE_URL, {
         method: "POST",
         headers, // headers만 사용하고 Content-Type은 제거
         body: formData,
