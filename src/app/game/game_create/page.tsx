@@ -33,7 +33,10 @@ export default function WargameForm() {
   const [file, setFile] = useState<File | null>(null);
 
   useEffect(() => {
+    console.log("useEffect: Checking membership ID");
     const storedMembershipId = getMembershipId();
+    console.log("Stored Membership ID:", storedMembershipId);
+
     if (!storedMembershipId) {
       alert('로그인이 필요합니다.');
       clearTokens();
@@ -42,7 +45,10 @@ export default function WargameForm() {
     }
 
     const loadToken = async () => {
+      console.log("Loading token...");
       const token = await getToken();
+      console.log("Loaded Token:", token);
+
       if (!token) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -57,18 +63,23 @@ export default function WargameForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    console.log(`handleChange: ${name} = ${value}`);
     setProblem((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      console.log("handleFileChange: Selected file:", e.target.files[0]);
       setFile(e.target.files[0]);
     }
   };
 
   const handleSubmit = async () => {
+    console.log("handleSubmit: Starting submission...");
     try {
       const accessToken = await getToken();
+      console.log("handleSubmit: Retrieved Access Token:", accessToken);
+
       if (!accessToken) {
         alert("로그인이 만료되었습니다. 다시 로그인 해주세요.");
         clearTokens();
@@ -94,50 +105,41 @@ export default function WargameForm() {
         dockerfileLink: problem.dockerfileLink,
       };
 
-      console.log("Problem Data:", problemData); // 디버깅: 문제 데이터 확인
+      console.log("handleSubmit: Problem Data to Submit:", problemData);
 
       const headers = {
         Authorization: `Bearer ${accessToken}`,
       };
 
       let response;
+      const formData = new FormData();
+      formData.append("data", new Blob([JSON.stringify(problemData)], { type: "application/json" }));
+
       if (file) {
-        const formData = new FormData();
-        // JSON 데이터를 string으로 변환하여 "data" 필드에 넣기
-        formData.append("data", new Blob([JSON.stringify(problemData)], { type: "application/json" }));
-        formData.append("file", file);  // 파일 데이터 추가
-
-        console.log("Form Data with file:", formData); // 디버깅: FormData 확인
-
-        response = await fetch(API_BASE_URL, {
-          method: "POST",
-          headers, // 기본 headers만 사용
-          body: formData,  // FormData를 사용해 전송
-        });
-      } else {
-        // 파일이 없는 경우에는 JSON만 전송
-        response = await fetch(API_BASE_URL, {
-          method: "POST",
-          headers: {
-            ...headers,
-            'Content-Type': 'application/json',  // JSON Content-Type 설정
-          },
-          body: JSON.stringify(problemData),  // JSON 데이터 전송
-        });
+        formData.append("file", file);
       }
 
-      console.log("Response Status:", response.status); // 디버깅: 응답 상태 확인
+      console.log("handleSubmit: FormData with file created:", formData);
+
+      // 헤더에서 Content-Type을 제거하고, FormData를 body로 전송
+      response = await fetch(API_BASE_URL, {
+        method: "POST",
+        headers, // headers만 사용하고 Content-Type은 제거
+        body: formData,
+      });
+
+      console.log("handleSubmit: Response Status:", response.status);
 
       if (response.ok) {
         alert("문제가 성공적으로 제출되었습니다.");
         router.push("/game");
       } else {
         const errorText = await response.text();
-        console.error("Submission failed:", errorText);
+        console.error("handleSubmit: Submission failed:", errorText);
         alert("문제 제출 실패");
       }
     } catch (err) {
-      console.error("Error during submission:", err);
+      console.error("handleSubmit: Error during submission:", err);
       alert("문제 제출 중 오류가 발생했습니다.");
     }
   };

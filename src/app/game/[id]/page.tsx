@@ -25,6 +25,7 @@ interface Problem {
   entireCount: number;
   createdAt: string;
   updatedAt: string;
+  dockerfileLink?: string;  // dockerfileLink 속성 추가
 }
 
 interface Ranking {
@@ -279,12 +280,15 @@ const CTFProblemPage = () => {
             </a>
           </div>
         )}
+        {/* 도커 관련 부분 주석 처리 */}
+        {/*
         {problem.kind === "docker" && (
           <div>
             <button onClick={handleShowVmAddress}>VM 주소 보기</button>
             {vmAddress && <p>{vmAddress}</p>}
           </div>
         )}
+        */}
       </div>
 
       <div className={styles.rankings}>
