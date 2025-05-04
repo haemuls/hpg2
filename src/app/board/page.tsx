@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
 import styles from "./board.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { getAccessToken } from "../../../token";
+import { getToken } from "../../../token";  // getValidJwtToken 대신
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
@@ -23,8 +23,11 @@ interface BoardResponse {
   result: {
     content: Post[];
     totalPages: number;
+    totalElements: number;
   };
 }
+
+const PAGE_SIZE = 25; // 페이지 크기를 상수로 관리
 
 const BoardPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -33,12 +36,12 @@ const BoardPage = () => {
   const [sortByDateNewest, setSortByDateNewest] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalElements, setTotalElements] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
 
   const maxPageButtons = 5;
-
 
   const pageGroupStart = Math.floor(currentPage / maxPageButtons) * maxPageButtons;
   const pageGroupEnd = Math.min(pageGroupStart + maxPageButtons, totalPages);
@@ -49,12 +52,12 @@ const BoardPage = () => {
 
     try {
       const endpoint = searchTerm
-        ? `${API_BASE_URL}/api/boards/search?type=FREE&keyword=${encodeURIComponent(searchTerm)}&page=${currentPage}&size=25`
-        : `${API_BASE_URL}/api/boards?type=FREE&page=${currentPage}&size=25&sortByNewest=${sortByDateNewest}`;
+        ? `${API_BASE_URL}/api/boards/search?type=FREE&keyword=${encodeURIComponent(searchTerm)}&page=${currentPage}&size=${PAGE_SIZE}`
+        : `${API_BASE_URL}/api/boards?type=FREE&page=${currentPage}&size=${PAGE_SIZE}&sortByNewest=${sortByDateNewest}`;
 
       const response = await fetch(endpoint, {
         headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
+          Authorization: `Bearer ${await getToken()}`,  // 토큰 검증 후 설정
           "Content-Type": "application/json",
         },
       });
@@ -71,6 +74,7 @@ const BoardPage = () => {
 
       setPosts(formattedPosts);
       setTotalPages(data.result.totalPages);
+      setTotalElements(data.result.totalElements);
     } catch (err: unknown) {
       setError(
         err instanceof Error
@@ -82,8 +86,8 @@ const BoardPage = () => {
     }
   };
 
-  const checkLoginStatus = () => {
-    const token = getAccessToken();
+  const checkLoginStatus = async () => {
+    const token = await getToken();
     setIsLoggedIn(!!token);
   };
 
@@ -99,14 +103,13 @@ const BoardPage = () => {
   };
 
   const goToPage = (page: number) => {
-  if (page >= 0 && page < totalPages) {
-    setCurrentPage(page);
-    fetchPosts();
-  } else {
-    alert("유효하지 않은 페이지입니다.");
-  }
-};
-
+    if (page >= 0 && page < totalPages) {
+      setCurrentPage(page);
+      fetchPosts();
+    } else {
+      alert("유효하지 않은 페이지입니다.");
+    }
+  };
 
   const handleWritePost = async () => {
     if (!isLoggedIn) {
@@ -115,26 +118,15 @@ const BoardPage = () => {
       return;
     }
 
-    const token = getAccessToken();
-
     try {
-      const response = await fetch(`${API_BASE_URL}/token-validate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          jwtToken: token,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data === true) {
-        router.push("/board/write");
-      } else {
-        alert("토큰이 유효하지 않습니다.");
+      const token = await getToken();
+      if (!token) {
+        alert("유효하지 않은 토큰입니다.");
+        router.push("/login");
+        return;
       }
+
+      router.push("/board/write");
     } catch (err) {
       alert("토큰 검증 중 오류가 발생했습니다.");
       console.error(err);
@@ -186,8 +178,8 @@ const BoardPage = () => {
                       <tr key={post.id}>
                         <td>
                           {sortByDateNewest
-                            ? currentPage * 25 + index + 1
-                            : totalPages * 25 - (currentPage * 25 + index)}
+                            ? totalElements - (currentPage * PAGE_SIZE + index)
+                            : currentPage * PAGE_SIZE + index + 1}
                         </td>
                         <td>
                           <Link href={`/board/view/${post.id}`}>
@@ -269,7 +261,7 @@ const BoardPage = () => {
                   type="search"
                   placeholder="제목으로 검색"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)} // 검색어 입력
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
                   type="submit"

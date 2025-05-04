@@ -2,9 +2,9 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #f9f9f9;
+  background-color: #FFFFFF;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
 .titleRow {
@@ -12,8 +12,8 @@
   justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
   align-items: center; /* 수직 정렬 */
   margin-bottom: 10px;
-  width: 100%;
-  flex-grow: 1;
+  width: 100%; /* 추가된 속성 */
+  flex-grow: 1; /* 추가된 속성 */
 }
 
 .title {
@@ -27,28 +27,31 @@
 }
 
 .metaInfo {
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
+  padding: 4px 0;
+  border-bottom: none;
+  color: #333;
 }
 
-.metaInfo span {
-  margin-right: 10px;
+.metaInfo.last {
+  margin-bottom: 12px;
+  position: relative;
 }
 
-.metaInfo::after {
+.metaInfo.last::after {
   content: "";
   display: block;
-  width: 100%;
+  width: 80%;
   height: 2px;
   background-color: #007bff;
   margin-top: 5px;
 }
 
+
 .viewerContainer {
   margin-top: 40px;
   padding-bottom: 30px;
   border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
 }
 
 .btnDelete {
@@ -138,17 +141,20 @@
   margin-top: 5px;
 }
 
+/* 수정 버튼 스타일 */
 .commentEdit {
   color: blue; /* 수정 버튼 색상 */
   cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
   text-decoration: underline; /* 하이퍼링크 스타일 */
   margin-right: 10px; /* 버튼 간격 추가 */
+  margin-left: 10px
 }
 
 .commentEdit:hover {
   color: darkblue; /* 마우스를 올릴 때 색상 변경 */
 }
 
+/* 삭제 버튼 스타일 */
 .commentDelete {
   color: red; /* 삭제 버튼 색상 */
   cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
@@ -159,6 +165,146 @@
 .commentDelete:hover {
   color: darkred; /* 마우스를 올릴 때 색상 변경 */
 }
+
+.flagSection {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 60%;
+}
+
+.flagTitle {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+}
+
+.flagForm {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.flagInput {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.flagButton {
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #495057;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.flagButton:hover {
+  background-color: #495057;
+}
+
+.flagMessage {
+  margin-top: 10px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.vmSection {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.vmButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.vmButton:hover {
+  background-color: #5a6268;
+}
+
+.vmAddress {
+  margin-top: 10px;
+  font-family: monospace;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.vm-address {
+  /* vm 주소 보기 스타일 */
+  color: #333;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.submit-answer {
+  /* 정답 제출 부분 스타일 */
+  background-color: #f2f2f2;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+.rankingSection {
+  position: absolute;
+  right: 20px;
+  top: 120px;
+  width: 250px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.rankingTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.rankingList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rankingItem {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.rankingItem:last-child {
+  border-bottom: none;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.firstBlood {
+  font-size: 0.9rem;
+  color: #666;
+}
+
 
 @media (max-width: 768px) {
   .title {
@@ -220,4 +366,5 @@
   .commentMeta {
     font-size: 0.65em;
   }
+
 }

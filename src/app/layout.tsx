@@ -1,36 +1,65 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
-import { validateToken, clearTokens } from '../../token';
+import { getToken, clearTokens } from '../../token';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const [nickname, setNickname] = useState<string | null>(localStorage.getItem('nickname'));
+  const [nickname, setNickname] = useState<string | null>(null);
+  const [activeUserCount, setActiveUserCount] = useState<number | null>(null);
 
   useEffect(() => {
-    const jwtToken = localStorage.getItem('jwtToken');
-
-    if (!jwtToken) {
-      clearTokens();
-      setNickname(null);
-      return;
+    const storedNickname = localStorage.getItem('nickname');
+    if (storedNickname) {
+      setNickname(storedNickname);
     }
 
     const checkTokenValidity = async () => {
-      const isValid = await validateToken(jwtToken);
-      if (!isValid) {
+      const jwtToken = await getToken();
+      if (!jwtToken) {
         clearTokens();
         setNickname(null);
+        setActiveUserCount(null);
+      } else {
+        fetchActiveUsers(jwtToken);
       }
     };
 
     checkTokenValidity();
   }, []);
 
+  const fetchActiveUsers = async (token: string) => {
+    try {
+      const response = await fetch(
+        'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active?namespace=wargame',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setActiveUserCount(Object.keys(data).length); // 사용자-문제 매핑 개수를 카운트
+      } else {
+        console.error('Failed to fetch active users:', response.status);
+        setActiveUserCount(null);
+      }
+    } catch (error) {
+      console.error('Error fetching active users:', error);
+      setActiveUserCount(null);
+    }
+  };
+
   const handleLogout = () => {
     clearTokens();
     setNickname(null);
+    setActiveUserCount(null);
   };
 
   return (
@@ -101,6 +130,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                     <Dropdown>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         {nickname}
+                        {activeUserCount !== null && (
+                          <span style={{ marginLeft: '10px', fontSize: '0.9em', color: '#fff' }}>
+                            ({activeUserCount}명 접속 중)
+                          </span>
+                        )}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
@@ -121,7 +155,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <main>{children}</main>
 
         <footer className="footer_section">
-          <p>&copy; 2025 wargame 사이트 테스트</p>
+          <p>&copy; 2025 hpground.xyz</p>
         </footer>
 
         {/* 비동기 로드 스크립트 */}

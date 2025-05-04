@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // API URLs
-const BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com'; // API 기본 주소
-const LOGIN_URL = `${BASE_URL}/login`; // 로그인 요청 URL
-const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`; // 토큰 검증 요청 URL
-const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`; // 액세스 토큰 갱신 URL
-const USER_INFO_URL = `${BASE_URL}/api/users`; // 사용자 정보 요청 URL
+const BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
+const LOGIN_URL = `${BASE_URL}/login`;
+const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`;
+const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`;
+const USER_INFO_URL = `${BASE_URL}/api/users`;
 
 // 사용자 정보 타입 정의
 interface UserInfo {
@@ -16,17 +16,25 @@ interface UserInfo {
   membershipId: string;
 }
 
+// Axios 인스턴스 생성
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 // 로그인 요청
 export const login = async (account: string, password: string) => {
   try {
-    const response = await axios.post(LOGIN_URL, { account, password });
+    const response = await axiosInstance.post(LOGIN_URL, { account, password });
     const { jwtToken, refreshToken, nickName, membershipId } = response.data;
 
-    setTokens(jwtToken, refreshToken); // 토큰 저장
+    setTokens(jwtToken, refreshToken);
     localStorage.setItem('nickname', nickName);
     localStorage.setItem('membershipId', membershipId);
 
-    setAxiosDefaults();
+    setAxiosDefaults(jwtToken);
 
     return response.data;
   } catch (error) {
@@ -36,9 +44,9 @@ export const login = async (account: string, password: string) => {
 };
 
 // 토큰 검증 요청
-export const validateToken = async (accessToken: string): Promise<boolean> => {
+export const validateToken = async (jwtToken: string): Promise<boolean> => {
   try {
-    const response = await axios.post(TOKEN_VALIDATE_URL, { jwtToken: accessToken });
+    const response = await axiosInstance.post(TOKEN_VALIDATE_URL, { jwtToken });
     return response.data === true;
   } catch (error) {
     console.error('토큰 검증 실패:', error);
@@ -49,23 +57,24 @@ export const validateToken = async (accessToken: string): Promise<boolean> => {
 // 리프레시 토큰을 통한 액세스 토큰 갱신 요청
 export const refreshAccessToken = async (
   membershipId: string,
-  accessToken: string,
+  jwtToken: string,
   refreshToken: string
 ): Promise<string | null> => {
   try {
-    const response = await axios.post(TOKEN_REFRESH_URL, {
+    const response = await axiosInstance.post(TOKEN_REFRESH_URL, {
       membershipId,
-      jwtToken: accessToken,
+      jwtToken,
       refreshToken,
     });
 
-    const { jwtToken: newAccessToken, refreshToken: newRefreshToken } = response.data;
-    setTokens(newAccessToken, newRefreshToken);
+    const { jwtToken: newJwtToken, refreshToken: newRefreshToken } = response.data;
+    setTokens(newJwtToken, newRefreshToken);
 
-    return newAccessToken;
+    setAxiosDefaults(newJwtToken);
+
+    return newJwtToken;
   } catch (error) {
     console.error('토큰 갱신 실패:', error);
-    handleTokenError(); // 실패 시 처리
     return null;
   }
 };
@@ -78,15 +87,14 @@ export const getUserInfo = async (): Promise<UserInfo> => {
       throw new Error('Membership ID not available');
     }
 
-    const accessToken = await getValidAccessToken();
-    if (!accessToken) {
-      throw new Error('Access token not available');
+    const jwtToken = await getToken();
+    if (!jwtToken) {
+      throw new Error('JWT token not available');
     }
 
-    const response = await axios.get<UserInfo>(`${USER_INFO_URL}/${membershipId}`, {
+    const response = await axiosInstance.get<UserInfo>(`${USER_INFO_URL}/${membershipId}`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwtToken}`,
       },
     });
 
@@ -114,12 +122,12 @@ export const getUserNickname = async (): Promise<string | null> => {
 };
 
 // 토큰 관리 함수
-export const setTokens = (accessToken: string, refreshToken: string) => {
-  localStorage.setItem('jwtToken', accessToken);
+export const setTokens = (jwtToken: string, refreshToken: string) => {
+  localStorage.setItem('jwtToken', jwtToken);
   localStorage.setItem('refreshToken', refreshToken);
 };
 
-export const getAccessToken = () => localStorage.getItem('jwtToken');
+export const getJwtToken = () => localStorage.getItem('jwtToken');
 export const getRefreshToken = () => localStorage.getItem('refreshToken');
 export const getMembershipId = () => localStorage.getItem('membershipId');
 
@@ -129,58 +137,31 @@ export const clearTokens = () => {
   localStorage.removeItem('membershipId');
 };
 
-// 유효한 액세스 토큰을 반환하는 함수
-export const getValidAccessToken = async (): Promise<string | null> => {
-  const accessToken = getAccessToken();
-  if (!accessToken) {
-    handleTokenError(); // 실패 처리
-    return null;
+// 유효한 JWT 토큰을 반환하는 함수
+export const getToken = async (): Promise<string | null> => {
+  let jwtToken = getJwtToken();
+  const refreshToken = getRefreshToken();
+  const membershipId = getMembershipId();
+
+  if (!jwtToken && refreshToken && membershipId) {
+    jwtToken = await refreshAccessToken(membershipId, '', refreshToken);
   }
 
-  const isValid = await validateToken(accessToken);
-  if (!isValid) {
-    const refreshToken = getRefreshToken();
-    const membershipId = getMembershipId();
-    if (refreshToken && membershipId) {
-      const newAccessToken = await refreshAccessToken(membershipId, accessToken, refreshToken);
-      if (!newAccessToken) {
-        handleTokenError(); // 실패 처리
-        return null;
-      }
-
-      // 새로 발급받은 액세스 토큰을 Axios 기본 헤더에 반영
-      axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-
-      return newAccessToken;
+  if (jwtToken) {
+    const isValid = await validateToken(jwtToken);
+    if (!isValid && refreshToken && membershipId) {
+      jwtToken = await refreshAccessToken(membershipId, jwtToken, refreshToken);
     }
-    handleTokenError(); // 실패 처리
+  }
+
+  if (!jwtToken) {
     return null;
   }
 
-  return accessToken;
-};
-
-// 토큰 관련 에러 처리
-export const handleTokenError = () => {
-  clearTokens();
-  window.location.href = '/login'; // 로그인 페이지로 이동
+  return jwtToken;
 };
 
 // Axios 기본 헤더 설정
-export const setAxiosDefaults = () => {
-  const accessToken = getAccessToken();
-  if (accessToken) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  }
+export const setAxiosDefaults = (jwtToken: string) => {
+  axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
 };
-
-// Axios 전역 에러 처리
-axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      handleTokenError(); // 401 에러 시 처리
-    }
-    return Promise.reject(error);
-  }
-);

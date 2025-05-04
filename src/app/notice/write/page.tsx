@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getValidAccessToken, clearTokens, getMembershipId } from '../../../../token';
+import { getValidJwtToken, clearTokens, getMembershipId } from '../../../../token'; // 수정된 getValidJwtToken 함수 사용
 import styles from './BoardWritePage.module.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
@@ -17,7 +17,7 @@ const API_BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.c
 
 const BoardWritePage = () => {
   const [title, setTitle] = useState('');
-  const editorRef = useRef<Editor | null>(null);  // 'Editor' 타입 지정
+  const editorRef = useRef<Editor | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const BoardWritePage = () => {
     }
 
     const loadToken = async () => {
-      const token = await getValidAccessToken();
+      const token = await getValidJwtToken(); // 수정된 함수 호출
       if (!token) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -53,7 +53,7 @@ const BoardWritePage = () => {
     const postData = { title, type: 'ANNOUNCE', contents };
 
     try {
-      const accessToken = await getValidAccessToken();
+      const accessToken = await getValidJwtToken(); // 수정된 함수 호출
       if (!accessToken) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();

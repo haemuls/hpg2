@@ -1,9 +1,10 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import "../../../../public/styles/bootstrap.css";
 import "../../../../public/styles/game_create.css";
-import { getValidAccessToken, clearTokens, getMembershipId } from '../../../../token';
+import { getToken, clearTokens, getMembershipId } from '../../../../token';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 
@@ -12,7 +13,7 @@ type WargameProblem = {
   detail: string;
   source: string;
   kind: string;
-  level: string; // ⭐, ⭐⭐, ⭐⭐⭐
+  level: string;
   flag: string;
   dockerfileLink: string;
 };
@@ -23,8 +24,8 @@ export default function WargameForm() {
     title: "",
     detail: "",
     source: "",
-    kind: "웹해킹",
-    level: "⭐⭐",  // 기본값: ⭐⭐
+    kind: "",
+    level: "⭐⭐",
     flag: "",
     dockerfileLink: "",
   });
@@ -33,7 +34,6 @@ export default function WargameForm() {
 
   useEffect(() => {
     const storedMembershipId = getMembershipId();
-
     if (!storedMembershipId) {
       alert('로그인이 필요합니다.');
       clearTokens();
@@ -42,8 +42,7 @@ export default function WargameForm() {
     }
 
     const loadToken = async () => {
-      const token = await getValidAccessToken();
-
+      const token = await getToken();
       if (!token) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -69,67 +68,76 @@ export default function WargameForm() {
 
   const handleSubmit = async () => {
     try {
-      const accessToken = await getValidAccessToken();
-      console.log("Access Token on Submit:", accessToken);
-
+      const accessToken = await getToken();
       if (!accessToken) {
-        alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
+        alert("로그인이 만료되었습니다. 다시 로그인 해주세요.");
         clearTokens();
-        router.push('/login');
+        router.push("/login");
         return;
       }
 
-      // 레벨 맵 설정
       const levelMap: Record<string, number> = {
-        "⭐": 1,    // ⭐ -> 1
-        "⭐⭐": 2,   // ⭐⭐ -> 2
-        "⭐⭐⭐": 3,  // ⭐⭐⭐ -> 3
+        "⭐": 1,
+        "⭐⭐": 2,
+        "⭐⭐⭐": 3,
       };
 
-      // 문제 데이터 설정
       const problemData = {
-        ...problem,
+        title: problem.title,
         type: "WARGAME",
-        reviewer: "",
-        tags: [],
-        level: levelMap[problem.level] ?? 1,  // levelMap을 통해 숫자 값으로 변환
+        detail: problem.detail,
+        source: problem.source,
+        tags: [], // tags는 빈 배열로 처리됨
+        kind: problem.kind ? problem.kind.toUpperCase() : "",
+        level: levelMap[problem.level] ?? 1,
+        flag: problem.flag,
+        dockerfileLink: problem.dockerfileLink,
       };
 
-      console.log("Problem Data to Send:", problemData);
+      console.log("Problem Data:", problemData); // 디버깅: 문제 데이터 확인
 
-      const headers: HeadersInit = {
-        "Authorization": `Bearer ${accessToken}`,
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
       };
 
-      // FormData 생성
-      const formData = new FormData();
-      formData.append('data', JSON.stringify(problemData));  // 문제 데이터를 JSON으로 전송
+      let response;
       if (file) {
-        formData.append('file', file);  // 파일이 있으면 추가
+        const formData = new FormData();
+        // JSON 데이터를 string으로 변환하여 "data" 필드에 넣기
+        formData.append("data", new Blob([JSON.stringify(problemData)], { type: "application/json" }));
+        formData.append("file", file);  // 파일 데이터 추가
+
+        console.log("Form Data with file:", formData); // 디버깅: FormData 확인
+
+        response = await fetch(API_BASE_URL, {
+          method: "POST",
+          headers, // 기본 headers만 사용
+          body: formData,  // FormData를 사용해 전송
+        });
+      } else {
+        // 파일이 없는 경우에는 JSON만 전송
+        response = await fetch(API_BASE_URL, {
+          method: "POST",
+          headers: {
+            ...headers,
+            'Content-Type': 'application/json',  // JSON Content-Type 설정
+          },
+          body: JSON.stringify(problemData),  // JSON 데이터 전송
+        });
       }
 
-      console.log("Form Data (JSON + File):", formData);
-
-      const response = await fetch(`${API_BASE_URL}`, {
-        method: "POST",
-        headers,  // Content-Type을 설정하지 않음
-        body: formData,  // FormData를 본문으로 전송
-      });
-
-      console.log("Response Status:", response.status);
-      console.log("Response Headers:", response.headers);
-      const responseText = await response.text();
-      console.log("Response Text:", responseText);
+      console.log("Response Status:", response.status); // 디버깅: 응답 상태 확인
 
       if (response.ok) {
         alert("문제가 성공적으로 제출되었습니다.");
-        router.push('/game');
+        router.push("/game");
       } else {
-        console.error("Submission Failed:", response.status);
-        alert(`문제 제출 실패: ${responseText}`);
+        const errorText = await response.text();
+        console.error("Submission failed:", errorText);
+        alert("문제 제출 실패");
       }
     } catch (err) {
-      console.error("Error Submitting Problem:", err);
+      console.error("Error during submission:", err);
       alert("문제 제출 중 오류가 발생했습니다.");
     }
   };
@@ -153,10 +161,11 @@ export default function WargameForm() {
       <div className="form-group">
         <label>문제 종류</label>
         <select name="kind" value={problem.kind} onChange={handleChange} className="problemSelector">
-          <option value="웹해킹">웹해킹</option>
-          <option value="포너블">포너블</option>
-          <option value="리버싱">리버싱</option>
-          <option value="암호학">암호학</option>
+          <option value="">문제 종류를 선택하세요</option>
+          <option value="WEBHACKING">웹해킹</option>
+          <option value="PWNABLE">포너블</option>
+          <option value="REVERSING">리버싱</option>
+          <option value="CEYPTO">암호학</option>
         </select>
       </div>
       <div className="form-group">

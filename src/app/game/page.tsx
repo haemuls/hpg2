@@ -37,9 +37,10 @@ const GamePage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [size] = useState(25);
-  const [isAdmin, setIsAdmin] = useState(false); // 관리자 상태 추가
-  const [sortKind, setSortKind] = useState(""); // 기본적으로 정렬 기준 없음
-  const [desc, setDesc] = useState(true); // 기본적으로 내림차순 정렬
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [sortKind, setSortKind] = useState("");
+  const [desc, setDesc] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 여부 상태
   const router = useRouter();
 
   const membershipId = typeof window !== "undefined" ? localStorage.getItem("membershipId") || "99999" : "99999";
@@ -47,10 +48,14 @@ const GamePage = () => {
   useEffect(() => {
     const adminStatus = localStorage.getItem("isAdmin") === "true";
     setIsAdmin(adminStatus);
+
+    const token = localStorage.getItem("jwtToken"); // jwtToken을 통해 로그인 여부 확인
+    if (token) {
+      setIsLoggedIn(true); // 로그인 상태일 경우 true
+    }
   }, []);
 
   const handleSort = (column: string) => {
-    // 정렬 기준을 정답율 또는 마지막 수정일로만 제한
     if (column === "correctRate" || column === "lastModified") {
       setSortKind(column);
       setDesc(prevDesc => (prevDesc && column === sortKind) ? !prevDesc : true);
@@ -67,8 +72,8 @@ const GamePage = () => {
           userId: membershipId,
           type: "WARGAME",
           kind: selectedType === "전체" ? "" : selectedType,
-          sortKind: sortKind,  // 동적으로 선택된 정렬 기준
-          desc: desc.toString(),  // 내림차순/오름차순 여부
+          sortKind: sortKind,
+          desc: desc.toString(),
           page: currentPage.toString(),
           size: size.toString(),
         });
@@ -90,7 +95,6 @@ const GamePage = () => {
         }
 
         const data = await response.json();
-
         setTotalPages(data.totalPages);
 
         const formattedPosts = data.content.map((post: Post) => ({
@@ -117,10 +121,16 @@ const GamePage = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("검색어:", searchTerm);
+    // 검색어를 기준으로 filteredPosts 업데이트
+    const filtered = posts.filter((post) => post.title.includes(searchTerm));
+    setPosts(filtered); // filteredPosts로 갱신
   };
 
   const handleCreateButtonClick = () => {
+    if (!isLoggedIn) {
+      alert("로그인 후 문제를 제출할 수 있습니다.");
+      return;
+    }
     router.push("/game/game_create");
   };
 
@@ -129,8 +139,6 @@ const GamePage = () => {
       setCurrentPage(page);
     }
   };
-
-  const filteredPosts = posts.filter((post) => post.title.includes(searchTerm));
 
   const getLevelIcon = (level: string | null) => {
     if (!level) {
@@ -169,10 +177,10 @@ const GamePage = () => {
             className={styles.problemSelector}
           >
             <option value="전체">전체</option>
-            <option value="webhacking">webhacking</option>
-            <option value="pwnable">pwnable</option>
-            <option value="reversing">reversing</option>
-            <option value="crypto">crypto</option>
+            <option value="WEBHACKING">webhacking</option>
+            <option value="PWNABLE">pwnable</option>
+            <option value="REVERSING">reversing</option>
+            <option value="CRYPTO">crypto</option>
           </select>
         </div>
       </div>
@@ -220,8 +228,8 @@ const GamePage = () => {
                       {error}
                     </td>
                   </tr>
-                ) : filteredPosts.length > 0 ? (
-                  filteredPosts.map((post) => (
+                ) : posts.length > 0 ? (
+                  posts.map((post) => (
                     <tr key={post.id}>
                       <td>{post.solved ? "✅" : ""}</td>
                       <td>{post.id}</td>
@@ -288,6 +296,7 @@ const GamePage = () => {
             type="button"
             className={styles.writeButton}
             onClick={handleCreateButtonClick}
+            disabled={!isLoggedIn} // 로그인 안된 경우 버튼 비활성화
           >
             문제 만들기
           </button>

@@ -1,20 +1,30 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from 'next/navigation';
-import styles from './game_start.module.css';  // CSS Module 임포트
-import { getAccessToken } from '../../../../token';
+import { useRouter, useParams } from "next/navigation";
+import styles from './ProblemDetail.module.css';
+import { getJwtToken } from '../../../../token'; // `getJwtToken`을 사용
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
 interface Problem {
+  id: number;
   title: string;
   creator: string;
-  level: number;
-  problemFile?: string;
+  level: string;
   detail: string;
-  dockerfileLink?: string;
+  problemFile?: string;
+  probelmFileSize?: number | null;
+  kind: string;
+  type: string;
+  tags?: string[];
+  reviewer?: string;
+  source?: string;
+  correctCount: number;
+  entireCount: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Ranking {
@@ -24,11 +34,10 @@ interface Ranking {
 
 interface Comment {
   id: number;
-  creator: {
-    nickname: string;
-  };
+  creator: { nickname: string };
   createdAt: string;
   content: string;
+  isEditing?: boolean;
 }
 
 interface ApiResponse<T> {
@@ -36,9 +45,9 @@ interface ApiResponse<T> {
 }
 
 const CTFProblemPage = () => {
-  const params = useParams();
+  const { id: problemIdParam } = useParams();
   const router = useRouter();
-  const problemId = Array.isArray(params?.id) ? params.id[0] : params?.id || "6";
+  const problemId = problemIdParam || "6";
 
   const [problem, setProblem] = useState<Problem | null>(null);
   const [flag, setFlag] = useState<string>("");
@@ -49,105 +58,60 @@ const CTFProblemPage = () => {
   const [vmAddress, setVmAddress] = useState<string>("");
   const [token, setToken] = useState<string | null>(null);
   const [isTokenLoaded, setIsTokenLoaded] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [userNickname, setUserNickname] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedToken = getAccessToken();
+    const storedToken = getJwtToken(); // `getJwtToken`을 사용하여 저장된 토큰을 가져옵니다.
     setToken(storedToken);
-    setIsTokenLoaded(true); // 토큰 로딩 완료
+    setIsTokenLoaded(true);
   }, []);
 
   useEffect(() => {
     if (!isTokenLoaded) return;
-
     if (!token) {
       alert("로그인이 필요한 서비스입니다.");
-      router.push("/login"); // 로그인 페이지로 리다이렉트
+      router.push("/login");
       return;
     }
 
-    const fetchProblem = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/${problemId}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': '*/*',
-          },
+        const problemRes = await fetch(`${API_BASE_URL}/${problemId}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
         });
+        const problemData: ApiResponse<Problem> = await problemRes.json();
+        setProblem(problemData.result);
+        console.log("받아온 문제 정보:", problemData.result);
 
-        if (!res.ok) {
-          throw new Error(`문제 API 호출 실패: ${res.status} ${res.statusText}`);
-        }
+        const commentsRes = await fetch(`${FILE_BASE_URL}/api/comments/problem/${problemId}`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const commentsData: ApiResponse<Comment[]> = await commentsRes.json();
+        setComments(commentsData.result);
 
-        const data: ApiResponse<Problem> = await res.json();
-        setProblem(data.result);
+        const rankingRes = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=5`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        const rankingData: ApiResponse<Ranking[]> = await rankingRes.json();
+        setRanking(rankingData.result);
       } catch (error) {
-        console.error("문제 가져오기 실패:", error);
+        console.error("데이터 가져오기 실패:", error);
       }
     };
 
-    const fetchComments = async () => {
-      try {
-        const res = await fetch(`${FILE_BASE_URL}/api/comments/problem/${problemId}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': '*/*',
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error(`댓글 API 호출 실패: ${res.status} ${res.statusText}`);
-        }
-
-        const data: ApiResponse<Comment[]> = await res.json();
-        setComments(data.result);
-      } catch (error) {
-        console.error("댓글 가져오기 실패:", error);
-      }
-    };
-
-    const fetchRanking = async () => {
-      try {
-        const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=5`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': '*/*',
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error(`랭킹 API 호출 실패: ${res.status} ${res.statusText}`);
-        }
-
-        const data: ApiResponse<Ranking[]> = await res.json();
-        if (Array.isArray(data.result)) {
-          setRanking(data.result);
-        } else {
-          setRanking([data.result]); // 객체를 배열로 감싸서 상태에 저장
-        }
-      } catch (error) {
-        console.error("랭킹 조회 실패:", error);
-      }
-    };
-
-    fetchProblem();
-    fetchComments();
-    fetchRanking();
+    fetchData();
   }, [problemId, token, isTokenLoaded]);
 
   const handleSubmit = async () => {
     if (!token) return;
 
     try {
-      const url = `${FILE_BASE_URL}/api/problems/${problemId}/solve?flag=${encodeURIComponent(flag)}`;
-      const res = await fetch(url, {
+      const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/solve?flag=${encodeURIComponent(flag)}`, {
         method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Accept": '*/*',
-        },
+        headers: { "Authorization": `Bearer ${token}` },
       });
 
       if (!res.ok) {
@@ -163,114 +127,120 @@ const CTFProblemPage = () => {
     }
   };
 
-  const handleAddComment = async () => {
-    if (newComment.trim() === "") return;
-
-    if (!token) {
-      alert("로그인이 필요합니다.");
-      return;
-    }
-
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/comments`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          type: "PROBLEM", // "PROBLEM"으로 설정
-          parentId: problemId, // 부모 댓글 ID는 문제 ID로 설정
-          contents: newComment, // 댓글 내용
-        }),
-      });
-
-      if (!res.ok) {
-        throw new Error(`댓글 작성 실패: ${res.status} ${res.statusText}`);
-      }
-
-      const data = await res.json();
-      setComments((prevComments) => [...prevComments, data.result]); // 새 댓글을 댓글 목록에 추가
-      setNewComment(""); // 댓글 작성 후 입력값 초기화
-    } catch (error) {
-      console.error("댓글 작성 실패:", error);
-      alert("댓글 작성 중 오류가 발생했습니다.");
-    }
-  };
-
   const handleShowVmAddress = () => {
     setVmAddress(problem?.dockerfileLink || "VM 주소가 제공되지 않았습니다.");
   };
 
-  if (!problem) return <div>로딩 중...</div>;
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
 
-  const formatTime = (timeString: string) => {
-    const date = new Date(timeString);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    if (!token) {
+      alert("로그인 후 댓글을 작성할 수 있습니다.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${FILE_BASE_URL}/api/comments`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: "PROBLEM",
+          problemId,
+          contents: newComment,
+        }),
+      });
+
+      if (!res.ok) throw new Error("댓글 등록 실패");
+      const data = await res.json();
+      setComments([data.result, ...comments]);
+      setNewComment("");
+    } catch (error) {
+      console.error("댓글 등록 실패:", error);
+    }
   };
 
+  const handleCommentDelete = async (commentId: number) => {
+    if (!token) {
+      setError('로그인이 필요합니다.');
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`,
+        { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (!response.ok) throw new Error('댓글 삭제에 실패했습니다.');
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+    } catch (error) {
+      setError(error instanceof Error ? error.message : '댓글 삭제 중 문제가 발생했습니다.');
+    }
+  };
+
+  const handleCommentEditToggle = (commentId: number) => {
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId ? { ...comment, isEditing: !comment.isEditing } : comment
+      )
+    );
+  };
+
+  const handleCommentEdit = async (commentId: number, newContent: string) => {
+    if (!token) {
+      setError('로그인이 필요합니다.');
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            type: 'PROBLEM',
+            contents: newContent,
+          }),
+        }
+      );
+
+      if (response.status === 403) {
+        throw new Error('권한이 없습니다.');
+      }
+      if (!response.ok) {
+        throw new Error('댓글 수정에 실패했습니다.');
+      }
+
+      const updatedComment = await response.json();
+
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === commentId ? { ...comment, content: updatedComment.contents, isEditing: false } : comment
+        )
+      );
+    } catch (error) {
+      setError(error instanceof Error ? error.message : '댓글 수정 중 문제가 발생했습니다.');
+    }
+  };
+
+  if (!problem) return <p>문제를 불러오는 중입니다...</p>;
+
   return (
-    <div className={styles.game_start}>
-      <h1>{problem.title}</h1>
-      <p>작성자: {problem.creator}</p>
-      <p>레벨: {problem.level}</p>
-      <div className={styles.problemDetails}>
-        <p>{problem.detail}</p>
-        {problem.dockerfileLink && (
-          <button onClick={handleShowVmAddress}>VM 주소 보기</button>
-        )}
-        {vmAddress && <p>VM 주소: {vmAddress}</p>}
-      </div>
-
-      <div>
-        <h3>정답 제출</h3>
-        <input
-          type="text"
-          value={flag}
-          onChange={(e) => setFlag(e.target.value)}
-          placeholder="정답을 입력하세요"
-        />
-        <button onClick={handleSubmit}>정답 제출</button>
-        <p>{message}</p>
-      </div>
-
-      <div>
-        <h3>댓글</h3>
-        {comments.length > 0 ? (
-          comments.map((comment) => (
-            <div className={styles.comment} key={comment.id}>
-              <strong className={styles.creator}>{comment.creator.nickname}</strong>
-              <p>{comment.content}</p>
-              <small>{formatTime(comment.createdAt)}</small>
-            </div>
-          ))
-        ) : (
-          <p>댓글이 없습니다.</p>
-        )}
-
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="댓글을 입력하세요"
-        />
-        <button onClick={handleAddComment}>댓글 추가</button>
-      </div>
-
-      <div>
-        <h3>랭킹</h3>
-        {ranking.length > 0 ? (
-          <ul>
-            {ranking.map((rank, index) => (
-              <li key={index}>
-                {rank.nickname} - 첫 번째 정답: {rank.firstBlood}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>랭킹 정보가 없습니다.</p>
-        )}
-      </div>
-    </div>
+    <section className={styles.container}>
+      <h3 className={styles.title}>{problem.title}</h3>
+      <p className={styles.metaInfo}>출제자: {problem.creator} | 유형: {problem.kind} | 카테고리: {problem.type}</p>
+      <p className={styles.metaInfo}>출제일: {new Date(problem.createdAt).toLocaleString()} | 리뷰어: {problem.reviewer}</p>
+      <div dangerouslySetInnerHTML={{ __html: problem.detail }} />
+      {/* 나머지 렌더링 부분 */}
+    </section>
   );
 };
 

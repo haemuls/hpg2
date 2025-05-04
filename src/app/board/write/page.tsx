@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getValidAccessToken, clearTokens, getMembershipId } from '../../../../token';
+import { getToken, clearTokens, getMembershipId, getUserNickname } from '../../../../token';
 import styles from './BoardWritePage.module.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
@@ -20,6 +20,7 @@ const API_BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.c
 const BoardWritePage = () => {
   const [title, setTitle] = useState('');
   const editorRef = useRef<ToastEditorInstance>(null);  // 타입을 지정
+  const [nickname, setNickname] = useState<string | null>(null);  // 닉네임 상태 추가
   const router = useRouter();
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const BoardWritePage = () => {
     }
 
     const loadToken = async () => {
-      const token = await getValidAccessToken();
+      const token = await getToken();  // getValidAccessToken 대신 getToken 사용
       if (!token) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -41,7 +42,15 @@ const BoardWritePage = () => {
       }
     };
 
+    const fetchNickname = async () => {
+      const userNickname = await getUserNickname();
+      if (userNickname) {
+        setNickname(userNickname);
+      }
+    };
+
     loadToken();
+    fetchNickname();
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,10 +62,10 @@ const BoardWritePage = () => {
       return;
     }
 
-    const postData = { title, type: 'FREE', contents };
+    const postData = { title, type: 'FREE', contents, creator: nickname };
 
     try {
-      const accessToken = await getValidAccessToken();
+      const accessToken = await getToken();  // getValidAccessToken 대신 getToken 사용
       if (!accessToken) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
