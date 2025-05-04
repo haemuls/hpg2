@@ -164,9 +164,9 @@ export default function WargameForm() {
         <select name="kind" value={problem.kind} onChange={handleChange} className="problemSelector">
           <option value="">문제 종류를 선택하세요</option>
           <option value="WEBHACKING">웹해킹</option>
-          <option value="PWNABLE">포너블</option>
+          <option value="SYSTEM">포너블</option>
           <option value="REVERSING">리버싱</option>
-          <option value="CEYPTO">암호학</option>
+          <option value="CRYPTO">암호학</option>
         </select>
       </div>
       <div className="form-group">

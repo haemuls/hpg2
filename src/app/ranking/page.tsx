@@ -19,10 +19,10 @@ const RankingPage = () => {
 
   const typeOptions = [
     { value: "", label: "전체" },
-    { value: "웹해킹", label: "웹해킹" },
-    { value: "리버싱", label: "리버싱" },
-    { value: "포너블", label: "포너블" },
-    { value: "암호학", label: "암호학" },
+    { value: "WEBHACKING", label: "웹해킹" },
+    { value: "REVERSING", label: "리버싱" },
+    { value: "SYSTEM", label: "포너블" },
+    { value: "PWNABLE", label: "암호학" },
   ];
 
   const fetchAllRankingData = async (type: string) => {
