@@ -225,95 +225,9 @@
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
+  transition: background-color 0.3s;
 }
 
 .vmButton:hover {
   background-color: #5a6268;
-}
-
-.vmAddress {
-  margin-top: 10px;
-  font-family: monospace;
-  background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 4px;
-  word-break: break-all;
-}
-
-.vm-address {
-  color: #333;
-  font-size: 14px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-.submit-answer {
-  background-color: #f2f2f2;
-  padding: 15px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-@media (max-width: 768px) {
-  .title {
-    font-size: 22px;
-  }
-
-  .viewerContainer {
-    margin-top: 20px;
-    padding-bottom: 20px;
-  }
-
-  .commentSection {
-    margin-top: 40px;
-  }
-
-  .commentTitle {
-    font-size: 18px;
-  }
-
-  .formGroup textarea {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .btnPrimary {
-    width: 80px;
-    font-size: 12px;
-  }
-
-  .commentMeta {
-    font-size: 0.7em;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 18px;
-  }
-
-  .viewerContainer {
-    margin-top: 15px;
-    padding-bottom: 15px;
-  }
-
-  .commentSection {
-    margin-top: 30px;
-  }
-
-  .formGroup textarea {
-    padding: 8px;
-    font-size: 13px;
-  }
-
-  .btnPrimary {
-    width: 70px;
-    font-size: 11px;
-  }
-
-  .commentMeta {
-    font-size: 0.65em;
-  }
 }

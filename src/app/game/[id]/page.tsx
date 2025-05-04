@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import styles from './ProblemDetail.module.css';
-import { getJwtToken } from '../../../../token'; // `getJwtToken`을 사용
+import { getToken, getUserNickname } from '../../../../token';  // 최신 코드에서 제공한 함수 사용
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
@@ -56,35 +56,34 @@ const CTFProblemPage = () => {
   const [newComment, setNewComment] = useState<string>("");
   const [ranking, setRanking] = useState<Ranking[]>([]);
   const [vmAddress, setVmAddress] = useState<string>("");
-  const [token, setToken] = useState<string | null>(null);
-  const [isTokenLoaded, setIsTokenLoaded] = useState(false);
+  const [userNickname, setUserNickname] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [userNickname, setUserNickname] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedToken = getJwtToken(); // `getJwtToken`을 사용하여 저장된 토큰을 가져옵니다.
-    setToken(storedToken);
-    setIsTokenLoaded(true);
-  }, []);
+    const fetchToken = async () => {
+      const token = await getToken();
+      if (!token) {
+        alert("로그인이 필요한 서비스입니다.");
+        router.push("/login");
+      }
+    };
+
+    fetchToken();
+  }, [router]);
 
   useEffect(() => {
-    if (!isTokenLoaded) return;
-    if (!token) {
-      alert("로그인이 필요한 서비스입니다.");
-      router.push("/login");
-      return;
-    }
-
     const fetchData = async () => {
       try {
+        const token = await getToken();
+        if (!token) throw new Error("Token is not available");
+
         const problemRes = await fetch(`${API_BASE_URL}/${problemId}`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const problemData: ApiResponse<Problem> = await problemRes.json();
         setProblem(problemData.result);
-        console.log("받아온 문제 정보:", problemData.result);
 
         const commentsRes = await fetch(`${FILE_BASE_URL}/api/comments/problem/${problemId}`, {
           headers: { 'Authorization': `Bearer ${token}` },
@@ -97,15 +96,21 @@ const CTFProblemPage = () => {
         });
         const rankingData: ApiResponse<Ranking[]> = await rankingRes.json();
         setRanking(rankingData.result);
+
+        const nickname = await getUserNickname();
+        setUserNickname(nickname);
       } catch (error) {
         console.error("데이터 가져오기 실패:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [problemId, token, isTokenLoaded]);
+  }, [problemId]);
 
   const handleSubmit = async () => {
+    const token = await getToken();
     if (!token) return;
 
     try {
@@ -135,6 +140,7 @@ const CTFProblemPage = () => {
     e.preventDefault();
     if (!newComment.trim()) return;
 
+    const token = await getToken();
     if (!token) {
       alert("로그인 후 댓글을 작성할 수 있습니다.");
       return;
@@ -164,6 +170,7 @@ const CTFProblemPage = () => {
   };
 
   const handleCommentDelete = async (commentId: number) => {
+    const token = await getToken();
     if (!token) {
       setError('로그인이 필요합니다.');
       return;
@@ -171,7 +178,7 @@ const CTFProblemPage = () => {
 
     try {
       const response = await fetch(
-        `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`,
+        `${FILE_BASE_URL}/api/comments/${commentId}`,
         { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -191,6 +198,7 @@ const CTFProblemPage = () => {
   };
 
   const handleCommentEdit = async (commentId: number, newContent: string) => {
+    const token = await getToken();
     if (!token) {
       setError('로그인이 필요합니다.');
       return;
@@ -198,7 +206,7 @@ const CTFProblemPage = () => {
 
     try {
       const response = await fetch(
-        `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`,
+        `${FILE_BASE_URL}/api/comments/${commentId}`,
         {
           method: 'PUT',
           headers: {
@@ -231,15 +239,125 @@ const CTFProblemPage = () => {
     }
   };
 
-  if (!problem) return <p>문제를 불러오는 중입니다...</p>;
+  if (loading) return <p>문제를 불러오는 중입니다...</p>;
+
+  if (!problem) return <p>문제를 찾을 수 없습니다.</p>;
 
   return (
     <section className={styles.container}>
       <h3 className={styles.title}>{problem.title}</h3>
-      <p className={styles.metaInfo}>출제자: {problem.creator} | 유형: {problem.kind} | 카테고리: {problem.type}</p>
-      <p className={styles.metaInfo}>출제일: {new Date(problem.createdAt).toLocaleString()} | 리뷰어: {problem.reviewer}</p>
-      <div dangerouslySetInnerHTML={{ __html: problem.detail }} />
-      {/* 나머지 렌더링 부분 */}
+      <p className={styles.metaInfo}>
+        출제자: {problem.creator} | 유형: {problem.kind} | 카테고리: {problem.type}
+      </p>
+      <p className={styles.metaInfo}>
+        출제일: {new Date(problem.createdAt).toLocaleString()} | 리뷰어: {problem.reviewer}
+      </p>
+      <p className={`${styles.metaInfo} ${styles.last}`}>
+        정답률: {problem.entireCount === 0 ? '제출 없음' : `${((problem.correctCount / problem.entireCount) * 100).toFixed(2)}%`}
+        ({problem.correctCount}/{problem.entireCount})
+      </p>
+
+      {problem.tags?.length > 0 && (
+        <div className={styles.metaInfo}>
+          태그: {problem.tags.join(', ')}
+        </div>
+      )}
+
+      {problem.source && (
+        <div className={styles.metaInfo}>
+          출처: {problem.source}
+        </div>
+      )}
+
+      <div className={styles.viewerContainer}>
+        <div dangerouslySetInnerHTML={{ __html: problem.detail }} />
+
+        {problem.problemFile && (
+          <div>
+            <a href={`${FILE_BASE_URL}/uploads/${problem.problemFile}`} download>
+              문제 파일 다운로드
+            </a>
+          </div>
+        )}
+        {problem.kind === "docker" && (
+          <div>
+            <button onClick={handleShowVmAddress}>VM 주소 보기</button>
+            {vmAddress && <p>{vmAddress}</p>}
+          </div>
+        )}
+      </div>
+
+      <div className={styles.rankings}>
+        <h4>1등 기록</h4>
+        {ranking.length === 0 ? (
+          <p>첫 번째 풀이자가 없습니다.</p>
+        ) : (
+          <ul>
+            {ranking.map((entry, index) => (
+              <li key={index}>
+                {entry.nickname} (첫 풀이: {entry.firstBlood})
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className={styles.flagInput}>
+        <h4>정답 제출</h4>
+        <input
+          type="text"
+          value={flag}
+          onChange={(e) => setFlag(e.target.value)}
+          placeholder="정답을 입력하세요"
+        />
+        <button onClick={handleSubmit}>제출</button>
+        {message && <p>{message}</p>}
+      </div>
+
+      <div className={styles.commentsSection}>
+        <h4>댓글</h4>
+        <form onSubmit={handleCommentSubmit}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요"
+          />
+          <button type="submit" disabled={isSubmitting}>
+            댓글 작성
+          </button>
+        </form>
+
+        {comments.length === 0 && <p>댓글이 없습니다.</p>}
+
+        {comments.map((comment) => (
+          <div key={comment.id} className={styles.commentSection}>
+            <p>
+              {comment.creator.nickname}{" "}
+              <span>{new Date(comment.createdAt).toLocaleString()}</span>
+            </p>
+            {comment.isEditing ? (
+              <div>
+                <textarea
+                  value={comment.content}
+                  onChange={(e) =>
+                    handleCommentEdit(comment.id, e.target.value)
+                  }
+                />
+                <button onClick={() => handleCommentEditToggle(comment.id)}>
+                  취소
+                </button>
+              </div>
+            ) : (
+              <p>{comment.content}</p>
+            )}
+
+            <button onClick={() => handleCommentDelete(comment.id)}>삭제</button>
+            <button onClick={() => handleCommentEditToggle(comment.id)}>
+              {comment.isEditing ? '저장' : '수정'}
+            </button>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import styles from './BoardDetail.module.css'; // 기존 스타일 모듈을 그대로 적용
+import styles from './BoardDetail.module.css';
 import { getToken, getUserNickname } from '../../../../../token';
 import { useParams, useRouter } from 'next/navigation';
 
@@ -136,18 +136,27 @@ const BoardDetailPage = () => {
   };
 
   const handleCommentEdit = async (commentId: number, newContent: string) => {
+    if (!newContent.trim()) return;
+
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId ? { ...comment, content: newContent, isEditing: false } : comment
+      )
+    );
+
     const response = await fetchData(
       `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'FREE', contents: newContent }),
+        body: JSON.stringify({ type: 'BOARD', contents: newContent }),
       }
     );
-    if (response) {
+
+    if (!response) {
       setComments((prev) =>
         prev.map((comment) =>
-          comment.id === commentId ? { ...comment, content: response.result.contents, isEditing: false } : comment
+          comment.id === commentId ? { ...comment, content: prev.find((c) => c.id === commentId)?.content, isEditing: false } : comment
         )
       );
     }
@@ -221,14 +230,54 @@ const BoardDetailPage = () => {
                 <p>
                   <strong>{c.creator?.nickname || '익명 사용자'}</strong>
                 </p>
-                <p className={styles.commentContent}>{c.content}</p>
+                {c.isEditing ? (
+                  <div>
+                    <textarea
+                      value={c.content}
+                      onChange={(e) =>
+                        setComments((prev) =>
+                          prev.map((comment) =>
+                            comment.id === c.id ? { ...comment, content: e.target.value } : comment
+                          )
+                        )
+                      }
+                      autoFocus
+                      className={styles.commentEditTextarea}
+                    />
+                    <button
+                      onClick={() => handleCommentEdit(c.id, c.content)}
+                      className={styles.commentEditButton}
+                    >
+                      저장
+                    </button>
+                    <button
+                      onClick={() => handleCommentEditToggle(c.id)}
+                      className={`${styles.commentEditButton} ${styles.cancel}`}
+                    >
+                      취소
+                    </button>
+                  </div>
+                ) : (
+                  <p className={styles.commentContent}>{c.content}</p>
+                )}
                 <span className={styles.commentMeta}>
                   | 작성일: {new Date(c.createdAt).toLocaleDateString()}
                 </span>
                 {c.creator?.nickname === userNickname && (
-                  <span onClick={() => handleCommentDelete(c.id)} className={styles.commentDeleteText}>
-                    삭제
-                  </span>
+                  <>
+                    <span
+                      onClick={() => handleCommentEditToggle(c.id)}
+                      className={styles.commentEdit}
+                    >
+                      수정
+                    </span>
+                    <span
+                      onClick={() => handleCommentDelete(c.id)}
+                      className={styles.commentDelete}
+                    >
+                      삭제
+                    </span>
+                  </>
                 )}
               </li>
             ))}
