@@ -47,7 +47,6 @@ const SignUpPage = () => {
         const response = await login(id, password); // token.ts의 login 함수 사용
 
         if (response) {
-          alert('로그인 성공!');
           // 로그인 성공 시 메인 페이지로 리다이렉트
           window.location.href = '/'; // 메인 페이지로 이동
         } else {
