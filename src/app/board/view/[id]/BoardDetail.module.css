@@ -91,8 +91,11 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  resize: vertical;
+  resize: vertical; /* 크기 조정 가능하도록 설정 */
   box-sizing: border-box;
+  white-space: pre-wrap; /* 줄바꿈 처리 */
+  word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 처리 */
+  overflow-y: auto; /* 세로 스크롤을 자동으로 추가 */
 }
 
 /* 댓글 입력 버튼 스타일 */
@@ -257,5 +260,4 @@
   .commentMeta {
     font-size: 0.65em;
   }
-
 }

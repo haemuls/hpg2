@@ -4,10 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getValidJwtToken, clearTokens, getMembershipId } from '../../../../token'; // 수정된 getValidJwtToken 함수 사용
+import { getToken, clearTokens, getMembershipId, getUserNickname } from '../../../../token';
 import styles from './BoardWritePage.module.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
+
+// ToastEditor 타입을 가져오기
+import { Editor as ToastEditorInstance } from '@toast-ui/react-editor';
 
 const ToastEditor = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Editor), {
   ssr: false,
@@ -17,11 +19,13 @@ const API_BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.c
 
 const BoardWritePage = () => {
   const [title, setTitle] = useState('');
-  const editorRef = useRef<Editor | null>(null);
+  const editorRef = useRef<ToastEditorInstance>(null);  // 타입을 지정
+  const [nickname, setNickname] = useState<string | null>(null);  // 닉네임 상태 추가
   const router = useRouter();
 
   useEffect(() => {
     const storedMembershipId = getMembershipId();
+
     if (!storedMembershipId) {
       alert('로그인이 필요합니다.');
       clearTokens();
@@ -30,7 +34,7 @@ const BoardWritePage = () => {
     }
 
     const loadToken = async () => {
-      const token = await getValidJwtToken(); // 수정된 함수 호출
+      const token = await getToken();  // getValidAccessToken 대신 getToken 사용
       if (!token) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -38,7 +42,15 @@ const BoardWritePage = () => {
       }
     };
 
+    const fetchNickname = async () => {
+      const userNickname = await getUserNickname();
+      if (userNickname) {
+        setNickname(userNickname);
+      }
+    };
+
     loadToken();
+    fetchNickname();
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,10 +62,10 @@ const BoardWritePage = () => {
       return;
     }
 
-    const postData = { title, type: 'ANNOUNCE', contents };
+    const postData = { title, type: 'ANNOUNCE', contents, creator: nickname };
 
     try {
-      const accessToken = await getValidJwtToken(); // 수정된 함수 호출
+      const accessToken = await getToken();  // getValidAccessToken 대신 getToken 사용
       if (!accessToken) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -87,8 +99,8 @@ const BoardWritePage = () => {
       editorRef.current?.getInstance().setMarkdown('');
       router.push('/board');
     } catch (error) {
-      console.error('게시글 등록 오류:', error);
-      alert('게시글 등록에 실패했습니다. 다시 시도해 주세요.');
+      console.error('공지사항 등록 오류:', error);
+      alert('공지사항 등록에 실패했습니다. 다시 시도해 주세요.');
     }
   };
 
@@ -118,7 +130,7 @@ const BoardWritePage = () => {
           </div>
         </form>
         <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <Link href="/board">공지사항 목록으로 이동</Link>
+          <Link href="/notice">공지사항으로 이동</Link>
         </div>
       </div>
     </div>

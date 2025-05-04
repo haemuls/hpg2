@@ -86,7 +86,7 @@ const RankingPage = () => {
       </div>
       <div className={styles.container}>
         {isLoading ? (
-          <p>로딩 중...</p>
+          <p></p>
         ) : (
           <table className={styles.table}>
             <thead>

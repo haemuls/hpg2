@@ -192,7 +192,7 @@ const BoardDetailPage = () => {
     setIsSubmitting(false);
   };
 
-  if (loading) return <p>게시글을 불러오는 중입니다...</p>;
+  if (loading) return <p></p>;
   if (error) return <p>{error}</p>;
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
 
