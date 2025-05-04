@@ -207,9 +207,11 @@ const BoardDetailPage = () => {
           <Viewer initialValue={post.contents} />
         </div>
 
-        <button onClick={handleDelete} className={styles.btnDelete}>
-          삭제
-        </button>
+        {post.creator.nickname === userNickname && (
+          <button onClick={handleDelete} className={styles.btnDelete}>
+            삭제
+          </button>
+        )}
 
         <div className={styles.commentSection}>
           <h4 className={styles.commentTitle}>댓글</h4>
