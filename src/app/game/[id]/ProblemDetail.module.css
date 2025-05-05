@@ -2,7 +2,7 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #f9f9f9;
+  background-color: #FFFFFF;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -169,10 +169,14 @@
   background-color: #fff;
   border-radius: 8px;
   border: 1px solid #ddd;
+  margin-bottom: 20px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .flagTitle {
-  font-size: 14px;
+  font-size: 18px;
   color: #333;
   margin-bottom: 20px;
   padding-bottom: 8px;
@@ -196,11 +200,12 @@
 .flagButton {
   padding: 10px 16px;
   font-size: 14px;
-  background-color: #495057;
+  background-color: #007BFF;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  height: 90%;
 }
 
 .flagButton:hover {
@@ -213,21 +218,100 @@
   font-weight: bold;
 }
 
+.viewerContainer {
+  margin-top: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.buttonContainer {
+  display: flex; /* 플렉스 레이아웃 사용 */
+  gap: 20px; /* 버튼 박스 간 간격 */
+  justify-content: center; /* 버튼 박스들을 중앙 정렬 */
+  margin-top: 20px;
+}
+
+.buttonBox {
+  display: flex;
+  justify-content: center; /* 버튼을 박스 내부 가운데 정렬 */
+  align-items: center; /* 버튼을 수직 가운데 정렬 */
+  background-color: #f9f9f9; /* 박스 배경색 */
+  padding: 40px; /* 여백 */
+  border-radius: 8px; /* 둥근 모서리 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
+
+.vmButton, .downloadButton {
+  padding: 10px 20px; /* 버튼의 상하 여백과 좌우 여백을 동일하게 설정 */
+  font-size: 16px; /* 동일한 폰트 크기 */
+  border-radius: 8px; /* 둥근 모서리 */
+  cursor: pointer; /* 클릭 커서 */
+  display: inline-block; /* 블록 수준 요소로 처리 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  width: auto; /* 자동 너비로 설정하여 동일한 크기로 유지 */
+}
+.vmButton {
+  background-color: #28a745;
+  color: #FFFFFF;
+}
+
+
+.downloadButton:disabled {
+  background-color: #cccccc; /* 비활성화 상태 배경 */
+  cursor: not-allowed; /* 비활성화 상태 커서 */
+}
+
 .vmSection {
   margin-top: 30px;
   margin-bottom: 20px;
 }
 
-.vmButton {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
 .vmButton:hover {
-  background-color: #5a6268;
+  background-color: #5a6268; /* 호버 시 더 어두운 회색 */
 }
+
+.vmAddressWrapper {
+  display: flex; /* 플렉스 박스 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+  align-items: center; /* 가운데 정렬 */
+  margin-top: 10px; /* 버튼과 텍스트 사이 여백 */
+}
+
+.vmAddress {
+  margin-top: 10px; /* 위쪽 여백 */
+  color: #333; /* 텍스트 색상 */
+  font-size: 14px; /* 텍스트 크기 */
+  text-align: center; /* 중앙 정렬 */
+}
+
+.rankingSection {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rankingTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.rankingList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rankingItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.rankingItem span {
+  font-size: 1rem;
+}
+

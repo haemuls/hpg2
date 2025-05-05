@@ -6,6 +6,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from './BoardDetail.module.css';
 import { getToken, getUserNickname } from '../../../../../token';
 import { useParams, useRouter } from 'next/navigation';
+import DOMPurify from 'dompurify';  // DOMPurify 추가
 
 const Viewer = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Viewer), { ssr: false });
 
@@ -138,9 +139,12 @@ const BoardDetailPage = () => {
   const handleCommentEdit = async (commentId: number, newContent: string) => {
     if (!newContent.trim()) return;
 
+    // 줄바꿈을 <br />로 변환
+    const formattedContent = newContent.replace(/\n/g, '<br />');
+
     setComments((prev) =>
       prev.map((comment) =>
-        comment.id === commentId ? { ...comment, content: newContent, isEditing: false } : comment
+        comment.id === commentId ? { ...comment, content: formattedContent, isEditing: false } : comment
       )
     );
 
@@ -149,7 +153,7 @@ const BoardDetailPage = () => {
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'BOARD', contents: newContent }),
+        body: JSON.stringify({ type: 'BOARD', contents: formattedContent }),
       }
     );
 
@@ -166,13 +170,16 @@ const BoardDetailPage = () => {
     e.preventDefault();
     if (!newComment.trim()) return;
 
+    // 줄바꿈을 <br />로 변환
+    const formattedContent = newComment.replace(/\n/g, '<br />');
+
     setIsSubmitting(true);
     const response = await fetchData(
       'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'BOARD', parentId: post?.id || 0, contents: newComment }),
+        body: JSON.stringify({ type: 'BOARD', parentId: post?.id || 0, contents: formattedContent }),
       }
     );
 
@@ -192,7 +199,7 @@ const BoardDetailPage = () => {
     setIsSubmitting(false);
   };
 
-  if (loading) return <p></p>;
+  if (loading) return <p>로딩 중...</p>;
   if (error) return <p>{error}</p>;
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
 
@@ -260,7 +267,11 @@ const BoardDetailPage = () => {
                     </button>
                   </div>
                 ) : (
-                  <p className={styles.commentContent}>{c.content}</p>
+                  <p
+                    className={styles.commentContent}
+                    style={{ whiteSpace: 'pre-wrap' }}  // 줄바꿈 스타일 적용
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.content) }}
+                  />
                 )}
                 <span className={styles.commentMeta}>
                   | 작성일: {new Date(c.createdAt).toLocaleDateString()}

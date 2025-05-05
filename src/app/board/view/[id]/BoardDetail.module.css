@@ -129,6 +129,8 @@
 
 .commentItem p.commentContent {
   text-indent: 10px; /* 댓글 내용에만 들여쓰기 적용 */
+  white-space: pre-wrap; /* 줄바꿈 처리 */
+  word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 처리 */
 }
 
 .commentItem strong {

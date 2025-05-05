@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import React, {useEffect, useState} from "react";
+import {useRouter, useParams} from "next/navigation";
 import styles from './ProblemDetail.module.css';
-import { getToken, getUserNickname } from '../../../../token';  // 최신 코드에서 제공한 함수 사용
+import {getToken, getUserNickname} from '../../../../token';  // 최신 코드에서 제공한 함수 사용
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
@@ -45,7 +45,7 @@ interface ApiResponse<T> {
 }
 
 const CTFProblemPage = () => {
-  const { id: problemIdParam } = useParams();
+  const {id: problemIdParam} = useParams();
   const router = useRouter();
   const problemId = problemIdParam || "6";
 
@@ -80,19 +80,19 @@ const CTFProblemPage = () => {
         if (!token) throw new Error("Token is not available");
 
         const problemRes = await fetch(`${API_BASE_URL}/${problemId}`, {
-          headers: { 'Authorization': `Bearer ${token}` },
+          headers: {'Authorization': `Bearer ${token}`},
         });
         const problemData: ApiResponse<Problem> = await problemRes.json();
         setProblem(problemData.result);
 
         const commentsRes = await fetch(`${FILE_BASE_URL}/api/comments/problem/${problemId}`, {
-          headers: { 'Authorization': `Bearer ${token}` },
+          headers: {'Authorization': `Bearer ${token}`},
         });
         const commentsData: ApiResponse<Comment[]> = await commentsRes.json();
         setComments(commentsData.result);
 
         const rankingRes = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/firstblood?size=5`, {
-          headers: { 'Authorization': `Bearer ${token}` },
+          headers: {'Authorization': `Bearer ${token}`},
         });
         const rankingData: ApiResponse<Ranking[]> = await rankingRes.json();
         setRanking(rankingData.result);
@@ -116,7 +116,7 @@ const CTFProblemPage = () => {
     try {
       const res = await fetch(`${FILE_BASE_URL}/api/problems/${problemId}/solve?flag=${encodeURIComponent(flag)}`, {
         method: "GET",
-        headers: { "Authorization": `Bearer ${token}` },
+        headers: {"Authorization": `Bearer ${token}`},
       });
 
       if (!res.ok) {
@@ -178,8 +178,8 @@ const CTFProblemPage = () => {
 
     try {
       const response = await fetch(
-        `${FILE_BASE_URL}/api/comments/${commentId}`,
-        { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }
+          `${FILE_BASE_URL}/api/comments/${commentId}`,
+          {method: 'DELETE', headers: {Authorization: `Bearer ${token}`}}
       );
 
       if (!response.ok) throw new Error('댓글 삭제에 실패했습니다.');
@@ -191,9 +191,9 @@ const CTFProblemPage = () => {
 
   const handleCommentEditToggle = (commentId: number) => {
     setComments((prev) =>
-      prev.map((comment) =>
-        comment.id === commentId ? { ...comment, isEditing: !comment.isEditing } : comment
-      )
+        prev.map((comment) =>
+            comment.id === commentId ? {...comment, isEditing: !comment.isEditing} : comment
+        )
     );
   };
 
@@ -206,18 +206,18 @@ const CTFProblemPage = () => {
 
     try {
       const response = await fetch(
-        `${FILE_BASE_URL}/api/comments/${commentId}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            type: 'PROBLEM',
-            contents: newContent,
-          }),
-        }
+          `${FILE_BASE_URL}/api/comments/${commentId}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              type: 'PROBLEM',
+              contents: newContent,
+            }),
+          }
       );
 
       if (response.status === 403) {
@@ -230,9 +230,9 @@ const CTFProblemPage = () => {
       const updatedComment = await response.json();
 
       setComments((prev) =>
-        prev.map((comment) =>
-          comment.id === commentId ? { ...comment, content: updatedComment.contents, isEditing: false } : comment
-        )
+          prev.map((comment) =>
+              comment.id === commentId ? {...comment, content: updatedComment.contents, isEditing: false} : comment
+          )
       );
     } catch (error) {
       setError(error instanceof Error ? error.message : '댓글 수정 중 문제가 발생했습니다.');
@@ -244,123 +244,141 @@ const CTFProblemPage = () => {
   if (!problem) return <p>문제를 찾을 수 없습니다.</p>;
 
   return (
-    <section className={styles.container}>
-      <h3 className={styles.title}>{problem.title}</h3>
-      <p className={styles.metaInfo}>
-        출제자: {problem.creator} | 유형: {problem.kind} | 카테고리: {problem.type}
-      </p>
-      <p className={styles.metaInfo}>
-        출제일: {new Date(problem.createdAt).toLocaleString()} | 리뷰어: {problem.reviewer}
-      </p>
-      <p className={`${styles.metaInfo} ${styles.last}`}>
-        정답률: {problem.entireCount === 0 ? '제출 없음' : `${((problem.correctCount / problem.entireCount) * 100).toFixed(2)}%`}
-        ({problem.correctCount}/{problem.entireCount})
-      </p>
+      <section className={styles.container}>
+        <div className={styles.mainContent}>
+          <h3 className={styles.title}>{problem.title}</h3>
+          <p className={styles.metaInfo}>
+            출제자: {problem.creator} | 종류: {problem.kind}
+          </p>
+          <p className={styles.metaInfo}>
+            출제일: {new Date(problem.createdAt).toLocaleDateString()} | 리뷰어: {problem.reviewer}
+          </p>
+          <p className={`${styles.metaInfo} ${styles.last}`}>
+            정답률: {problem.entireCount === 0 ? '제출 없음' : `${((problem.correctCount / problem.entireCount) * 100).toFixed(2)}%`}
+            ({problem.correctCount}/{problem.entireCount})
+          </p>
 
-      {problem.tags?.length > 0 && (
-        <div className={styles.metaInfo}>
-          태그: {problem.tags.join(', ')}
-        </div>
-      )}
-
-      {problem.source && (
-        <div className={styles.metaInfo}>
-          출처: {problem.source}
-        </div>
-      )}
-
-      <div className={styles.viewerContainer}>
-        <div dangerouslySetInnerHTML={{ __html: problem.detail }} />
-
-        {problem.problemFile && (
-          <div>
-            <a href={`${FILE_BASE_URL}/uploads/${problem.problemFile}`} download>
-              문제 파일 다운로드
-            </a>
-          </div>
-        )}
-        {/* 도커 관련 부분 주석 처리 */}
-        {/* {problem.kind === "docker" && (
-          <div>
-            <button onClick={handleShowVmAddress}>VM 주소 보기</button>
-            {vmAddress && <p>{vmAddress}</p>}
-          </div>
-        )} */}
-      </div>
-
-      <div className={styles.rankings}>
-        <h4>1등 기록</h4>
-        {ranking.length === 0 ? (
-          <p>첫 번째 풀이자가 없습니다.</p>
-        ) : (
-          <ul>
-            {ranking.map((entry, index) => (
-              <li key={index}>
-                {entry.nickname} (첫 풀이: {entry.firstBlood})
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <div className={styles.flagInput}>
-        <h4>정답 제출</h4>
-        <input
-          type="text"
-          value={flag}
-          onChange={(e) => setFlag(e.target.value)}
-          placeholder="정답을 입력하세요"
-        />
-        <button onClick={handleSubmit}>제출</button>
-        {message && <p>{message}</p>}
-      </div>
-
-      <div className={styles.commentsSection}>
-        <h4>댓글</h4>
-        <form onSubmit={handleCommentSubmit}>
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="댓글을 입력하세요"
-          />
-          <button type="submit" disabled={isSubmitting}>
-            댓글 작성
-          </button>
-        </form>
-
-        {comments.length === 0 && <p>댓글이 없습니다.</p>}
-
-        {comments.map((comment) => (
-          <div key={comment.id} className={styles.commentSection}>
-            <p>
-              {comment.creator.nickname}{" "}
-              <span>{new Date(comment.createdAt).toLocaleString()}</span>
-            </p>
-            {comment.isEditing ? (
-              <div>
-                <textarea
-                  value={comment.content}
-                  onChange={(e) =>
-                    handleCommentEdit(comment.id, e.target.value)
-                  }
-                />
-                <button onClick={() => handleCommentEditToggle(comment.id)}>
-                  취소
-                </button>
+          {problem.tags?.length > 0 && (
+              <div className={styles.metaInfo}>
+                태그: {problem.tags.join(', ')}
               </div>
-            ) : (
-              <p>{comment.content}</p>
-            )}
+          )}
 
-            <button onClick={() => handleCommentDelete(comment.id)}>삭제</button>
-            <button onClick={() => handleCommentEditToggle(comment.id)}>
-              {comment.isEditing ? '저장' : '수정'}
-            </button>
+          {problem.source && (
+              <div className={styles.metaInfo}>
+                출처: {problem.source}
+              </div>
+          )}
+
+          {/* 문제 설명 섹션 */}
+          <div className={styles.viewerContainer}>
+            <div dangerouslySetInnerHTML={{__html: problem.detail}}/>
           </div>
-        ))}
-      </div>
-    </section>
+
+          {/* flag박스를 위로 이동 */}
+          <div className={styles.flagSection}>
+            <h4 className={styles.flagTitle}>정답 제출</h4>
+            <form className={styles.flagForm} onSubmit={handleSubmit}>
+              <input
+                  type="text"
+                  className={styles.flagInput}
+                  value={flag}
+                  onChange={(e) => setFlag(e.target.value)}
+                  placeholder="정답을 입력하세요"
+              />
+              {message && <p className={styles.flagMessage}>{message}</p>}
+              <button className={styles.flagButton} type="submit">제출</button>
+            </form>
+          </div>
+
+          {/* 1등 기록 자리 대체: 파일 다운로드 버튼 박스와 VM 주소 보기 버튼 박스 */}
+          <div className={styles.buttonContainer}>
+            {/* 문제 파일 다운로드 버튼 박스 */}
+            <div className={styles.buttonBox}>
+              <button
+                  className={styles.downloadButton}
+                  onClick={() => {
+                    if (problem.problemFile) {
+                      window.location.href = `${FILE_BASE_URL}/${problem.problemFile}/downloads`;
+                    }
+                  }}
+                  disabled={!problem.problemFile} // 파일이 없으면 버튼 비활성화
+              >
+                파일 다운로드
+              </button>
+            </div>
+
+            {/* VM 주소 보기 버튼 박스 */}
+            <div className={styles.buttonBox}>
+              <button onClick={handleShowVmAddress} className={styles.vmButton}>
+                VM 주소 보기
+              </button>
+              {vmAddress && <p className={styles.vmAddress}>{vmAddress}</p>}
+            </div>
+          </div>
+
+          <div className={styles.commentsSection}>
+            <h4 className={styles.commentTitle}>댓글</h4>
+            <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
+          <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="댓글을 입력하세요"
+          />
+              <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
+                {isSubmitting ? '등록 중...' : '등록'}
+              </button>
+            </form>
+            <ul>
+              {comments.map((c) => (
+                  <li key={c.id} className={styles.commentItem}>
+                    <p>
+                      <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+                    </p>
+                    {c.isEditing ? (
+                        <textarea
+                            value={c.content}
+                            onChange={(e) =>
+                                setComments((prev) =>
+                                    prev.map((comment) =>
+                                        comment.id === c.id
+                                            ? {...comment, content: e.target.value}
+                                            : comment
+                                    )
+                                )
+                            }
+                            placeholder="댓글을 수정하세요..."
+                        />
+                    ) : (
+                        <p className={styles.commentContent}>{c.content}</p>
+                    )}
+                    <span className={styles.commentMeta}>
+          | {new Date(c.createdAt).toLocaleDateString()}
+        </span>
+                    {c.creator?.nickname === userNickname && (
+                        <>
+              <span
+                  onClick={() => handleCommentEditToggle(c.id)}
+                  className={styles.commentEdit}
+              >
+                {c.isEditing ? '저장' : '수정'}
+              </span>
+                          <span
+                              onClick={() => handleCommentDelete(c.id)}
+                              className={styles.commentDelete}
+                          >
+              삭제
+            </span>
+                        </>
+                    )}
+                  </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+      </section>
   );
-};
+}
 
 export default CTFProblemPage;

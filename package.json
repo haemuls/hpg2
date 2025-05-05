@@ -16,6 +16,7 @@
     "bootstrap": "^5.3.5",
     "ckeditor5": "^45.0.0",
     "cors": "^2.8.5",
+    "dompurify": "^3.2.5",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
     "react": "^19.1.0",

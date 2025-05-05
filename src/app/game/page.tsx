@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./game.module.css";
 
-const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed";
+const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed"; // 기본 API URL
 
 interface Post {
   id: number;
@@ -84,6 +84,7 @@ const GamePage = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`, // JWT 토큰을 헤더에 추가
           },
         });
 
@@ -119,11 +120,57 @@ const GamePage = () => {
     fetchPosts();
   }, [membershipId, currentPage, selectedType, size, sortKind, desc]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 검색어를 기준으로 filteredPosts 업데이트
-    const filtered = posts.filter((post) => post.title.includes(searchTerm));
-    setPosts(filtered); // filteredPosts로 갱신
+    setLoading(true); // 로딩 상태 시작
+    setError(""); // 기존 에러 메시지 초기화
+
+    try {
+      const params = new URLSearchParams({
+        type: "WARGAME", // 타입은 WARGAME으로 고정
+        kind: selectedType === "전체" ? "" : selectedType, // 선택된 타입을 기준으로 설정
+        keyword: searchTerm, // 검색어로 전달
+        page: currentPage.toString(),
+        size: size.toString(),
+      });
+
+      const url = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/search?${params.toString()}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Accept": "*/*", // 헤더에서 accept 설정
+          "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`, // JWT 토큰을 헤더에 추가
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 403) {
+          throw new Error("권한이 없습니다.");
+        }
+        throw new Error("네트워크 응답이 올바르지 않습니다.");
+      }
+
+      const data = await response.json();
+      setTotalPages(data.totalPages); // 전체 페이지 수 설정
+
+      const formattedPosts = data.content.map((post: Post) => ({
+        id: post.id,
+        solved: post.solved,
+        title: post.title,
+        level: post.level,
+        correctRate: post.correctRate,
+        creator: post.creator,
+        type: post.type,
+        lastModified: post.lastModified,
+      }));
+
+      setPosts(formattedPosts); // 검색된 문제 목록을 업데이트
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "검색 오류");
+    } finally {
+      setLoading(false); // 로딩 상태 종료
+    }
   };
 
   const handleCreateButtonClick = () => {
