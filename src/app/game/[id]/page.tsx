@@ -132,9 +132,75 @@ const CTFProblemPage = () => {
     }
   };
 
-  const handleShowVmAddress = () => {
-    setVmAddress(problem?.dockerfileLink || "VM 주소가 제공되지 않았습니다.");
-  };
+  const handleShowVmAddress = async () => {
+  const token = await getToken();
+  if (!token) {
+    alert("로그인 후 이용할 수 있습니다.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${FILE_BASE_URL}/api/pods/create?userId=${userNickname}&problemId=${problemId}`,
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("VM 주소 생성에 실패했습니다.");
+    }
+
+    const data = await response.json();
+    setVmAddress(data.result || "VM 주소를 생성할 수 없습니다.");
+  } catch (error) {
+    console.error("VM 주소 생성 실패:", error);
+    setVmAddress("VM 주소 생성 중 오류가 발생했습니다.");
+  }
+};
+
+  const handleFileDownload = async () => {
+  const token = await getToken();
+  if (!token) {
+    alert("로그인이 필요한 서비스입니다.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${FILE_BASE_URL}/api/problems/${problem?.id}/download`, // 새로운 API 경로
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text(); // 서버의 응답 메시지 확인
+      console.error("파일 다운로드 실패:", errorText);
+      alert(`파일 다운로드 실패: ${response.status} ${response.statusText}`);
+      return;
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = problem?.problemFile || "downloaded_file"; // 파일 이름 지정
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("파일 다운로드 중 문제가 발생했습니다:", error);
+    alert("파일 다운로드 중 문제가 발생했습니다. 다시 시도해주세요.");
+  }
+};
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -297,29 +363,25 @@ const CTFProblemPage = () => {
             <div className={styles.buttonBox}>
               <button
                   className={styles.downloadButton}
-                  onClick={() => {
-                    if (problem.problemFile) {
-                      window.location.href = `${FILE_BASE_URL}/${problem.problemFile}/downloads`;
-                    }
-                  }}
-                  disabled={!problem.problemFile} // 파일이 없으면 버튼 비활성화
+                  onClick={handleFileDownload}
+                  disabled={!problem?.problemFile} // 파일이 없으면 버튼 비활성화
               >
                 파일 다운로드
               </button>
             </div>
 
-            {/* VM 주소 보기 버튼 박스 */}
-            <div className={styles.buttonBox}>
-              <button onClick={handleShowVmAddress} className={styles.vmButton}>
-                VM 주소 보기
-              </button>
-              {vmAddress && <p className={styles.vmAddress}>{vmAddress}</p>}
-            </div>
+          {/* VM 주소 보기 버튼 박스 */}
+          <div className={styles.buttonBox}>
+            <button onClick={handleShowVmAddress} className={styles.vmButton}>
+              VM 주소 보기
+            </button>
+            {vmAddress && <p className={styles.vmAddress}>{vmAddress}</p>}
           </div>
+        </div>
 
-          <div className={styles.commentsSection}>
-            <h4 className={styles.commentTitle}>댓글</h4>
-            <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
+        <div className={styles.commentsSection}>
+          <h4 className={styles.commentTitle}>댓글</h4>
+          <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
           <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
