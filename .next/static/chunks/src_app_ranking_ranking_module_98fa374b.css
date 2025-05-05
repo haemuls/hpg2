@@ -1,0 +1,105 @@
+/* [project]/src/app/ranking/ranking.module.css [app-client] (css) */
+.ranking-module__fBvUNa__ranking {
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  padding: 80px 0;
+  font-family: Arial, sans-serif;
+}
+
+.ranking-module__fBvUNa__rankingTitle {
+  text-align: center;
+  width: 100%;
+}
+
+.ranking-module__fBvUNa__rankingTitle h3 {
+  color: #333;
+  text-align: center;
+  margin: 0 0 20px;
+  font-family: Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.ranking-module__fBvUNa__container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.ranking-module__fBvUNa__table {
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  width: 90%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.ranking-module__fBvUNa__table th {
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #495057;
+  padding: 12px;
+  font-weight: bold;
+}
+
+.ranking-module__fBvUNa__cell {
+  text-align: center;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px;
+}
+
+.ranking-module__fBvUNa__row:nth-child(2n) {
+  background-color: #f1f1f1;
+}
+
+.ranking-module__fBvUNa__row:hover {
+  cursor: pointer;
+  background-color: #e8f5e9;
+}
+
+.ranking-module__fBvUNa__buttonGroup {
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.ranking-module__fBvUNa__filterButton {
+  color: #333;
+  cursor: pointer;
+  background-color: #f4f4f4;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 16px;
+  transition: background-color .3s, color .3s, transform .3s;
+}
+
+.ranking-module__fBvUNa__filterButton:hover {
+  color: #fff;
+  background-color: #4e555b;
+  transform: scale(1.05);
+}
+
+.ranking-module__fBvUNa__filterButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px #007bff99;
+}
+
+.ranking-module__fBvUNa__activeButton {
+  color: #fff;
+  background-color: #4e555b;
+  border-color: #4e555b;
+}
+
+.ranking-module__fBvUNa__activeButton:hover {
+  background-color: #4e555b;
+  transform: none;
+}
+
+
+/*# sourceMappingURL=src_app_ranking_ranking_module_98fa374b.css.map*/

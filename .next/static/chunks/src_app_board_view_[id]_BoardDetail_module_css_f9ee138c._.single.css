@@ -1,0 +1,266 @@
+/* [project]/src/app/board/view/[id]/BoardDetail.module.css [app-client] (css) */
+.BoardDetail-module__4Bv4dq__container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.BoardDetail-module__4Bv4dq__titleRow {
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.BoardDetail-module__4Bv4dq__title {
+  color: #333;
+  max-width: 80%;
+  margin: 0;
+  padding-bottom: 10px;
+  font-size: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.BoardDetail-module__4Bv4dq__metaInfo {
+  color: #666;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.BoardDetail-module__4Bv4dq__metaInfo span {
+  margin-right: 10px;
+}
+
+.BoardDetail-module__4Bv4dq__metaInfo:after {
+  content: "";
+  background-color: #007bff;
+  width: 100%;
+  height: 2px;
+  margin-top: 5px;
+  display: block;
+}
+
+.BoardDetail-module__4Bv4dq__viewerContainer {
+  border-bottom: 2px solid #ccc;
+  margin-top: 40px;
+  padding-bottom: 30px;
+}
+
+.BoardDetail-module__4Bv4dq__btnDelete {
+  color: #fff;
+  cursor: pointer;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 4px;
+  margin-left: auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background-color .3s;
+}
+
+.BoardDetail-module__4Bv4dq__btnDelete:hover {
+  background-color: #c82333;
+}
+
+.BoardDetail-module__4Bv4dq__commentSection {
+  margin-top: 60px;
+}
+
+.BoardDetail-module__4Bv4dq__commentTitle {
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  font-size: 20px;
+}
+
+.BoardDetail-module__4Bv4dq__formGroup {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.BoardDetail-module__4Bv4dq__formGroup textarea {
+  resize: vertical;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 15px 100px 15px 15px;
+  font-size: 16px;
+  overflow-y: auto;
+}
+
+.BoardDetail-module__4Bv4dq__btnPrimary {
+  color: #fff;
+  cursor: pointer;
+  background-color: #495057;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 80px;
+  font-size: 14px;
+  display: flex;
+  position: absolute;
+  bottom: 7px;
+  right: 0;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.BoardDetail-module__4Bv4dq__btnPrimary:hover {
+  background-color: #495057;
+}
+
+.BoardDetail-module__4Bv4dq__commentItem p {
+  margin: 3px;
+  padding: 0;
+}
+
+.BoardDetail-module__4Bv4dq__commentItem p.BoardDetail-module__4Bv4dq__commentContent {
+  text-indent: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.BoardDetail-module__4Bv4dq__commentItem strong {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.BoardDetail-module__4Bv4dq__commentMeta {
+  color: #777;
+  margin-top: 5px;
+  font-size: .9em;
+}
+
+.BoardDetail-module__4Bv4dq__commentEdit {
+  color: #00f;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.BoardDetail-module__4Bv4dq__commentEdit:hover {
+  color: #00008b;
+}
+
+.BoardDetail-module__4Bv4dq__commentDelete {
+  color: red;
+  cursor: pointer;
+  margin-left: 1px;
+  text-decoration: underline;
+}
+
+.BoardDetail-module__4Bv4dq__commentDelete:hover {
+  color: #8b0000;
+}
+
+.BoardDetail-module__4Bv4dq__commentEditTextarea {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  resize: none;
+  border: 1px solid #ccc;
+  width: 80%;
+  padding: 8px;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+.BoardDetail-module__4Bv4dq__commentEditButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px 10px;
+  transition: background-color .3s;
+  transform: translateY(-10px);
+}
+
+.BoardDetail-module__4Bv4dq__commentEditButton:hover {
+  background-color: #45a049;
+}
+
+.BoardDetail-module__4Bv4dq__commentEditButton.BoardDetail-module__4Bv4dq__cancel {
+  background-color: #f44336;
+}
+
+.BoardDetail-module__4Bv4dq__commentEditButton.BoardDetail-module__4Bv4dq__cancel:hover {
+  background-color: #d32f2f;
+}
+
+@media (width <= 768px) {
+  .BoardDetail-module__4Bv4dq__title {
+    font-size: 22px;
+  }
+
+  .BoardDetail-module__4Bv4dq__viewerContainer {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .BoardDetail-module__4Bv4dq__commentSection {
+    margin-top: 40px;
+  }
+
+  .BoardDetail-module__4Bv4dq__commentTitle {
+    font-size: 18px;
+  }
+
+  .BoardDetail-module__4Bv4dq__formGroup textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .BoardDetail-module__4Bv4dq__btnPrimary {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .BoardDetail-module__4Bv4dq__commentMeta {
+    font-size: .7em;
+  }
+}
+
+@media (width <= 480px) {
+  .BoardDetail-module__4Bv4dq__title {
+    font-size: 18px;
+  }
+
+  .BoardDetail-module__4Bv4dq__viewerContainer {
+    margin-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .BoardDetail-module__4Bv4dq__commentSection {
+    margin-top: 30px;
+  }
+
+  .BoardDetail-module__4Bv4dq__formGroup textarea {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .BoardDetail-module__4Bv4dq__btnPrimary {
+    width: 70px;
+    font-size: 11px;
+  }
+
+  .BoardDetail-module__4Bv4dq__commentMeta {
+    font-size: .65em;
+  }
+}
+
+/*# sourceMappingURL=src_app_board_view_%5Bid%5D_BoardDetail_module_css_f9ee138c._.single.css.map*/

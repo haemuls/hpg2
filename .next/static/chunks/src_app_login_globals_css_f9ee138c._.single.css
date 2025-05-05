@@ -1,0 +1,22 @@
+/* [project]/src/app/login/globals.css [app-client] (css) */
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+body {
+  color: #23004d;
+  margin: 0;
+  padding: 0;
+  font-family: Open Sans, sans-serif;
+  font-size: .938rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=src_app_login_globals_css_f9ee138c._.single.css.map*/

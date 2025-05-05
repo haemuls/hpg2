@@ -1,0 +1,137 @@
+/* [project]/src/app/page.module.css [app-client] (css) */
+.page-module___8aEwW__aboutSection {
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  display: flex;
+}
+
+.page-module___8aEwW__container {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-module___8aEwW__row {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.page-module___8aEwW__column {
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.page-module___8aEwW__imgBox {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.page-module___8aEwW__imgBox img {
+  object-fit: cover;
+  border-radius: 8px;
+  max-width: 120%;
+  height: auto;
+}
+
+.page-module___8aEwW__detailBox {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.page-module___8aEwW__statsBoxes {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  display: flex;
+}
+
+.page-module___8aEwW__statsBox {
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  padding: 15px;
+  box-shadow: 0 4px 6px #0000001a;
+}
+
+.page-module___8aEwW__statsBox h4 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.page-module___8aEwW__statsBox p {
+  color: #555;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.page-module___8aEwW__smallText {
+  color: #444;
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  line-height: 1.4;
+}
+
+.page-module___8aEwW__notionsSection {
+  justify-content: center;
+  align-items: center;
+  max-width: 5000px;
+  max-height: 10000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+}
+
+.page-module___8aEwW__notionsSection iframe {
+  border: none;
+  width: 70%;
+  height: 3700px;
+}
+
+@media screen and (width <= 1024px) {
+  .page-module___8aEwW__statsBoxes {
+    gap: 10px;
+  }
+
+  .page-module___8aEwW__statsBox {
+    max-width: 90%;
+  }
+
+  .page-module___8aEwW__smallText {
+    font-size: 1.1em;
+    line-height: 1.6;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .page-module___8aEwW__statsBox {
+    padding: 10px;
+    box-shadow: 0 2px 4px #00000014;
+  }
+
+  .page-module___8aEwW__statsBox h4 {
+    font-size: 1em;
+  }
+
+  .page-module___8aEwW__statsBox p {
+    font-size: 1.2em;
+  }
+
+  .page-module___8aEwW__smallText {
+    font-size: 1em;
+  }
+}
+
+
+/*# sourceMappingURL=src_app_page_module_d12eb71c.css.map*/

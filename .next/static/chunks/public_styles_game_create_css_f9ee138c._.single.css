@@ -1,0 +1,113 @@
+/* [project]/public/styles/game_create.css [app-client] (css) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  color: #444;
+  background-color: #f9f9f9;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.page-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 40px;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #555;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px #007bff80;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+#editor-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  transform: translateX(-10px);
+}
+
+.btn {
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color .3s, transform .2s;
+  display: inline-block;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background-color: #004080;
+  transform: scale(1);
+}
+
+.writeButtonWrap {
+  text-align: center;
+  margin-top: 20px;
+}
+
+textarea.problemSelector {
+  min-height: 150px;
+}
+
+.problemSelector {
+  margin-bottom: 10px;
+}
+
+/*# sourceMappingURL=public_styles_game_create_css_f9ee138c._.single.css.map*/
