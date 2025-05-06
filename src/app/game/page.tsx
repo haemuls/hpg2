@@ -127,8 +127,8 @@ const GamePage = () => {
 
     try {
       const params = new URLSearchParams({
-        type: "WARGAME", // 타입은 WARGAME으로 고정
-        kind: selectedType === "전체" ? "" : selectedType, // 선택된 타입을 기준으로 설정
+        problemType: "WARGAME", // 타입은 WARGAME으로 고정
+        WargameType: selectedType === "전체" ? "" : selectedType, // 선택된 타입을 기준으로 설정
         keyword: searchTerm, // 검색어로 전달
         page: currentPage.toString(),
         size: size.toString(),
