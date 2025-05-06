@@ -3,6 +3,7 @@
   "/board/page": "app/board/page.js",
   "/board/view/[id]/page": "app/board/view/[id]/page.js",
   "/game/[id]/page": "app/game/[id]/page.js",
+  "/game/game_create/page": "app/game/game_create/page.js",
   "/game/page": "app/game/page.js",
   "/login/page": "app/login/page.js",
   "/notice/page": "app/notice/page.js",

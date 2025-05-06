@@ -234,7 +234,7 @@ function WargameForm() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                value: "PWNABLE",
+                                value: "SYSTEM",
                                 children: "포너블"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
@@ -250,7 +250,7 @@ function WargameForm() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                value: "CEYPTO",
+                                value: "CRYPTO",
                                 children: "암호학"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
