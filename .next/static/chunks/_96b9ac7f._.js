@@ -19,6 +19,7 @@ __turbopack_context__.v({
   "commentTitle": "BoardDetail-module__4Bv4dq__commentTitle",
   "container": "BoardDetail-module__4Bv4dq__container",
   "formGroup": "BoardDetail-module__4Bv4dq__formGroup",
+  "largeFont": "BoardDetail-module__4Bv4dq__largeFont",
   "metaInfo": "BoardDetail-module__4Bv4dq__metaInfo",
   "title": "BoardDetail-module__4Bv4dq__title",
   "titleRow": "BoardDetail-module__4Bv4dq__titleRow",
@@ -235,9 +236,7 @@ const BoardDetailPage = ()=>{
         }
         setIsSubmitting(false);
     };
-    if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-        children: "로딩 중..."
-    }, void 0, false, {
+    if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {}, void 0, false, {
         fileName: "[project]/src/app/board/view/[id]/page.tsx",
         lineNumber: 202,
         columnNumber: 23
