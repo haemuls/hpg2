@@ -30,6 +30,7 @@ interface Problem {
 interface Ranking {
   nickname: string;
   firstBlood: string;
+  id: number;
 }
 
 interface Comment {
@@ -310,134 +311,147 @@ const CTFProblemPage = () => {
   if (!problem) return <p>문제를 찾을 수 없습니다.</p>;
 
   return (
-      <section className={styles.container}>
-        <div className={styles.mainContent}>
-          <h3 className={styles.title}>{problem.title}</h3>
-          <p className={styles.metaInfo}>
-            출제자: {problem.creator} | 종류: {problem.kind}
-          </p>
-          <p className={styles.metaInfo}>
-            출제일: {new Date(problem.createdAt).toLocaleDateString()} | 리뷰어: {problem.reviewer}
-          </p>
-          <p className={`${styles.metaInfo} ${styles.last}`}>
-            정답률: {problem.entireCount === 0 ? '제출 없음' : `${((problem.correctCount / problem.entireCount) * 100).toFixed(2)}%`}
-            ({problem.correctCount}/{problem.entireCount})
-          </p>
+  <section className={styles.container}>
+    <div className={styles.mainContent}>
+      <h3 className={styles.title}>{problem.title}</h3>
+      <p className={styles.metaInfo}>
+        출제자: {problem.creator} | 종류: {problem.kind}
+      </p>
+      <p className={styles.metaInfo}>
+        출제일: {new Date(problem.createdAt).toLocaleDateString()} | 리뷰어: {problem.reviewer}
+      </p>
+      <p className={`${styles.metaInfo} ${styles.last}`}>
+        정답률: {problem.entireCount === 0 ? '제출 없음' : `${((problem.correctCount / problem.entireCount) * 100).toFixed(2)}%`}
+        ({problem.correctCount}/{problem.entireCount})
+      </p>
 
-          {problem.tags?.length > 0 && (
-              <div className={styles.metaInfo}>
-                태그: {problem.tags.join(', ')}
-              </div>
-          )}
-
-          {problem.source && (
-              <div className={styles.metaInfo}>
-                출처: {problem.source}
-              </div>
-          )}
-
-          {/* 문제 설명 섹션 */}
-          <div className={styles.viewerContainer}>
-            <div dangerouslySetInnerHTML={{__html: problem.detail}}/>
-          </div>
-
-          {/* flag박스를 위로 이동 */}
-          <div className={styles.flagSection}>
-            <h4 className={styles.flagTitle}>정답 제출</h4>
-            <form className={styles.flagForm} onSubmit={handleSubmit}>
-              <input
-                  type="text"
-                  className={styles.flagInput}
-                  value={flag}
-                  onChange={(e) => setFlag(e.target.value)}
-                  placeholder="정답을 입력하세요"
-              />
-              {message && <p className={styles.flagMessage}>{message}</p>}
-              <button className={styles.flagButton} type="submit">제출</button>
-            </form>
-          </div>
-
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonBox}>
-              <button
-                  className={styles.downloadButton}
-                  onClick={handleFileDownload}
-                  disabled={!problem?.problemFile} // 파일이 없으면 버튼 비활성화
-              >
-                파일 다운로드
-              </button>
-            </div>
-
-          <div className={styles.buttonBox}>
-            <button onClick={handleShowVmAddress} className={styles.vmButton}>
-              VM 주소 보기
-            </button>
-            {vmAddress && <p className={styles.vmAddress}>{vmAddress}</p>}
-          </div>
+      {problem.tags?.length > 0 && (
+        <div className={styles.metaInfo}>
+          태그: {problem.tags.join(', ')}
         </div>
+      )}
 
-        <div className={styles.commentsSection}>
-          <h4 className={styles.commentTitle}>댓글</h4>
-          <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
-          <textarea
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="댓글을 입력하세요"
+      {problem.source && (
+        <div className={styles.metaInfo}>
+          출처: {problem.source}
+        </div>
+      )}
+
+      {/* 문제 설명 섹션 */}
+      <div className={styles.viewerContainer}>
+        <div dangerouslySetInnerHTML={{ __html: problem.detail }} />
+      </div>
+
+      {/* 정답 제출 섹션 */}
+      <div className={styles.flagSection}>
+        <h4 className={styles.flagTitle}>정답 제출</h4>
+        <form className={styles.flagForm} onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className={styles.flagInput}
+            value={flag}
+            onChange={(e) => setFlag(e.target.value)}
+            placeholder="정답을 입력하세요"
           />
-              <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
-                {isSubmitting ? '등록 중...' : '등록'}
-              </button>
-            </form>
-            <ul>
-              {comments.map((c) => (
-                  <li key={c.id} className={styles.commentItem}>
-                    <p>
-                      <strong>{c.creator?.nickname || '익명 사용자'}</strong>
-                    </p>
-                    {c.isEditing ? (
-                        <textarea
-                            value={c.content}
-                            onChange={(e) =>
-                                setComments((prev) =>
-                                    prev.map((comment) =>
-                                        comment.id === c.id
-                                            ? {...comment, content: e.target.value}
-                                            : comment
-                                    )
-                                )
-                            }
-                            placeholder="댓글을 수정하세요..."
-                        />
-                    ) : (
-                        <p className={styles.commentContent}>{c.content}</p>
-                    )}
-                    <span className={styles.commentMeta}>
-          | {new Date(c.createdAt).toLocaleDateString()}
-        </span>
-                    {c.creator?.nickname === userNickname && (
-                        <>
-              <span
-                  onClick={() => handleCommentEditToggle(c.id)}
-                  className={styles.commentEdit}
-              >
-                {c.isEditing ? '저장' : '수정'}
-              </span>
-                          <span
-                              onClick={() => handleCommentDelete(c.id)}
-                              className={styles.commentDelete}
-                          >
-              삭제
-            </span>
-                        </>
-                    )}
-                  </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+          {message && <p className={styles.flagMessage}>{message}</p>}
+          <button className={styles.flagButton} type="submit">제출</button>
+        </form>
+      </div>
 
-      </section>
-  );
+      <div className={styles.buttonContainer}>
+        <div className={styles.buttonBox}>
+          <button
+            className={styles.downloadButton}
+            onClick={handleFileDownload}
+            disabled={!problem?.problemFile}
+          >
+            파일 다운로드
+          </button>
+        </div>
+        <div className={styles.buttonBox}>
+          <button onClick={handleShowVmAddress} className={styles.vmButton}>
+            VM 주소 보기
+          </button>
+          {vmAddress && <p className={styles.vmAddress}>{vmAddress}</p>}
+        </div>
+      </div>
+            {/* 랭킹 박스 섹션 */}
+      {ranking && ranking.length > 0 && (
+        <div className={styles.rankingBox}>
+          <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
+          <ul className={styles.rankingList}>
+            {ranking.map((rank, index) => (
+              <li key={rank.id} className={styles.rankingItem}>
+                <span className={styles.rankNumber}>{index + 1}</span>
+                <span className={styles.rankName}>{rank.nickname}</span>
+                <span className={styles.rankTime}>{rank.firstBlood}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className={styles.commentsSection}>
+        <h4 className={styles.commentTitle}>댓글</h4>
+        <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요"
+          />
+          <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
+            {isSubmitting ? '등록 중...' : '등록'}
+          </button>
+        </form>
+        <ul>
+          {comments.map((c) => (
+            <li key={c.id} className={styles.commentItem}>
+              <p>
+                <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+              </p>
+              {c.isEditing ? (
+                <textarea
+                  value={c.content}
+                  onChange={(e) =>
+                    setComments((prev) =>
+                      prev.map((comment) =>
+                        comment.id === c.id
+                          ? { ...comment, content: e.target.value }
+                          : comment
+                      )
+                    )
+                  }
+                  placeholder="댓글을 수정하세요..."
+                />
+              ) : (
+                <p className={styles.commentContent}>{c.content}</p>
+              )}
+              <span className={styles.commentMeta}>
+                | {new Date(c.createdAt).toLocaleDateString()}
+              </span>
+              {c.creator?.nickname === userNickname && (
+                <>
+                  <span
+                    onClick={() => handleCommentEditToggle(c.id)}
+                    className={styles.commentEdit}
+                  >
+                    {c.isEditing ? '저장' : '수정'}
+                  </span>
+                  <span
+                    onClick={() => handleCommentDelete(c.id)}
+                    className={styles.commentDelete}
+                  >
+                    삭제
+                  </span>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
 }
 
 export default CTFProblemPage;

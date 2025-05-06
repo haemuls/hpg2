@@ -287,6 +287,10 @@
   text-align: center; /* 중앙 정렬 */
 }
 
+.rankingBox {
+  margin-top: 50px;
+}
+
 .rankingSection {
   background-color: #f9f9f9;
   padding: 20px;
