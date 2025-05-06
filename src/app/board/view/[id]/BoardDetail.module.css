@@ -43,12 +43,18 @@
   height: 2px;
   background-color: #007bff;
   margin-top: 5px;
+  font-size: 16px;
 }
 
 .viewerContainer {
   margin-top: 40px;
   padding-bottom: 30px;
   border-bottom: 2px solid #ccc;
+
+}
+
+.largeFont {
+  font-size: 20px;
 }
 
 .btnDelete {

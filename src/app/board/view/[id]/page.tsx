@@ -170,7 +170,6 @@ const BoardDetailPage = () => {
     e.preventDefault();
     if (!newComment.trim()) return;
 
-    // 줄바꿈을 <br />로 변환
     const formattedContent = newComment.replace(/\n/g, '<br />');
 
     setIsSubmitting(true);
@@ -199,7 +198,7 @@ const BoardDetailPage = () => {
     setIsSubmitting(false);
   };
 
-  if (loading) return <p>로딩 중...</p>;
+  if (loading) return <p></p>;
   if (error) return <p>{error}</p>;
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
 

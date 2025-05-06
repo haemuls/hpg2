@@ -171,7 +171,7 @@ const CTFProblemPage = () => {
 
   try {
     const response = await fetch(
-      `${FILE_BASE_URL}/api/problems/${problem?.id}/download`, // 새로운 API 경로
+      `${FILE_BASE_URL}/api/problems/${problem?.id}/download`,
       {
         method: "GET",
         headers: {
@@ -181,7 +181,7 @@ const CTFProblemPage = () => {
     );
 
     if (!response.ok) {
-      const errorText = await response.text(); // 서버의 응답 메시지 확인
+      const errorText = await response.text();
       console.error("파일 다운로드 실패:", errorText);
       alert(`파일 다운로드 실패: ${response.status} ${response.statusText}`);
       return;
@@ -191,7 +191,7 @@ const CTFProblemPage = () => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = problem?.problemFile || "downloaded_file"; // 파일 이름 지정
+    a.download = problem?.problemFile || "downloaded_file";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -357,9 +357,7 @@ const CTFProblemPage = () => {
             </form>
           </div>
 
-          {/* 1등 기록 자리 대체: 파일 다운로드 버튼 박스와 VM 주소 보기 버튼 박스 */}
           <div className={styles.buttonContainer}>
-            {/* 문제 파일 다운로드 버튼 박스 */}
             <div className={styles.buttonBox}>
               <button
                   className={styles.downloadButton}
@@ -370,7 +368,6 @@ const CTFProblemPage = () => {
               </button>
             </div>
 
-          {/* VM 주소 보기 버튼 박스 */}
           <div className={styles.buttonBox}>
             <button onClick={handleShowVmAddress} className={styles.vmButton}>
               VM 주소 보기
