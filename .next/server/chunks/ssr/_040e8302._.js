@@ -152,8 +152,8 @@ const GamePage = ()=>{
         setError(""); // 기존 에러 메시지 초기화
         try {
             const params = new URLSearchParams({
-                type: "WARGAME",
-                kind: selectedType === "전체" ? "" : selectedType,
+                problemType: "WARGAME",
+                WargameType: selectedType === "전체" ? "" : selectedType,
                 keyword: searchTerm,
                 page: currentPage.toString(),
                 size: size.toString()
