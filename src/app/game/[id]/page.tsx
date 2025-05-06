@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useRouter, useParams} from "next/navigation";
 import styles from './ProblemDetail.module.css';
 import {getToken, getUserNickname} from '../../../../token';  // 최신 코드에서 제공한 함수 사용
-
+import {format} from 'date-fns'
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
@@ -376,20 +376,29 @@ const CTFProblemPage = () => {
         </div>
       </div>
             {/* 랭킹 박스 섹션 */}
-      {ranking && ranking.length > 0 && (
-        <div className={styles.rankingBox}>
-          <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
-          <ul className={styles.rankingList}>
-            {ranking.map((rank, index) => (
-              <li key={rank.id} className={styles.rankingItem}>
-                <span className={styles.rankNumber}>{index + 1}</span>
-                <span className={styles.rankName}>{rank.nickname}</span>
-                <span className={styles.rankTime}>{rank.firstBlood}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {ranking && ranking.length > 0 ? (
+  <div className={styles.rankingBox}>
+    <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
+    <ul className={styles.rankingList}>
+      {ranking.map((rank, index) => (
+        <li key={rank.id} className={styles.rankingItem}>
+          <span className={styles.rankNumber}>{index + 1}</span>
+          <span className={styles.rankName}>{rank.nickname}</span>
+          <span className={styles.rankTime}>
+            {rank.firstBlood
+              ? format(new Date(rank.firstBlood).toLocaleString("en-US", { timeZone: "Asia/Seoul" }), 'yyyy-MM-dd HH:mm')
+              : "문제를 푼 사람이 없습니다."}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <div className={styles.rankingBox}>
+    <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
+    <p className={styles.noRanking}>아직 문제를 푼 사람이 없습니다.</p>
+  </div>
+)}
 
       <div className={styles.commentsSection}>
         <h4 className={styles.commentTitle}>댓글</h4>
