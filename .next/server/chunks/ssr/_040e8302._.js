@@ -148,8 +148,8 @@ const GamePage = ()=>{
     ]);
     const handleSearch = async (e)=>{
         e.preventDefault();
-        setLoading(true); // 로딩 상태 시작
-        setError(""); // 기존 에러 메시지 초기화
+        setLoading(true);
+        setError("");
         try {
             const params = new URLSearchParams({
                 problemType: "WARGAME",
@@ -173,7 +173,7 @@ const GamePage = ()=>{
                 throw new Error("네트워크 응답이 올바르지 않습니다.");
             }
             const data = await response.json();
-            setTotalPages(data.totalPages); // 전체 페이지 수 설정
+            setTotalPages(data.totalPages);
             const formattedPosts = data.content.map((post)=>({
                     id: post.id,
                     solved: post.solved,
@@ -184,11 +184,11 @@ const GamePage = ()=>{
                     type: post.type,
                     lastModified: post.lastModified
                 }));
-            setPosts(formattedPosts); // 검색된 문제 목록을 업데이트
+            setPosts(formattedPosts);
         } catch (error) {
             setError(error instanceof Error ? error.message : "검색 오류");
         } finally{
-            setLoading(false); // 로딩 상태 종료
+            setLoading(false);
         }
     };
     const handleCreateButtonClick = ()=>{
