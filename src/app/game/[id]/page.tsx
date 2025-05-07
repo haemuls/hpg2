@@ -111,7 +111,8 @@ const CTFProblemPage = () => {
   }, [problemId]);
 
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const token = await getToken();
     if (!token) return;
 
@@ -127,10 +128,13 @@ const CTFProblemPage = () => {
       }
 
       const data = await res.json();
-      setMessage(data.result ? "정답입니다! 축하합니다." : "오답입니다. 다시 시도하세요.");
+      if (data.result) {
+        setMessage("정답입니다!");
+      } else {
+        setMessage("오답이에요 ㅠㅠ");
+      }
     } catch (error) {
-      console.error("정답 확인 실패:", error);
-      setMessage("정답 확인 중 오류가 발생했습니다.");
+      setMessage("정답 제출 중 오류가 발생했습니다.");
     }
   };
 
@@ -361,17 +365,28 @@ const CTFProblemPage = () => {
       <div className={styles.flagSection}>
         <h4 className={styles.flagTitle}>정답 제출</h4>
         <form className={styles.flagForm} onSubmit={handleSubmit}>
-          <input
-              type="text"
-              className={styles.flagInput}
-              value={flag}
-              onChange={(e) => setFlag(e.target.value)}
-              placeholder="flag는 HPG{...} 형식입니다."
-          />
-          {message && <p className={styles.flagMessage}>{message}</p>}
-          <button className={styles.flagButton} type="submit">제출</button>
+          <div className={styles.inputBox}>
+            <input
+                type="text"
+                className={styles.flagInput}
+                value={flag}
+                onChange={(e) => setFlag(e.target.value)}
+                placeholder="flag는 HPG{...} 형식입니다."
+            />
+            <button className={styles.flagButton} type="submit">제출</button>
+          </div>
+          {message && (
+              <div className={styles.messageBox}>
+                <p
+                    className={`${styles.flagMessage} ${message.includes("정답") ? styles.successMessage : message.includes("오답") ? styles.errorMessage : ""}`}
+                >
+                  {message}
+                </p>
+              </div>
+          )}
         </form>
       </div>
+
 
       <div className={styles.buttonContainer}>
         <div className={styles.buttonBox}>

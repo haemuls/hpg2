@@ -198,26 +198,22 @@
   margin-right: auto;
 }
 
-.flagTitle {
-  font-size: 18px;
-  color: #333;
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-}
-
-.flagForm {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
+.inputBox {
+  display: flex; /* 입력창과 버튼을 일렬로 나열 */
+  flex-direction: row; /* 가로 방향으로 배치 */
+  align-items: center; /* 세로 방향으로 중앙 정렬 */
+  min-width: 300px; /* 입력창이 너무 작아지지 않도록 최소 너비 설정 */
+  width: 90%;
 }
 
 .flagInput {
-  flex: 1;
+  flex: 1; /* 입력창이 가능한 공간을 차지하도록 설정 */
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box; /* 테두리와 패딩 포함 */
+  margin-right: 10px; /* 입력창과 버튼 사이의 간격 */
 }
 
 .flagButton {
@@ -228,18 +224,32 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  height: 90%;
+  height: fit-content;
+  flex-shrink: 0; /* 버튼이 줄어들지 않도록 */
 }
 
 .flagButton:hover {
   background-color: #495057;
 }
 
+.messageBox {
+  margin-top: 10px; /* 입력창과 메시지 간격 */
+}
+
 .flagMessage {
-  margin-top: 10px;
-  color: #28a745;
+  font-size: 14px;
   font-weight: bold;
 }
+
+.flagMessage.errorMessage {
+  color: #dc3545; /* 오답 메시지 색상 */
+}
+
+.flagMessage.successMessage {
+  color: #28a745; /* 정답 메시지 색상 */
+}
+
+
 
 /* Button Container */
 .buttonContainer {

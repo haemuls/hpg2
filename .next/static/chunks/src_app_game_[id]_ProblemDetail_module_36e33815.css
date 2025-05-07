@@ -186,24 +186,20 @@
   padding: 20px;
 }
 
-.ProblemDetail-module__k9Mj0W__flagTitle {
-  color: #333;
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-  font-size: 18px;
-}
-
-.ProblemDetail-module__k9Mj0W__flagForm {
+.ProblemDetail-module__k9Mj0W__inputBox {
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  width: 90%;
+  min-width: 300px;
   display: flex;
 }
 
 .ProblemDetail-module__k9Mj0W__flagInput {
+  box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
   flex: 1;
+  margin-right: 10px;
   padding: 10px;
   font-size: 16px;
 }
@@ -214,7 +210,8 @@
   background-color: #007bff;
   border: none;
   border-radius: 4px;
-  height: 90%;
+  flex-shrink: 0;
+  height: fit-content;
   padding: 10px 16px;
   font-size: 14px;
 }
@@ -223,10 +220,21 @@
   background-color: #495057;
 }
 
-.ProblemDetail-module__k9Mj0W__flagMessage {
-  color: #28a745;
+.ProblemDetail-module__k9Mj0W__messageBox {
   margin-top: 10px;
+}
+
+.ProblemDetail-module__k9Mj0W__flagMessage {
+  font-size: 14px;
   font-weight: bold;
+}
+
+.ProblemDetail-module__k9Mj0W__flagMessage.ProblemDetail-module__k9Mj0W__errorMessage {
+  color: #dc3545;
+}
+
+.ProblemDetail-module__k9Mj0W__flagMessage.ProblemDetail-module__k9Mj0W__successMessage {
+  color: #28a745;
 }
 
 .ProblemDetail-module__k9Mj0W__buttonContainer {
