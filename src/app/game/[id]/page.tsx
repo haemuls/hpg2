@@ -323,9 +323,14 @@ const CTFProblemPage = () => {
   return (
   <section className={styles.container}>
     <div className={styles.mainContent}>
-      <h3 className={styles.title}>{problem.title}</h3>
+      <h3 className={styles.title}>
+        <span className={styles.kindTag}>
+          {problem.kind.slice(0, 3).toUpperCase()}
+        </span>
+        {problem.title}
+      </h3>
       <p className={styles.metaInfo}>
-        출제자: {problem.creator} | 종류: {problem.kind}
+        출제자: {problem.creator}
       </p>
       <p className={styles.metaInfo}>
         출제일: {new Date(problem.createdAt).toLocaleDateString()} | 검수자: {problem.reviewer}
