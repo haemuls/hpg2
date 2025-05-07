@@ -1,14 +1,4 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/board/page": "app/board/page.js",
-  "/board/view/[id]/page": "app/board/view/[id]/page.js",
-  "/board/write/page": "app/board/write/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/game/[id]/page": "app/game/[id]/page.js",
-  "/game/game_create/page": "app/game/game_create/page.js",
-  "/game/page": "app/game/page.js",
-  "/login/page": "app/login/page.js",
-  "/notice/page": "app/notice/page.js",
-  "/page": "app/page.js",
-  "/ranking/page": "app/ranking/page.js"
+  "/page": "app/page.js"
 }

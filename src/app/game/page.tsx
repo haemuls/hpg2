@@ -14,7 +14,7 @@ interface Post {
   level: string | null;
   correctRate: number | null;
   creator: string;
-  type: string | null;
+  Wargametype: string | null;
   lastModified: string;
 }
 
@@ -105,7 +105,7 @@ const GamePage = () => {
           level: post.level,
           correctRate: post.correctRate,
           creator: post.creator,
-          type: post.type,
+          type: post.Wargametype,
           lastModified: post.lastModified,
         }));
 
@@ -161,7 +161,7 @@ const GamePage = () => {
         level: post.level,
         correctRate: post.correctRate,
         creator: post.creator,
-        type: post.type,
+        type: post.Wargametype,
         lastModified: post.lastModified,
       }));
 

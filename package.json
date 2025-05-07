@@ -30,6 +30,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/bootstrap": "^5.2.10",
+    "@types/gtag.js": "^0.0.20",
     "@types/jquery": "^3.5.32",
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "^20",

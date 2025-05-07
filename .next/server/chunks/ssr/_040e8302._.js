@@ -127,7 +127,7 @@ const GamePage = ()=>{
                         level: post.level,
                         correctRate: post.correctRate,
                         creator: post.creator,
-                        type: post.type,
+                        type: post.Wargametype,
                         lastModified: post.lastModified
                     }));
                 setPosts(formattedPosts);
@@ -181,7 +181,7 @@ const GamePage = ()=>{
                     level: post.level,
                     correctRate: post.correctRate,
                     creator: post.creator,
-                    type: post.type,
+                    type: post.Wargametype,
                     lastModified: post.lastModified
                 }));
             setPosts(formattedPosts);
