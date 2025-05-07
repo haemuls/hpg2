@@ -5,7 +5,9 @@ import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 import { getToken, clearTokens } from '../../token';
+import getConfig from 'next/config';
 
+const { publicRuntimeConfig } = getConfig();
 const GA_Measurement_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
