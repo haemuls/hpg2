@@ -49,7 +49,7 @@ const GamePage = () => {
     const adminStatus = localStorage.getItem("isAdmin") === "true";
     setIsAdmin(adminStatus);
 
-    const token = localStorage.getItem("jwtToken"); // jwtToken을 통해 로그인 여부 확인
+    const token = localStorage.getItem("jwtToken");
     if (token) {
       setIsLoggedIn(true); // 로그인 상태일 경우 true
     }
@@ -84,7 +84,7 @@ const GamePage = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`, // JWT 토큰을 헤더에 추가
+            "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`,
           },
         });
 
@@ -128,7 +128,7 @@ const GamePage = () => {
     try {
       const params = new URLSearchParams({
         problemType: "WARGAME", // 타입은 WARGAME으로 고정
-        WargameType: selectedType === "전체" ? "" : selectedType, // 선택된 타입을 기준으로 설정
+        WargameKind: selectedType === "전체" ? "" : selectedType, // 선택된 타입을 기준으로 설정
         keyword: searchTerm, // 검색어로 전달
         page: currentPage.toString(),
         size: size.toString(),
@@ -225,7 +225,7 @@ const GamePage = () => {
           >
             <option value="전체">전체</option>
             <option value="WEBHACKING">webhacking</option>
-            <option value="PWNABLE">pwnable</option>
+            <option value="SYSTEM">pwnable</option>
             <option value="REVERSING">reversing</option>
             <option value="CRYPTO">crypto</option>
           </select>
