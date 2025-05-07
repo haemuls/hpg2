@@ -122,14 +122,14 @@ const GamePage = () => {
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // 로딩 상태 시작
-    setError(""); // 기존 에러 메시지 초기화
+    setLoading(true);
+    setError("");
 
     try {
       const params = new URLSearchParams({
-        problemType: "WARGAME", // 타입은 WARGAME으로 고정
-        WargameKind: selectedType === "전체" ? "" : selectedType, // 선택된 타입을 기준으로 설정
-        keyword: searchTerm, // 검색어로 전달
+        problemType: "WARGAME",
+        WargameKind: selectedType === "전체" ? "" : selectedType,
+        keyword: searchTerm,
         page: currentPage.toString(),
         size: size.toString(),
       });
@@ -139,8 +139,8 @@ const GamePage = () => {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Accept": "*/*", // 헤더에서 accept 설정
-          "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`, // JWT 토큰을 헤더에 추가
+          "Accept": "*/*",
+          "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`,
         },
       });
 
@@ -152,7 +152,7 @@ const GamePage = () => {
       }
 
       const data = await response.json();
-      setTotalPages(data.totalPages); // 전체 페이지 수 설정
+      setTotalPages(data.totalPages);
 
       const formattedPosts = data.content.map((post: Post) => ({
         id: post.id,
@@ -165,11 +165,11 @@ const GamePage = () => {
         lastModified: post.lastModified,
       }));
 
-      setPosts(formattedPosts); // 검색된 문제 목록을 업데이트
+      setPosts(formattedPosts);
     } catch (error) {
       setError(error instanceof Error ? error.message : "검색 오류");
     } finally {
-      setLoading(false); // 로딩 상태 종료
+      setLoading(false);
     }
   };
 
@@ -343,7 +343,7 @@ const GamePage = () => {
             type="button"
             className={styles.writeButton}
             onClick={handleCreateButtonClick}
-            disabled={!isLoggedIn} // 로그인 안된 경우 버튼 비활성화
+            disabled={!isLoggedIn}
           >
             문제 만들기
           </button>
