@@ -92,7 +92,7 @@ const BoardWritePage = ()=>{
             creator: nickname
         };
         try {
-            const accessToken = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getToken"])(); // getValidAccessToken 대신 getToken 사용
+            const accessToken = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getToken"])();
             if (!accessToken) {
                 alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
                 (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["clearTokens"])();
@@ -231,6 +231,9 @@ const BoardWritePage = ()=>{
                     },
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         href: "/board",
+                        style: {
+                            color: "#0012342"
+                        },
                         children: "게시판 목록으로 이동"
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/write/page.tsx",

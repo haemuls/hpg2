@@ -328,7 +328,7 @@ const CTFProblemPage = () => {
         출제자: {problem.creator} | 종류: {problem.kind}
       </p>
       <p className={styles.metaInfo}>
-        출제일: {new Date(problem.createdAt).toLocaleDateString()} | 리뷰어: {problem.reviewer}
+        출제일: {new Date(problem.createdAt).toLocaleDateString()} | 검수자: {problem.reviewer}
       </p>
       <p className={`${styles.metaInfo} ${styles.last}`}>
         정답률: {problem.entireCount === 0 ? '제출 없음' : `${((problem.correctCount / problem.entireCount) * 100).toFixed(2)}%`}
@@ -380,7 +380,7 @@ const CTFProblemPage = () => {
         </div>
         <div className={styles.buttonBox}>
           <button onClick={handleShowVmAddress} className={styles.vmButton}>
-            VM 주소 보기
+            컨테이너 생성하기
           </button>
           {vmAddress && (
               isValidUrl(vmAddress) ? (
