@@ -213,7 +213,6 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box; /* 테두리와 패딩 포함 */
-  margin-right: 10px; /* 입력창과 버튼 사이의 간격 */
 }
 
 .flagButton {
