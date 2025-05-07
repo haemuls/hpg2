@@ -1,3 +1,4 @@
+/* Container */
 .container {
   padding: 20px;
   max-width: 1200px;
@@ -8,6 +9,7 @@
   width: 80%;
 }
 
+/* Title Row */
 .titleRow {
   display: flex;
   justify-content: space-between;
@@ -47,6 +49,7 @@
   margin-top: 5px;
 }
 
+/* Viewer Container */
 .viewerContainer {
   margin-top: 40px;
   padding-bottom: 30px;
@@ -54,6 +57,7 @@
   margin-bottom: 20px;
 }
 
+/* Buttons */
 .btnDelete {
   background-color: #dc3545;
   color: white;
@@ -68,34 +72,6 @@
 
 .btnDelete:hover {
   background-color: #c82333;
-}
-
-.commentSection {
-  margin-top: 120px;
-}
-
-.commentTitle {
-  font-size: 20px;
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #007bff;
-  color: #333;
-}
-
-.formGroup {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.formGroup textarea {
-  width: 100%;
-  padding: 15px;
-  padding-right: 100px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  resize: vertical;
-  box-sizing: border-box;
 }
 
 .btnPrimary {
@@ -119,6 +95,19 @@
 
 .btnPrimary:hover {
   background-color: #495057;
+}
+
+/* Comment Section */
+.commentSection {
+  margin-top: 120px;
+}
+
+.commentTitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #007bff;
+  color: #333;
 }
 
 .commentItem p {
@@ -164,6 +153,24 @@
   color: darkred;
 }
 
+/* Form Group */
+.formGroup {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.formGroup textarea {
+  width: 100%;
+  padding: 15px;
+  padding-right: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/* Flag Section */
 .flagSection {
   margin-top: 40px;
   padding: 20px;
@@ -219,74 +226,76 @@
   font-weight: bold;
 }
 
-.viewerContainer {
-  margin-top: 40px;
-  padding-bottom: 30px;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 20px;
-}
-
+/* Button Container */
 .buttonContainer {
-  display: flex; /* 플렉스 레이아웃 사용 */
-  gap: 20px; /* 버튼 박스 간 간격 */
-  justify-content: center; /* 버튼 박스들을 중앙 정렬 */
+  display: flex;
+  gap: 20px;
+  justify-content: center;
   margin-top: 20px;
 }
 
 .buttonBox {
   display: flex;
-  justify-content: center; /* 버튼을 박스 내부 가운데 정렬 */
-  align-items: center; /* 버튼을 수직 가운데 정렬 */
-  background-color: #f9f9f9; /* 박스 배경색 */
-  padding: 40px; /* 여백 */
-  border-radius: 8px; /* 둥근 모서리 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .vmButton, .downloadButton {
-  padding: 10px 20px; /* 버튼의 상하 여백과 좌우 여백을 동일하게 설정 */
-  font-size: 16px; /* 동일한 폰트 크기 */
-  border-radius: 8px; /* 둥근 모서리 */
-  cursor: pointer; /* 클릭 커서 */
-  display: inline-block; /* 블록 수준 요소로 처리 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  width: auto; /* 자동 너비로 설정하여 동일한 크기로 유지 */
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  width: auto;
 }
+
 .vmButton {
   background-color: #28a745;
   color: #FFFFFF;
+  margin-left: 10px;
 }
 
+.vmButton:hover {
+  background: linear-gradient(90deg, #218838, #28a745);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
 
 .downloadButton:disabled {
-  background-color: #cccccc; /* 비활성화 상태 배경 */
-  cursor: not-allowed; /* 비활성화 상태 커서 */
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
+/* VM Section */
 .vmSection {
   margin-top: 30px;
   margin-bottom: 20px;
 }
 
-
-.vmButton:hover {
-  background-color: #5a6268; /* 호버 시 더 어두운 회색 */
-}
-
 .vmAddressWrapper {
-  display: flex; /* 플렉스 박스 */
-  flex-direction: column; /* 세로 방향으로 배치 */
-  align-items: center; /* 가운데 정렬 */
-  margin-top: 10px; /* 버튼과 텍스트 사이 여백 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .vmAddress {
-  margin-top: 10px; /* 위쪽 여백 */
-  color: #333; /* 텍스트 색상 */
-  font-size: 14px; /* 텍스트 크기 */
-  text-align: center; /* 중앙 정렬 */
+  margin-top: 10px;
+  color: #333;
+  font-size: 14px;
+  text-align: center;
 }
 
+.disabled {
+  color: red;
+}
+
+/* Ranking Section */
 .rankingBox {
   margin-top: 50px;
 }
@@ -319,4 +328,3 @@
 .rankingItem span {
   font-size: 1rem;
 }
-

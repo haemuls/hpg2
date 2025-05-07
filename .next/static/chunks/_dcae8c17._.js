@@ -17,6 +17,7 @@ __turbopack_context__.v({
   "commentSection": "ProblemDetail-module__k9Mj0W__commentSection",
   "commentTitle": "ProblemDetail-module__k9Mj0W__commentTitle",
   "container": "ProblemDetail-module__k9Mj0W__container",
+  "disabled": "ProblemDetail-module__k9Mj0W__disabled",
   "downloadButton": "ProblemDetail-module__k9Mj0W__downloadButton",
   "flagButton": "ProblemDetail-module__k9Mj0W__flagButton",
   "flagForm": "ProblemDetail-module__k9Mj0W__flagForm",

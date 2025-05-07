@@ -48,6 +48,13 @@
   display: block;
 }
 
+.ProblemDetail-module__k9Mj0W__viewerContainer {
+  border-bottom: 2px solid #ccc;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-bottom: 30px;
+}
+
 .ProblemDetail-module__k9Mj0W__btnDelete {
   color: #fff;
   cursor: pointer;
@@ -62,33 +69,6 @@
 
 .ProblemDetail-module__k9Mj0W__btnDelete:hover {
   background-color: #c82333;
-}
-
-.ProblemDetail-module__k9Mj0W__commentSection {
-  margin-top: 120px;
-}
-
-.ProblemDetail-module__k9Mj0W__commentTitle {
-  color: #333;
-  border-bottom: 2px solid #007bff;
-  margin-bottom: 20px;
-  padding-bottom: 8px;
-  font-size: 20px;
-}
-
-.ProblemDetail-module__k9Mj0W__formGroup {
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.ProblemDetail-module__k9Mj0W__formGroup textarea {
-  resize: vertical;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  padding: 15px 100px 15px 15px;
-  font-size: 16px;
 }
 
 .ProblemDetail-module__k9Mj0W__btnPrimary {
@@ -112,6 +92,18 @@
 
 .ProblemDetail-module__k9Mj0W__btnPrimary:hover {
   background-color: #495057;
+}
+
+.ProblemDetail-module__k9Mj0W__commentSection {
+  margin-top: 120px;
+}
+
+.ProblemDetail-module__k9Mj0W__commentTitle {
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  font-size: 20px;
 }
 
 .ProblemDetail-module__k9Mj0W__commentItem p {
@@ -155,6 +147,21 @@
 
 .ProblemDetail-module__k9Mj0W__commentDelete:hover {
   color: #8b0000;
+}
+
+.ProblemDetail-module__k9Mj0W__formGroup {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.ProblemDetail-module__k9Mj0W__formGroup textarea {
+  resize: vertical;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 15px 100px 15px 15px;
+  font-size: 16px;
 }
 
 .ProblemDetail-module__k9Mj0W__flagSection {
@@ -209,13 +216,6 @@
   font-weight: bold;
 }
 
-.ProblemDetail-module__k9Mj0W__viewerContainer {
-  border-bottom: 2px solid #ccc;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  padding-bottom: 30px;
-}
-
 .ProblemDetail-module__k9Mj0W__buttonContainer {
   justify-content: center;
   gap: 20px;
@@ -246,6 +246,13 @@
 .ProblemDetail-module__k9Mj0W__vmButton {
   color: #fff;
   background-color: #28a745;
+  margin-left: 10px;
+}
+
+.ProblemDetail-module__k9Mj0W__vmButton:hover {
+  background: linear-gradient(90deg, #218838, #28a745);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px #0003;
 }
 
 .ProblemDetail-module__k9Mj0W__downloadButton:disabled {
@@ -256,10 +263,6 @@
 .ProblemDetail-module__k9Mj0W__vmSection {
   margin-top: 30px;
   margin-bottom: 20px;
-}
-
-.ProblemDetail-module__k9Mj0W__vmButton:hover {
-  background-color: #5a6268;
 }
 
 .ProblemDetail-module__k9Mj0W__vmAddressWrapper {
@@ -274,6 +277,10 @@
   text-align: center;
   margin-top: 10px;
   font-size: 14px;
+}
+
+.ProblemDetail-module__k9Mj0W__disabled {
+  color: red;
 }
 
 .ProblemDetail-module__k9Mj0W__rankingBox {
