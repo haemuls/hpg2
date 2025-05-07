@@ -65,7 +65,7 @@ const BoardWritePage = () => {
     const postData = { title, type: 'FREE', contents, creator: nickname };
 
     try {
-      const accessToken = await getToken();  // getValidAccessToken 대신 getToken 사용
+      const accessToken = await getToken();
       if (!accessToken) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -130,7 +130,7 @@ const BoardWritePage = () => {
           </div>
         </form>
         <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <Link href="/board">게시판 목록으로 이동</Link>
+          <Link href="/board" style={{color: "#0012342"}}>게시판 목록으로 이동</Link>
         </div>
       </div>
     </div>

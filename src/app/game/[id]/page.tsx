@@ -110,6 +110,7 @@ const CTFProblemPage = () => {
     fetchData();
   }, [problemId]);
 
+
   const handleSubmit = async () => {
     const token = await getToken();
     if (!token) return;
@@ -142,7 +143,7 @@ const CTFProblemPage = () => {
 
   try {
     const response = await fetch(
-      `${FILE_BASE_URL}/api/pods/create?userId=${userNickname}&problemId=${problemId}`,
+      `${FILE_BASE_URL}/api/pods/create?problemId=${problemId}`,
       {
         method: "POST",
         headers: {
@@ -155,11 +156,20 @@ const CTFProblemPage = () => {
       throw new Error("VM 주소 생성에 실패했습니다.");
     }
 
-    const data = await response.json();
-    setVmAddress(data.result || "VM 주소를 생성할 수 없습니다.");
+    const text = await response.text();
+    setVmAddress(text || "VM 주소를 생성할 수 없습니다.");
   } catch (error) {
     console.error("VM 주소 생성 실패:", error);
     setVmAddress("VM 주소 생성 중 오류가 발생했습니다.");
+  }
+};
+
+  const isValidUrl = (string) => {
+  try {
+    new URL(string);
+    return true;
+  } catch (e) {
+    return false;
   }
 };
 
@@ -351,7 +361,7 @@ const CTFProblemPage = () => {
             className={styles.flagInput}
             value={flag}
             onChange={(e) => setFlag(e.target.value)}
-            placeholder="정답을 입력하세요"
+            placeholder="flag는 HPG{...} 형식입니다."
           />
           {message && <p className={styles.flagMessage}>{message}</p>}
           <button className={styles.flagButton} type="submit">제출</button>
@@ -361,9 +371,9 @@ const CTFProblemPage = () => {
       <div className={styles.buttonContainer}>
         <div className={styles.buttonBox}>
           <button
-            className={styles.downloadButton}
-            onClick={handleFileDownload}
-            disabled={!problem?.problemFile}
+              className={styles.downloadButton}
+              onClick={handleFileDownload}
+              disabled={!problem?.problemFile}
           >
             파일 다운로드
           </button>
@@ -372,18 +382,33 @@ const CTFProblemPage = () => {
           <button onClick={handleShowVmAddress} className={styles.vmButton}>
             VM 주소 보기
           </button>
-          {vmAddress && <p className={styles.vmAddress}>{vmAddress}</p>}
+          {vmAddress && (
+              isValidUrl(vmAddress) ? (
+                  <a
+                      href={vmAddress}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.vmAddress}
+                  >
+                    {vmAddress}
+                  </a>
+              ) : (
+                  <span className={`${styles.vmAddress} ${styles.disabled}`}>
+        {vmAddress}
+      </span>
+              )
+          )}
         </div>
       </div>
-            {/* 랭킹 박스 섹션 */}
+      {/* 랭킹 박스 섹션 */}
       {ranking && ranking.length > 0 ? (
-  <div className={styles.rankingBox}>
-    <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
-    <ul className={styles.rankingList}>
-      {ranking.map((rank, index) => (
-        <li key={rank.id} className={styles.rankingItem}>
-          <span className={styles.rankNumber}>{index + 1}</span>
-          <span className={styles.rankName}>{rank.nickname}</span>
+          <div className={styles.rankingBox}>
+            <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
+            <ul className={styles.rankingList}>
+              {ranking.map((rank, index) => (
+                  <li key={rank.id} className={styles.rankingItem}>
+                    <span className={styles.rankNumber}>{index + 1}</span>
+                    <span className={styles.rankName}>{rank.nickname}</span>
           <span className={styles.rankTime}>
             {rank.firstBlood
               ? format(new Date(rank.firstBlood).toLocaleString("en-US", { timeZone: "Asia/Seoul" }), 'yyyy-MM-dd HH:mm')

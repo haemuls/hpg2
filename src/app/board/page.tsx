@@ -1,16 +1,15 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import styles from "./board.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { getToken } from "../../../token";  // getValidJwtToken 대신
+import { getToken } from "../../../token";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 
-// 게시글 타입 정의
 interface Post {
   id: number;
   title: string;
@@ -27,7 +26,7 @@ interface BoardResponse {
   };
 }
 
-const PAGE_SIZE = 25; // 페이지 크기를 상수로 관리
+const PAGE_SIZE = 25;
 
 const BoardPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -42,7 +41,6 @@ const BoardPage = () => {
   const router = useRouter();
 
   const maxPageButtons = 5;
-
   const pageGroupStart = Math.floor(currentPage / maxPageButtons) * maxPageButtons;
   const pageGroupEnd = Math.min(pageGroupStart + maxPageButtons, totalPages);
 
@@ -57,7 +55,7 @@ const BoardPage = () => {
 
       const response = await fetch(endpoint, {
         headers: {
-          Authorization: `Bearer ${await getToken()}`,  // 토큰 검증 후 설정
+          Authorization: `Bearer ${await getToken()}`,
           "Content-Type": "application/json",
         },
       });
@@ -118,19 +116,7 @@ const BoardPage = () => {
       return;
     }
 
-    try {
-      const token = await getToken();
-      if (!token) {
-        alert("유효하지 않은 토큰입니다.");
-        router.push("/login");
-        return;
-      }
-
-      router.push("/board/write");
-    } catch (err) {
-      alert("토큰 검증 중 오류가 발생했습니다.");
-      console.error(err);
-    }
+    router.push("/board/write");
   };
 
   useEffect(() => {
@@ -269,9 +255,12 @@ const BoardPage = () => {
                 >
                   검색
                 </button>
+
               </div>
             </form>
+
           </div>
+
         </div>
       </div>
 
