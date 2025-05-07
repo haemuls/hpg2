@@ -87,7 +87,7 @@ const GamePage = ()=>{
         "GamePage.useEffect": ()=>{
             const adminStatus = localStorage.getItem("isAdmin") === "true";
             setIsAdmin(adminStatus);
-            const token = localStorage.getItem("jwtToken"); // jwtToken을 통해 로그인 여부 확인
+            const token = localStorage.getItem("jwtToken");
             if (token) {
                 setIsLoggedIn(true); // 로그인 상태일 경우 true
             }
@@ -168,7 +168,7 @@ const GamePage = ()=>{
         try {
             const params = new URLSearchParams({
                 problemType: "WARGAME",
-                WargameType: selectedType === "전체" ? "" : selectedType,
+                WargameKind: selectedType === "전체" ? "" : selectedType,
                 keyword: searchTerm,
                 page: currentPage.toString(),
                 size: size.toString()
@@ -293,7 +293,7 @@ const GamePage = ()=>{
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                    value: "PWNABLE",
+                                    value: "SYSTEM",
                                     children: "pwnable"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
