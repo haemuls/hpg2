@@ -232,7 +232,7 @@
 }
 
 .messageBox {
-  margin-top: 10px; /* 입력창과 메시지 간격 */
+  margin-top: 10px;
 }
 
 .flagMessage {
@@ -313,6 +313,7 @@
   color: #333;
   font-size: 14px;
   text-align: center;
+  margin-left: 10px;
 }
 
 .disabled {
