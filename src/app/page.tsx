@@ -38,21 +38,13 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const initialize = async () => {
-      try {
-        const stats = await fetchProblemStats();
+    fetchProblemStats()
+      .then((stats) => {
         setSolvedProblems(stats.solvedProblemsCount);
         setNewProblems(stats.newProblemsCount);
-      } catch (error) {
-        console.error('초기화 오류:', error);
-        setSolvedProblems(0);
-        setNewProblems(0);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    initialize();
+      })
+      .catch((error) => console.error('초기화 오류:', error))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -90,10 +82,8 @@ const HomePage = () => {
 
       <section className={styles.notionsSection}>
         <iframe
-            src="https://lake-middle-d9f.notion.site/ebd/1db0ebc77a6b80fba6faff7068412a7c"
-            frameBorder="0"
-            allowFullScreen
-            scrolling="no"
+          src="https://lake-middle-d9f.notion.site/ebd/1db0ebc77a6b80fba6faff7068412a7c"
+          allowFullScreen
         />
       </section>
     </div>

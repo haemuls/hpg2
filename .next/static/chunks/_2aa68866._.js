@@ -54,35 +54,40 @@ const BoardWritePage = ()=>{
     const editorRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null); // 타입을 지정
     const [nickname, setNickname] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null); // 닉네임 상태 추가
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const checkLogin = async ()=>{
+        const storedMembershipId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getMembershipId"])();
+        if (!storedMembershipId) {
+            alert('로그인이 필요합니다.');
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearTokens"])();
+            router.push('/login');
+            return false;
+        }
+        const token = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getToken"])();
+        if (!token) {
+            alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearTokens"])();
+            router.push('/login');
+            return false;
+        }
+        return true;
+    };
+    const fetchNickname = async ()=>{
+        const userNickname = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getUserNickname"])();
+        if (userNickname) {
+            setNickname(userNickname);
+        }
+    };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "BoardWritePage.useEffect": ()=>{
-            const storedMembershipId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getMembershipId"])();
-            if (!storedMembershipId) {
-                alert('로그인이 필요합니다.');
-                (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearTokens"])();
-                router.push('/login');
-                return;
-            }
-            const loadToken = {
-                "BoardWritePage.useEffect.loadToken": async ()=>{
-                    const token = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getToken"])(); // getValidAccessToken 대신 getToken 사용
-                    if (!token) {
-                        alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
-                        (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearTokens"])();
-                        router.push('/login');
+            const initializePage = {
+                "BoardWritePage.useEffect.initializePage": async ()=>{
+                    const isLoggedIn = await checkLogin();
+                    if (isLoggedIn) {
+                        fetchNickname();
                     }
                 }
-            }["BoardWritePage.useEffect.loadToken"];
-            const fetchNickname = {
-                "BoardWritePage.useEffect.fetchNickname": async ()=>{
-                    const userNickname = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getUserNickname"])();
-                    if (userNickname) {
-                        setNickname(userNickname);
-                    }
-                }
-            }["BoardWritePage.useEffect.fetchNickname"];
-            loadToken();
-            fetchNickname();
+            }["BoardWritePage.useEffect.initializePage"];
+            initializePage();
         }
     }["BoardWritePage.useEffect"], [
         router
@@ -145,7 +150,7 @@ const BoardWritePage = ()=>{
                     children: "게시글 작성"
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/write/page.tsx",
-                    lineNumber: 110,
+                    lineNumber: 118,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -159,7 +164,7 @@ const BoardWritePage = ()=>{
                                     children: "제목"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/write/page.tsx",
-                                    lineNumber: 113,
+                                    lineNumber: 121,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -170,13 +175,13 @@ const BoardWritePage = ()=>{
                                     required: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/write/page.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 122,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/write/page.tsx",
-                            lineNumber: 112,
+                            lineNumber: 120,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -190,7 +195,7 @@ const BoardWritePage = ()=>{
                                     children: "내용"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/write/page.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 131,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ToastEditor, {
@@ -199,13 +204,13 @@ const BoardWritePage = ()=>{
                                     height: "500px"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/write/page.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 132,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/write/page.tsx",
-                            lineNumber: 122,
+                            lineNumber: 130,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -219,18 +224,18 @@ const BoardWritePage = ()=>{
                                 children: "게시글 작성"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/board/write/page.tsx",
-                                lineNumber: 127,
+                                lineNumber: 135,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/board/write/page.tsx",
-                            lineNumber: 126,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/board/write/page.tsx",
-                    lineNumber: 111,
+                    lineNumber: 119,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -241,28 +246,28 @@ const BoardWritePage = ()=>{
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         href: "/board",
                         style: {
-                            color: "#0012342"
+                            color: '#0012342'
                         },
                         children: "게시판 목록으로 이동"
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/write/page.tsx",
-                        lineNumber: 133,
+                        lineNumber: 141,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/write/page.tsx",
-                    lineNumber: 132,
+                    lineNumber: 140,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/board/write/page.tsx",
-            lineNumber: 109,
+            lineNumber: 117,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/board/write/page.tsx",
-        lineNumber: 108,
+        lineNumber: 116,
         columnNumber: 5
     }, this);
 };

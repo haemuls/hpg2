@@ -71,7 +71,12 @@ const BoardDetailPage = () => {
         setUserNickname(null);
       }
     };
-    fetchUserNickname();
+
+    // fetchUserNickname 함수 호출
+    fetchUserNickname().catch((error) => {
+      // 프로미스가 실패할 경우 처리
+      console.error('닉네임을 가져오는 중 에러 발생:', error);
+    });
   }, []);
 
   useEffect(() => {
@@ -92,14 +97,14 @@ const BoardDetailPage = () => {
         if (commentsData) {
           setComments(
             commentsData.result
-              .map((c) => ({
+              .map((c: Comment) => ({
                 id: c.id,
                 content: c.content,
                 creator: c.creator || { nickname: '익명 사용자' },
                 createdAt: c.createdAt,
                 isEditing: false,
               }))
-              .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+              .sort((a: Comment, b: Comment) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
           );
         }
         setLoading(false);
@@ -233,7 +238,7 @@ const BoardDetailPage = () => {
           </form>
 
           <ul>
-            {comments.map((c) => (
+            {comments.map((c: Comment) => (
               <li key={c.id} className={styles.commentItem}>
                 <p>
                   <strong>{c.creator?.nickname || '익명 사용자'}</strong>

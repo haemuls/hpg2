@@ -1,10 +1,13 @@
 /* [project]/src/app/login/login1.module.css [app-client] (css) */
+body {
+  background: #fff;
+  font-family: Montserrat, sans-serif;
+}
+
 .login1-module__aIrZPa__container {
-  background-color: #fff;
   width: 80%;
   max-width: 680px;
   margin: 120px auto;
-  font-family: Montserrat, sans-serif;
   display: block;
 }
 
@@ -17,25 +20,37 @@
 }
 
 .login1-module__aIrZPa__links {
-  text-align: center;
-  padding: 0;
   list-style-type: none;
 }
 
 .login1-module__aIrZPa__links li {
-  margin-right: 20px;
+  margin: 0 20px 0 0;
   transition: all .2s linear;
   display: inline-block;
 }
 
-.login1-module__aIrZPa__links li:last-child {
-  margin-right: 0;
+.login1-module__aIrZPa__links li:nth-child(2) {
+  opacity: .6;
+}
+
+.login1-module__aIrZPa__links li:nth-child(2):hover {
+  opacity: 1;
+}
+
+.login1-module__aIrZPa__links li:nth-child(3) {
+  opacity: .6;
+  float: right;
+}
+
+.login1-module__aIrZPa__links li:nth-child(3):hover {
+  opacity: 1;
 }
 
 .login1-module__aIrZPa__links a {
   color: #0f132a;
+  text-align: center;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: bolder;
   text-decoration: none;
 }
 
@@ -43,6 +58,36 @@
   margin: 20px auto;
   display: block;
   position: relative;
+}
+
+.login1-module__aIrZPa__input__block.login1-module__aIrZPa__first-input__block:before {
+  content: "";
+  background: none;
+  border-bottom: 15px solid #0f132a1a;
+  border-left: 15px solid #0000;
+  border-right: 15px solid #0000;
+  width: 0;
+  height: 0;
+  transition: all .2s linear;
+  display: block;
+  position: absolute;
+  top: -15px;
+  left: 50px;
+}
+
+.login1-module__aIrZPa__input__block.login1-module__aIrZPa__signup-input__block:before {
+  content: "";
+  background: none;
+  border-bottom: 15px solid #0f132a1a;
+  border-left: 15px solid #0000;
+  border-right: 15px solid #0000;
+  width: 0;
+  height: 0;
+  transition: all .2s linear;
+  display: block;
+  position: absolute;
+  top: -15px;
+  left: 150px;
 }
 
 .login1-module__aIrZPa__input {
@@ -57,6 +102,18 @@
   padding-left: 15px;
   font-size: 14px;
   display: block;
+}
+
+.login1-module__aIrZPa__input:focus, .login1-module__aIrZPa__input:active {
+  color: #0f132a;
+  border: none;
+  outline: none;
+}
+
+.login1-module__aIrZPa__repeat__password {
+  opacity: 0;
+  transition: all .2s linear;
+  display: none;
 }
 
 .login1-module__aIrZPa__signin__btn {
@@ -75,23 +132,87 @@
   box-shadow: 0 15px 30px #2188385c;
 }
 
+.login1-module__aIrZPa__signin__btn:hover {
+  box-shadow: 0 0 #21883800;
+}
+
 .login1-module__aIrZPa__separator {
   text-align: center;
-  margin: 20px 0;
+  color: #0f132a66;
+  background: none;
+  width: 90%;
+  max-width: 680px;
+  height: 40px;
+  margin: 30px auto 10px;
+  font-size: 13px;
+  display: block;
+  position: relative;
+}
+
+.login1-module__aIrZPa__separator:before {
+  content: "";
+  background: #0f132a33;
+  width: 45%;
+  height: 1px;
+  position: absolute;
+  top: 8px;
+  left: 0;
+}
+
+.login1-module__aIrZPa__separator:after {
+  content: "";
+  background: #0f132a33;
+  width: 45%;
+  height: 1px;
+  position: absolute;
+  top: 8px;
+  right: 0;
 }
 
 .login1-module__aIrZPa__google__btn, .login1-module__aIrZPa__github__btn {
-  color: #fff;
   cursor: pointer;
-  background: #0f132a;
   border: none;
   border-radius: 8px;
-  width: 92.5%;
+  width: 70%;
   max-width: 680px;
   height: 50px;
-  margin: 10px auto;
+  margin: 20px auto;
+  font-family: Montserrat, sans-serif;
   font-size: 14px;
+  line-height: 40px;
   display: block;
+}
+
+.login1-module__aIrZPa__google__btn {
+  color: #fff;
+  background: #5b90f0;
+  transition: all .2s linear;
+  box-shadow: 0 15px 30px #5b90f05c;
+}
+
+.login1-module__aIrZPa__google__btn .login1-module__aIrZPa__fa {
+  padding: 0 5px 0 0;
+  font-size: 20px;
+}
+
+.login1-module__aIrZPa__google__btn:hover {
+  box-shadow: 0 0 #5b90f000;
+}
+
+.login1-module__aIrZPa__github__btn {
+  color: #fff;
+  background: #25282d;
+  transition: all .2s linear;
+  box-shadow: 0 15px 30px #25282d5c;
+}
+
+.login1-module__aIrZPa__github__btn .login1-module__aIrZPa__fa {
+  padding: 0 5px 0 0;
+  font-size: 20px;
+}
+
+.login1-module__aIrZPa__github__btn:hover {
+  box-shadow: 0 0 #25282d00;
 }
 
 

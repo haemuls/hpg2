@@ -23,34 +23,42 @@ const BoardWritePage = () => {
   const [nickname, setNickname] = useState<string | null>(null);  // 닉네임 상태 추가
   const router = useRouter();
 
-  useEffect(() => {
+  const checkLogin = async () => {
     const storedMembershipId = getMembershipId();
 
     if (!storedMembershipId) {
       alert('로그인이 필요합니다.');
       clearTokens();
       router.push('/login');
-      return;
+      return false;
     }
 
-    const loadToken = async () => {
-      const token = await getToken();  // getValidAccessToken 대신 getToken 사용
-      if (!token) {
-        alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
-        clearTokens();
-        router.push('/login');
+    const token = await getToken();
+    if (!token) {
+      alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
+      clearTokens();
+      router.push('/login');
+      return false;
+    }
+    return true;
+  };
+
+  const fetchNickname = async () => {
+    const userNickname = await getUserNickname();
+    if (userNickname) {
+      setNickname(userNickname);
+    }
+  };
+
+  useEffect(() => {
+    const initializePage = async () => {
+      const isLoggedIn = await checkLogin();
+      if (isLoggedIn) {
+        fetchNickname();
       }
     };
 
-    const fetchNickname = async () => {
-      const userNickname = await getUserNickname();
-      if (userNickname) {
-        setNickname(userNickname);
-      }
-    };
-
-    loadToken();
-    fetchNickname();
+    initializePage();
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -130,7 +138,9 @@ const BoardWritePage = () => {
           </div>
         </form>
         <div style={{ marginTop: '20px', textAlign: 'center' }}>
-          <Link href="/board" style={{color: "#0012342"}}>게시판 목록으로 이동</Link>
+          <Link href="/board" style={{ color: '#0012342' }}>
+            게시판 목록으로 이동
+          </Link>
         </div>
       </div>
     </div>

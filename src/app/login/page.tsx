@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { login } from '../../../token'; // token.ts에서 login 함수 import
 import styles from './login1.module.css';
 
@@ -11,10 +11,12 @@ const SignUpPage = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false); // 회원가입 여부 상태
 
+  // 상태 변화에 따라 동적으로 텍스트를 변경하는 함수
   const toggleForm = (type: 'signin' | 'signup') => {
     setIsSignUp(type === 'signup');
   };
 
+  // 폼 제출 처리
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -59,6 +61,28 @@ const SignUpPage = () => {
     }
   };
 
+  useEffect(() => {
+    // 폼 상태 변경을 React의 상태로 처리
+    const handleToggleSignUp = () => {
+      setIsSignUp(true);
+    };
+    const handleToggleSignIn = () => {
+      setIsSignUp(false);
+    };
+
+    const signupLink = document.getElementById('signup');
+    const signinLink = document.getElementById('signin');
+
+    signupLink?.addEventListener('click', handleToggleSignUp);
+    signinLink?.addEventListener('click', handleToggleSignIn);
+
+    // Cleanup the event listeners when the component is unmounted
+    return () => {
+      signupLink?.removeEventListener('click', handleToggleSignUp);
+      signinLink?.removeEventListener('click', handleToggleSignIn);
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       {/* Heading */}
@@ -67,10 +91,10 @@ const SignUpPage = () => {
       {/* Links */}
       <ul className={styles.links}>
         <li>
-          <a href="#" onClick={() => toggleForm('signin')} id="signin">로그인</a>
+          <a href="#" id="signin">로그인</a>
         </li>
         <li>
-          <a href="#" onClick={() => toggleForm('signup')} id="signup">회원가입</a>
+          <a href="#" id="signup">회원가입</a>
         </li>
       </ul>
 
