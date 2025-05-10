@@ -157,7 +157,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <meta name="description" content="CTF 사이트 테스트용 페이지" />
         <link rel="icon" href="/images/test_sione.jpeg" type="image/gif" />
         <link rel="stylesheet" href="/styles/bootstrap.css" />
-        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
+          rel="stylesheet"
+        />
         <link rel="stylesheet" href="/styles/font-awesome.min.css" />
         <link rel="stylesheet" href="/styles/style.css" />
         <link rel="stylesheet" href="/styles/responsive.css" />
@@ -237,30 +240,30 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                   {nickname ? (
                     <>
                       <Dropdown className="mr-3">
-                        <Dropdown.Toggle id="dropdown-active-users"
-                        style={{
-                          backgroundColor: 'transparent',
-                          border: 'none',
-                          color: '#000',
-                          fontSize: '16px',
-                          padding: '0 10px',
-                        }}>
+                        <Dropdown.Toggle
+                          id="dropdown-active-users"
+                          style={{
+                            backgroundColor: "transparent",
+                            border: "none",
+                            color: "#000",
+                            fontSize: "16px",
+                            padding: "0 10px",
+                          }}
+                        >
                           {activeUserCount !== null
-                            ? `현재 접속인원 :${activeUserCount}명`
-                            : '접속 중 사용자 수'}
+                            ? `현재 접속인원: ${activeUserCount}명`
+                            : "접속 중 사용자 수"}
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu style = {{ background: 'transparent'}}>
-                          {Object.keys(activeUsersProblems).map((problemId) => {
+                        <Dropdown.Menu style={{ background: "transparent" }}>
+                          {Object.keys(activeUsersProblems || {}).map((problemId) => {
                             const problemIdNumber = Number(problemId);
-                            const problemTitle = problemTitles[problemIdNumber];
+                            const problemTitle = problemTitles?.[problemIdNumber];
 
-                            if (activeUsersProblems[problemId].length > 0) {
+                            if (activeUsersProblems?.[problemId]?.length > 0) {
                               return (
                                 <Dropdown.Item key={problemId}>
-                                  {problemTitle
-                                    ? problemTitle
-                                    : `문제 ID ${problemId}`} :{' '}
+                                  {problemTitle || `문제 ID ${problemId}`} :{" "}
                                   {activeUsersProblems[problemId].length}명
                                 </Dropdown.Item>
                               );

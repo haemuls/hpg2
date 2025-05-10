@@ -110,6 +110,37 @@ const CTFProblemPage = () => {
     fetchData();
   }, [problemId]);
 
+  const handleDeleteVm = async () => {
+  const token = await getToken();
+  if (!token) {
+    alert("로그인 후 이용할 수 있습니다.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${FILE_BASE_URL}/api/pods/delete?problemId=${problemId}`,
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("VM 삭제에 실패했습니다.");
+    }
+
+    // VM 주소 삭제 후 상태 초기화
+    setVmAddress("");
+    alert("VM이 성공적으로 삭제되었습니다.");
+  } catch (error) {
+    console.error("VM 삭제 실패:", error);
+    alert("VM 삭제 중 오류가 발생했습니다.");
+  }
+};
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -345,20 +376,20 @@ const CTFProblemPage = () => {
       </p>
 
       {problem.tags?.length > 0 && (
-          <div className={styles.metaInfo}>
-            태그: {problem.tags.join(', ')}
-          </div>
+        <div className={styles.metaInfo}>
+          태그: {problem.tags.join(', ')}
+        </div>
       )}
 
       {problem.source && (
-          <div className={styles.metaInfo}>
-            출처: {problem.source}
-          </div>
+        <div className={styles.metaInfo}>
+          출처: {problem.source}
+        </div>
       )}
 
       {/* 문제 설명 섹션 */}
       <div className={styles.viewerContainer}>
-        <div dangerouslySetInnerHTML={{__html: problem.detail}}/>
+        <div dangerouslySetInnerHTML={{__html: problem.detail}} />
       </div>
 
       {/* 정답 제출 섹션 */}
@@ -367,91 +398,100 @@ const CTFProblemPage = () => {
         <form className={styles.flagForm} onSubmit={handleSubmit}>
           <div className={styles.inputBox}>
             <input
-                type="text"
-                className={styles.flagInput}
-                value={flag}
-                onChange={(e) => setFlag(e.target.value)}
-                placeholder="flag는 HPG{...} 형식입니다."
+              type="text"
+              className={styles.flagInput}
+              value={flag}
+              onChange={(e) => setFlag(e.target.value)}
+              placeholder="flag는 HPG{...} 형식입니다."
             />
             <button className={styles.flagButton} type="submit">제출</button>
           </div>
           {message && (
-              <div className={styles.messageBox}>
-                <p
-                    className={`${styles.flagMessage} ${message.includes("정답") ? styles.successMessage : message.includes("오답") ? styles.errorMessage : ""}`}
-                >
-                  {message}
-                </p>
-              </div>
+            <div className={styles.messageBox}>
+              <p
+                className={`${styles.flagMessage} ${message.includes("정답") ? styles.successMessage : message.includes("오답") ? styles.errorMessage : ""}`}
+              >
+                {message}
+              </p>
+            </div>
           )}
         </form>
       </div>
 
-
       <div className={styles.buttonContainer}>
         <div className={styles.buttonBox}>
           <button
-              className={styles.downloadButton}
-              onClick={handleFileDownload}
-              disabled={!problem?.problemFile}
+            className={styles.downloadButton}
+            onClick={handleFileDownload}
+            disabled={!problem?.problemFile}
           >
             파일 다운로드
           </button>
         </div>
+
         <div className={styles.buttonBox}>
           <button onClick={handleShowVmAddress} className={styles.vmButton}>
             컨테이너 생성하기
           </button>
           {vmAddress && (
-              isValidUrl(vmAddress) ? (
-                  <a
-                      href={vmAddress}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.vmAddress}
-                  >
-                    {vmAddress}
-                  </a>
-              ) : (
-                  <span className={`${styles.vmAddress} ${styles.disabled}`}>
-        {vmAddress}
-      </span>
-              )
+            isValidUrl(vmAddress) ? (
+              <a
+                href={vmAddress}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.vmAddress}
+              >
+                {vmAddress}
+              </a>
+            ) : (
+              <span className={`${styles.vmAddress} ${styles.disabled}`}>
+                {vmAddress}
+              </span>
+            )
+          )}
+          {vmAddress && (
+            <button
+              onClick={handleDeleteVm}
+              className={styles.deleteButton}
+            >
+              VM 삭제
+            </button>
           )}
         </div>
       </div>
+
       {/* 랭킹 박스 섹션 */}
       {ranking && ranking.length > 0 ? (
-          <div className={styles.rankingBox}>
-            <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
-            <ul className={styles.rankingList}>
-              {ranking.map((rank, index) => (
-                  <li key={rank.id} className={styles.rankingItem}>
-                    <span className={styles.rankNumber}>{index + 1}</span>
-                    <span className={styles.rankName}>{rank.nickname}</span>
-                    <span className={styles.rankTime}>
-            {rank.firstBlood
-                ? format(new Date(rank.firstBlood).toLocaleString("en-US", {timeZone: "Asia/Seoul"}), 'yyyy-MM-dd HH:mm')
-                : "문제를 푼 사람이 없습니다."}
-          </span>
-                  </li>
-              ))}
-            </ul>
-          </div>
+        <div className={styles.rankingBox}>
+          <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
+          <ul className={styles.rankingList}>
+            {ranking.map((rank, index) => (
+              <li key={rank.id} className={styles.rankingItem}>
+                <span className={styles.rankNumber}>{index + 1}</span>
+                <span className={styles.rankName}>{rank.nickname}</span>
+                <span className={styles.rankTime}>
+                  {rank.firstBlood
+                    ? format(new Date(rank.firstBlood).toLocaleString("en-US", { timeZone: "Asia/Seoul" }), 'yyyy-MM-dd HH:mm')
+                    : "문제를 푼 사람이 없습니다."}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
-          <div className={styles.rankingBox}>
-            <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
-            <p className={styles.noRanking}>아직 문제를 푼 사람이 없습니다.</p>
-          </div>
+        <div className={styles.rankingBox}>
+          <h4 className={styles.rankingTitle}>🏆 랭킹</h4>
+          <p className={styles.noRanking}>아직 문제를 푼 사람이 없습니다.</p>
+        </div>
       )}
 
       <div className={styles.commentsSection}>
         <h4 className={styles.commentTitle}>댓글</h4>
         <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
           <textarea
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="댓글을 입력하세요"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요"
           />
           <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
             {isSubmitting ? '등록 중...' : '등록'}
@@ -459,53 +499,53 @@ const CTFProblemPage = () => {
         </form>
         <ul>
           {comments.map((c) => (
-              <li key={c.id} className={styles.commentItem}>
-                <p>
-                  <strong>{c.creator?.nickname || '익명 사용자'}</strong>
-                </p>
-                {c.isEditing ? (
-                    <textarea
-                        value={c.content}
-                        onChange={(e) =>
-                            setComments((prev) =>
-                                prev.map((comment) =>
-                                    comment.id === c.id
-                                        ? {...comment, content: e.target.value}
-                                        : comment
-                                )
-                            )
-                        }
-                        placeholder="댓글을 수정하세요..."
-                    />
-                ) : (
-                    <p className={styles.commentContent}>{c.content}</p>
-                )}
-                <span className={styles.commentMeta}>
+            <li key={c.id} className={styles.commentItem}>
+              <p>
+                <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+              </p>
+              {c.isEditing ? (
+                <textarea
+                  value={c.content}
+                  onChange={(e) =>
+                    setComments((prev) =>
+                      prev.map((comment) =>
+                        comment.id === c.id
+                          ? { ...comment, content: e.target.value }
+                          : comment
+                      )
+                    )
+                  }
+                  placeholder="댓글을 수정하세요..."
+                />
+              ) : (
+                <p className={styles.commentContent}>{c.content}</p>
+              )}
+              <span className={styles.commentMeta}>
                 | {new Date(c.createdAt).toLocaleDateString()}
               </span>
-                {c.creator?.nickname === userNickname && (
-                    <>
+              {c.creator?.nickname === userNickname && (
+                <>
                   <span
-                      onClick={() => handleCommentEditToggle(c.id)}
-                      className={styles.commentEdit}
+                    onClick={() => handleCommentEditToggle(c.id)}
+                    className={styles.commentEdit}
                   >
                     {c.isEditing ? '저장' : '수정'}
                   </span>
-                      <span
-                          onClick={() => handleCommentDelete(c.id)}
-                          className={styles.commentDelete}
-                      >
+                  <span
+                    onClick={() => handleCommentDelete(c.id)}
+                    className={styles.commentDelete}
+                  >
                     삭제
                   </span>
-                    </>
-                )}
-              </li>
+                </>
+              )}
+            </li>
           ))}
         </ul>
       </div>
     </div>
   </section>
-  );
+);
 }
 
 export default CTFProblemPage;
