@@ -710,9 +710,15 @@ const RootLayout = ({ children })=>{
                                                             className: "mr-3",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Dropdown$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Dropdown$3e$__["Dropdown"].Toggle, {
-                                                                    variant: "success",
                                                                     id: "dropdown-active-users",
-                                                                    children: activeUserCount !== null ? `(${activeUserCount}명 접속 중)` : '접속 중 사용자 수'
+                                                                    style: {
+                                                                        backgroundColor: 'transparent',
+                                                                        border: 'none',
+                                                                        color: '#000',
+                                                                        fontSize: '16px',
+                                                                        padding: '0 10px'
+                                                                    },
+                                                                    children: activeUserCount !== null ? `현재 접속인원 :${activeUserCount}명` : '접속 중 사용자 수'
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/layout.tsx",
                                                                     lineNumber: 240,
@@ -736,7 +742,7 @@ const RootLayout = ({ children })=>{
                                                                                 ]
                                                                             }, problemId, true, {
                                                                                 fileName: "[project]/src/app/layout.tsx",
-                                                                                lineNumber: 253,
+                                                                                lineNumber: 260,
                                                                                 columnNumber: 33
                                                                             }, this);
                                                                         }
@@ -744,7 +750,7 @@ const RootLayout = ({ children })=>{
                                                                     })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/layout.tsx",
-                                                                    lineNumber: 246,
+                                                                    lineNumber: 253,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
@@ -761,7 +767,7 @@ const RootLayout = ({ children })=>{
                                                                     children: nickname
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/layout.tsx",
-                                                                    lineNumber: 267,
+                                                                    lineNumber: 274,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$bootstrap$2f$esm$2f$Dropdown$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Dropdown$3e$__["Dropdown"].Menu, {
@@ -770,18 +776,18 @@ const RootLayout = ({ children })=>{
                                                                         children: "로그아웃"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/layout.tsx",
-                                                                        lineNumber: 271,
+                                                                        lineNumber: 278,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/layout.tsx",
-                                                                    lineNumber: 270,
+                                                                    lineNumber: 277,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/layout.tsx",
-                                                            lineNumber: 266,
+                                                            lineNumber: 273,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
@@ -792,7 +798,7 @@ const RootLayout = ({ children })=>{
                                                             children: "Login"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/layout.tsx",
-                                                            lineNumber: 277,
+                                                            lineNumber: 284,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("i", {
@@ -800,13 +806,13 @@ const RootLayout = ({ children })=>{
                                                             "aria-hidden": "true"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/layout.tsx",
-                                                            lineNumber: 278,
+                                                            lineNumber: 285,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/layout.tsx",
-                                                    lineNumber: 276,
+                                                    lineNumber: 283,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {

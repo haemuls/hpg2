@@ -39,6 +39,7 @@ const BoardPage = () => {
   const [totalElements, setTotalElements] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   const maxPageButtons = 5;
@@ -89,6 +90,12 @@ const BoardPage = () => {
   const checkLoginStatus = async () => {
     const token = await getToken();
     setIsLoggedIn(!!token);
+
+    // JWT 토큰에서 "role"을 추출하여 "ROLE_ADMIN"인지 확인
+    if (token) {
+      const role = JSON.parse(atob(token.split('.')[1])).role;
+      setIsAdmin(role === "ROLE_ADMIN");
+    }
   };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -112,25 +119,21 @@ const BoardPage = () => {
   };
 
   const handleWritePost = async () => {
-    if (!isLoggedIn) {
+    const token = await getToken();
+    if (!token) {
       alert("로그인이 필요합니다.");
       router.push("/login");
       return;
     }
 
-    try {
-      const token = await getToken();
-      if (!token) {
-        alert("유효하지 않은 토큰입니다.");
-        router.push("/login");
-        return;
-      }
-
-      router.push("/board/write");
-    } catch (err) {
-      alert("토큰 검증 중 오류가 발생했습니다.");
-      console.error(err);
+    // JWT 토큰에서 "role"을 추출하여 "ROLE_ADMIN"인지 확인
+    const role = JSON.parse(atob(token.split('.')[1])).role;
+    if (role !== "ROLE_ADMIN") {
+      alert("관리자만 공지사항을 작성할 수 있습니다.");
+      return;
     }
+
+    router.push("/board/write");
   };
 
   useEffect(() => {
@@ -277,13 +280,15 @@ const BoardPage = () => {
 
       <div className={styles.writeBtnWrap}>
         <div className={styles.container}>
-          <button
-            type="button"
-            className={styles.btn}
-            onClick={handleWritePost}
-          >
-            공지사항 작성
-          </button>
+          {isAdmin && (
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={handleWritePost}
+            >
+              공지사항 작성
+            </button>
+          )}
         </div>
       </div>
     </section>

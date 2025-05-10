@@ -237,9 +237,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                   {nickname ? (
                     <>
                       <Dropdown className="mr-3">
-                        <Dropdown.Toggle variant="success" id="dropdown-active-users">
+                        <Dropdown.Toggle id="dropdown-active-users"
+                        style={{
+                          backgroundColor: 'transparent',
+                          border: 'none',
+                          color: '#000',
+                          fontSize: '16px',
+                          padding: '0 10px',
+                        }}>
                           {activeUserCount !== null
-                            ? `(${activeUserCount}명 접속 중)`
+                            ? `현재 접속인원 :${activeUserCount}명`
                             : '접속 중 사용자 수'}
                         </Dropdown.Toggle>
 

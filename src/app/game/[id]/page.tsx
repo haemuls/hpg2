@@ -147,7 +147,7 @@ const CTFProblemPage = () => {
 
   try {
     const response = await fetch(
-      `${FILE_BASE_URL}/api/pods/create?problemId=${problemId}`,
+        `${FILE_BASE_URL}/api/pods/create?problemId=${problemId}`,
       {
         method: "POST",
         headers: {
