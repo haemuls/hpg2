@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getToken } from "../../../token";
 
+/* api 주소 명시 */
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
@@ -89,12 +90,14 @@ const BoardPage = () => {
     setIsLoggedIn(!!token);
   };
 
+  /* 검색 */
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCurrentPage(0);
     fetchPosts();
   };
 
+  /* 정렬 */
   const toggleSortByDate = () => {
     setSortByDateNewest((prev) => !prev);
     setCurrentPage(0);
@@ -109,6 +112,7 @@ const BoardPage = () => {
     }
   };
 
+  /* 글작성 */
   const handleWritePost = async () => {
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
@@ -120,8 +124,12 @@ const BoardPage = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
-    checkLoginStatus();
+    const fetchData = () => {
+      fetchPosts(); // 프로미스 반환값을 추적하지 않음
+      checkLoginStatus(); // 로그인 상태 확인
+    };
+
+    fetchData(); // 비동기 작업을 직접 호출
   }, [sortByDateNewest, currentPage]);
 
   return (
@@ -131,7 +139,7 @@ const BoardPage = () => {
           <h3>자유 게시판</h3>
         </div>
       </div>
-
+      {/* 게시글 리스트 & 정렬기능 */}
       <div id="board-list">
         <div className={styles.container}>
           {loading ? (
@@ -183,7 +191,7 @@ const BoardPage = () => {
                   )}
                 </tbody>
               </table>
-
+              {/* 페이지네이션 */}
               <div className={styles.pagination}>
                 {currentPage > 0 && (
                   <span
@@ -237,7 +245,7 @@ const BoardPage = () => {
           )}
         </div>
       </div>
-
+      {/* 검색창 */}
       <div id="board-search">
         <div className={styles.container}>
           <div className={styles.searchWindow}>
@@ -255,12 +263,9 @@ const BoardPage = () => {
                 >
                   검색
                 </button>
-
               </div>
             </form>
-
           </div>
-
         </div>
       </div>
 

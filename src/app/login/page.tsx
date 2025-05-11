@@ -62,25 +62,11 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
-    // 폼 상태 변경을 React의 상태로 처리
-    const handleToggleSignUp = () => {
-      setIsSignUp(true);
-    };
-    const handleToggleSignIn = () => {
-      setIsSignUp(false);
-    };
-
-    const signupLink = document.getElementById('signup');
-    const signinLink = document.getElementById('signin');
-
-    signupLink?.addEventListener('click', handleToggleSignUp);
-    signinLink?.addEventListener('click', handleToggleSignIn);
+    // 페이지가 로드될 때 기본적으로 로그인 폼으로 설정
+    toggleForm('signin');
 
     // Cleanup the event listeners when the component is unmounted
-    return () => {
-      signupLink?.removeEventListener('click', handleToggleSignUp);
-      signinLink?.removeEventListener('click', handleToggleSignIn);
-    };
+    return () => {};
   }, []);
 
   return (
@@ -91,10 +77,10 @@ const SignUpPage = () => {
       {/* Links */}
       <ul className={styles.links}>
         <li>
-          <a href="#" id="signin">로그인</a>
+          <a href="#" onClick={() => toggleForm('signin')}>로그인</a>
         </li>
         <li>
-          <a href="#" id="signup">회원가입</a>
+          <a href="#" onClick={() => toggleForm('signup')}>회원가입</a>
         </li>
       </ul>
 
@@ -149,12 +135,11 @@ const SignUpPage = () => {
         </button>
       </form>
 
-      {/* Separator */}
       <div className={styles.separator}>
         <p>OR</p>
       </div>
 
-      {/* OAuth Buttons */}
+      {/* 소셜 로그인 */}
       <button className={styles.google__btn}>
         Google로 로그인
       </button>

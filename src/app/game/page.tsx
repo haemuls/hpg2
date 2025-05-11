@@ -37,23 +37,12 @@ const GamePage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [size] = useState(25);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [sortKind, setSortKind] = useState("");
   const [desc, setDesc] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 여부 상태
   const router = useRouter();
 
   const membershipId = typeof window !== "undefined" ? localStorage.getItem("membershipId") || "99999" : "99999";
-
-  useEffect(() => {
-    const adminStatus = localStorage.getItem("isAdmin") === "true";
-    setIsAdmin(adminStatus);
-
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      setIsLoggedIn(true); // 로그인 상태일 경우 true
-    }
-  }, []);
 
   const handleSort = (column: string) => {
     if (column === "correctRate" || column === "lastModified") {

@@ -54,7 +54,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+/* api 주소 명시 */ const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 const PAGE_SIZE = 25;
 const BoardPage = ()=>{
     _s();
@@ -103,12 +103,12 @@ const BoardPage = ()=>{
         const token = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getToken"])();
         setIsLoggedIn(!!token);
     };
-    const handleSearch = (e)=>{
+    /* 검색 */ const handleSearch = (e)=>{
         e.preventDefault();
         setCurrentPage(0);
         fetchPosts();
     };
-    const toggleSortByDate = ()=>{
+    /* 정렬 */ const toggleSortByDate = ()=>{
         setSortByDateNewest((prev)=>!prev);
         setCurrentPage(0);
     };
@@ -120,7 +120,7 @@ const BoardPage = ()=>{
             alert("유효하지 않은 페이지입니다.");
         }
     };
-    const handleWritePost = async ()=>{
+    /* 글작성 */ const handleWritePost = async ()=>{
         if (!isLoggedIn) {
             alert("로그인이 필요합니다.");
             router.push("/login");
@@ -130,8 +130,13 @@ const BoardPage = ()=>{
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "BoardPage.useEffect": ()=>{
-            fetchPosts();
-            checkLoginStatus();
+            const fetchData = {
+                "BoardPage.useEffect.fetchData": ()=>{
+                    fetchPosts(); // 프로미스 반환값을 추적하지 않음
+                    checkLoginStatus(); // 로그인 상태 확인
+                }
+            }["BoardPage.useEffect.fetchData"];
+            fetchData(); // 비동기 작업을 직접 호출
         }
     }["BoardPage.useEffect"], [
         sortByDateNewest,
@@ -148,17 +153,17 @@ const BoardPage = ()=>{
                         children: "자유 게시판"
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/page.tsx",
-                        lineNumber: 131,
+                        lineNumber: 139,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/page.tsx",
-                    lineNumber: 130,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/board/page.tsx",
-                lineNumber: 129,
+                lineNumber: 137,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -170,14 +175,14 @@ const BoardPage = ()=>{
                         children: "게시글을 불러오는 중입니다..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/page.tsx",
-                        lineNumber: 138,
+                        lineNumber: 146,
                         columnNumber: 13
                     }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$board$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].loadingMessage,
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/page.tsx",
-                        lineNumber: 142,
+                        lineNumber: 150,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                         children: [
@@ -191,7 +196,7 @@ const BoardPage = ()=>{
                                                     children: "번호"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/page.tsx",
-                                                    lineNumber: 148,
+                                                    lineNumber: 156,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -199,7 +204,7 @@ const BoardPage = ()=>{
                                                     children: "제목"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/page.tsx",
-                                                    lineNumber: 149,
+                                                    lineNumber: 157,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -207,7 +212,7 @@ const BoardPage = ()=>{
                                                     children: "작성자"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/page.tsx",
-                                                    lineNumber: 150,
+                                                    lineNumber: 158,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -216,18 +221,18 @@ const BoardPage = ()=>{
                                                     children: "등록일"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/page.tsx",
-                                                    lineNumber: 151,
+                                                    lineNumber: 159,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/board/page.tsx",
-                                            lineNumber: 147,
+                                            lineNumber: 155,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 146,
+                                        lineNumber: 154,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -237,7 +242,7 @@ const BoardPage = ()=>{
                                                         children: sortByDateNewest ? totalElements - (currentPage * PAGE_SIZE + index) : currentPage * PAGE_SIZE + index + 1
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/board/page.tsx",
-                                                        lineNumber: 165,
+                                                        lineNumber: 173,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -246,32 +251,32 @@ const BoardPage = ()=>{
                                                             children: post.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/board/page.tsx",
-                                                            lineNumber: 171,
+                                                            lineNumber: 179,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/board/page.tsx",
-                                                        lineNumber: 170,
+                                                        lineNumber: 178,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         children: post.creator
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/board/page.tsx",
-                                                        lineNumber: 175,
+                                                        lineNumber: 183,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         children: post.formattedDate
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/board/page.tsx",
-                                                        lineNumber: 176,
+                                                        lineNumber: 184,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, post.id, true, {
                                                 fileName: "[project]/src/app/board/page.tsx",
-                                                lineNumber: 164,
+                                                lineNumber: 172,
                                                 columnNumber: 23
                                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -279,23 +284,23 @@ const BoardPage = ()=>{
                                                 children: "게시글이 없습니다."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/board/page.tsx",
-                                                lineNumber: 181,
+                                                lineNumber: 189,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/board/page.tsx",
-                                            lineNumber: 180,
+                                            lineNumber: 188,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 169,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/board/page.tsx",
-                                lineNumber: 145,
+                                lineNumber: 153,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -307,7 +312,7 @@ const BoardPage = ()=>{
                                         children: "<<"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 197,
                                         columnNumber: 19
                                     }, this),
                                     currentPage > maxPageButtons - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -316,7 +321,7 @@ const BoardPage = ()=>{
                                         children: "<"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 198,
+                                        lineNumber: 206,
                                         columnNumber: 19
                                     }, this),
                                     Array.from({
@@ -327,7 +332,7 @@ const BoardPage = ()=>{
                                             children: pageGroupStart + index + 1
                                         }, pageGroupStart + index, false, {
                                             fileName: "[project]/src/app/board/page.tsx",
-                                            lineNumber: 207,
+                                            lineNumber: 215,
                                             columnNumber: 19
                                         }, this)),
                                     currentPage < totalPages - maxPageButtons && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -336,7 +341,7 @@ const BoardPage = ()=>{
                                         children: ">"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 219,
+                                        lineNumber: 227,
                                         columnNumber: 19
                                     }, this),
                                     currentPage < totalPages - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -345,25 +350,25 @@ const BoardPage = ()=>{
                                         children: ">>"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 228,
+                                        lineNumber: 236,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/board/page.tsx",
-                                lineNumber: 187,
+                                lineNumber: 195,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/page.tsx",
-                    lineNumber: 136,
+                    lineNumber: 144,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/board/page.tsx",
-                lineNumber: 135,
+                lineNumber: 143,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -384,7 +389,7 @@ const BoardPage = ()=>{
                                         onChange: (e)=>setSearchTerm(e.target.value)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 246,
+                                        lineNumber: 254,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -393,33 +398,33 @@ const BoardPage = ()=>{
                                         children: "검색"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/board/page.tsx",
-                                        lineNumber: 252,
+                                        lineNumber: 260,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/board/page.tsx",
-                                lineNumber: 245,
+                                lineNumber: 253,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/board/page.tsx",
-                            lineNumber: 244,
+                            lineNumber: 252,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/page.tsx",
-                        lineNumber: 243,
+                        lineNumber: 251,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/page.tsx",
-                    lineNumber: 242,
+                    lineNumber: 250,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/board/page.tsx",
-                lineNumber: 241,
+                lineNumber: 249,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -433,23 +438,23 @@ const BoardPage = ()=>{
                         children: "글작성"
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/page.tsx",
-                        lineNumber: 269,
+                        lineNumber: 274,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/page.tsx",
-                    lineNumber: 268,
+                    lineNumber: 273,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/board/page.tsx",
-                lineNumber: 267,
+                lineNumber: 272,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/board/page.tsx",
-        lineNumber: 128,
+        lineNumber: 136,
         columnNumber: 5
     }, this);
 };

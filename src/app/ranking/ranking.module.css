@@ -4,21 +4,20 @@
   padding: 20px;
   margin-top: 20px;
   padding: 80px 0;
-  font-family: Arial, sans-serif;
 }
 
 .rankingTitle {
   width: 100%;
   text-align: center;
+  margin-bottom: 60px;
 
 }
 
 .rankingTitle h3 {
-  font-family: Arial, sans-serif;
-  font-size: 40px;
+  font-size: 28px;
   color: #333333;
   font-weight: 500;
-  margin: 0;
+  margin-bottom: 20px;
   text-align: center;
   margin-bottom: 20px;
 }
