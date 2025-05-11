@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/public/styles/navbar-hover.css"],"sourcesContent":[".navbar-nav .nav-link {\n  position: relative;\n  text-decoration: none;\n  color: inherit;\n  transition: color 0.3s ease;\n}\n\n.navbar-nav .nav-link::after {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  bottom: -2px;\n  width: 0;\n  height: 2px;\n  background-color: #333333; /* 밑줄 색상 */\n  transition: width 0.3s ease;\n}\n\n.navbar-nav .nav-link.hover-underline::after {\n  width: 100%;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;AAOA;;;;;;;;;;;AAWA"}}]
+}

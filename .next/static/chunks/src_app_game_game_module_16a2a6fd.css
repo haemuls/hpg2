@@ -1,0 +1,192 @@
+/* [project]/src/app/game/game.module.css [app-client] (css) */
+.game-module__h0mpaG__container {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+.game-module__h0mpaG__blind {
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  position: absolute;
+  overflow: hidden;
+}
+
+.game-module__h0mpaG__game {
+  padding: 80px 0 !important;
+}
+
+.game-module__h0mpaG__pageTitle {
+  margin-bottom: 60px;
+}
+
+.game-module__h0mpaG__pageTitle h3 {
+  color: #333 !important;
+  text-align: center !important;
+  font-size: 28px !important;
+  font-weight: 500 !important;
+}
+
+.game-module__h0mpaG__pagination {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-module__h0mpaG__pageNumber {
+  cursor: pointer;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin: 0 5px;
+  padding: 5px 15px;
+}
+
+.game-module__h0mpaG__pageNumber:hover {
+  background-color: #ddd;
+}
+
+.game-module__h0mpaG__active {
+  color: #fff;
+  background-color: #4e73df;
+}
+
+.game-module__h0mpaG__problemTypeSelector {
+  margin-bottom: 20px;
+}
+
+.game-module__h0mpaG__problemSelector {
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 150px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.game-module__h0mpaG__boardTable {
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.game-module__h0mpaG__boardTable th, .game-module__h0mpaG__boardTable td {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.game-module__h0mpaG__boardTable th {
+  background-color: #f7f7f7;
+}
+
+.game-module__h0mpaG__boardTable td a {
+  color: #333;
+  text-decoration: none;
+}
+
+.game-module__h0mpaG__boardTable td a:hover {
+  text-decoration: underline;
+}
+
+.game-module__h0mpaG__errorMessage {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.game-module__h0mpaG__writeButtonWrap {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.game-module__h0mpaG__btnDark {
+  color: #fff;
+  cursor: pointer;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.game-module__h0mpaG__btnDark:hover {
+  background-color: #222;
+}
+
+.game-module__h0mpaG__loadingMessage {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+}
+
+.game-module__h0mpaG__thNum {
+  width: 60px;
+}
+
+.game-module__h0mpaG__thDifficulty {
+  width: 80px;
+}
+
+.game-module__h0mpaG__thTitle {
+  width: 350px;
+}
+
+.game-module__h0mpaG__thAccuracy {
+  width: 100px;
+}
+
+.game-module__h0mpaG__thDate {
+  width: 120px;
+}
+
+.game-module__h0mpaG__searchWindow {
+  background-color: #f9f7f9;
+  margin-bottom: 30px;
+  padding: 15px 0;
+}
+
+.game-module__h0mpaG__searchWrap {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  max-width: 564px;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+}
+
+.game-module__h0mpaG__searchWrap input {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  width: calc(100% - 90px);
+  height: 40px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+.game-module__h0mpaG__searchWrap input:focus {
+  border-color: #333;
+  outline: 0;
+}
+
+.game-module__h0mpaG__searchButton {
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  background-color: #333;
+  border: 1px solid #ccc;
+  border-radius: 0 5px 5px 0;
+  width: 90px;
+  height: 40px;
+  font-size: 14px;
+  transition: background-color .3s;
+}
+
+.game-module__h0mpaG__searchWrap .game-module__h0mpaG__btn:hover {
+  background-color: #444;
+}
+
+
+/*# sourceMappingURL=src_app_game_game_module_16a2a6fd.css.map*/

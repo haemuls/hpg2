@@ -1,0 +1,81 @@
+/* [project]/src/app/login/login1.module.scss.module.css [app-client] (css) */
+.login1-module-scss-module__m8HGua__container {
+  width: 80%;
+  max-width: 680px;
+  margin: 120px auto;
+  display: block;
+}
+
+h1 {
+  color: #e91e63;
+  letter-spacing: -3px;
+  text-align: center;
+  margin: 120px 0 80px;
+  font-size: 48px;
+  transition: all .2s linear;
+}
+
+.login1-module-scss-module__m8HGua__links {
+  list-style-type: none;
+}
+
+.login1-module-scss-module__m8HGua__links li {
+  margin: 0 20px 0 0;
+  transition: all .2s linear;
+  display: inline-block;
+}
+
+.login1-module-scss-module__m8HGua__links li.login1-module-scss-module__m8HGua__second {
+  opacity: .6;
+}
+
+.login1-module-scss-module__m8HGua__links li.login1-module-scss-module__m8HGua__second:hover {
+  opacity: 1;
+}
+
+.login1-module-scss-module__m8HGua__links li.login1-module-scss-module__m8HGua__third {
+  opacity: .6;
+  float: right;
+}
+
+.login1-module-scss-module__m8HGua__links li.login1-module-scss-module__m8HGua__third:hover {
+  opacity: 1;
+}
+
+.login1-module-scss-module__m8HGua__links li a {
+  color: #0f132a;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+input, .login1-module-scss-module__m8HGua__signin__btn {
+  border: none;
+  border-radius: 8px;
+  font-family: Montserrat, sans-serif;
+}
+
+.login1-module-scss-module__m8HGua__input__block {
+  margin: 20px auto;
+  display: block;
+  position: relative;
+}
+
+.login1-module-scss-module__m8HGua__input__block.login1-module-scss-module__m8HGua__first-input__block:before {
+  content: "";
+  background: none;
+  border-bottom: 15px solid #0f132a1a;
+  border-left: 15px solid #0000;
+  border-right: 15px solid #0000;
+  width: 0;
+  height: 0;
+  transition: all .2s linear;
+  display: block;
+  position: absolute;
+  top: -15px;
+  left: 50px;
+}
+
+
+/*# sourceMappingURL=src_app_login_login1_module_scss_module_2a3eab53.css.map*/

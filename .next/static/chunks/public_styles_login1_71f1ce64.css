@@ -1,0 +1,182 @@
+@import "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap";
+/* [project]/public/styles/login1.css [app-client] (css) */
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+body {
+  color: #23004d;
+  margin: 0;
+  padding: 0;
+  font-family: Open Sans, sans-serif;
+  font-size: .938rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.login {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  display: flex;
+}
+
+.login__content {
+  display: grid;
+}
+
+.login__forms {
+  position: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  display: flex;
+}
+
+.login__register, .login__create {
+  text-align: center;
+  background-color: #f2f2f2;
+  border-radius: 1rem;
+  width: 100%;
+  padding: 2rem 1rem;
+  animation-name: animateLogin;
+  animation-duration: .4s;
+  box-shadow: 0 8px 20px #23004d33;
+}
+
+.login__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.login__box {
+  background-color: #fff;
+  border-radius: .5rem;
+  grid-template-columns: max-content 1fr;
+  column-gap: .5rem;
+  margin-top: 1rem;
+  padding: 1.125rem 1rem;
+  display: grid;
+}
+
+.login__icon {
+  color: #4ad395;
+  font-size: 1.5rem;
+}
+
+.login__image {
+  border-radius: 10px;
+  max-width: 200px;
+  height: auto;
+  margin: 1rem auto;
+  display: block;
+}
+
+.login__input {
+  color: #23004d;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: .938rem;
+  font-weight: 700;
+}
+
+.login__input::placeholder {
+  color: #a49eac;
+  font-family: Open Sans, sans-serif;
+  font-size: .938rem;
+}
+
+.login__forgot {
+  color: #a49eac;
+  width: max-content;
+  margin-top: .5rem;
+  margin-left: auto;
+  font-size: .813rem;
+  font-weight: 600;
+  display: block;
+}
+
+.login__button {
+  color: #fff;
+  text-align: center;
+  background-color: #4ad395;
+  border-radius: .5rem;
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-weight: 600;
+  transition: all .3s;
+  display: block;
+}
+
+.login__button:hover {
+  background-color: #65bf97;
+}
+
+.login__account, .login__signin, .login__signup {
+  font-size: .813rem;
+  font-weight: 600;
+}
+
+.login__account--account, .login__signin--account, .login__signup--account {
+  color: #23004d;
+}
+
+.login__account--signin, .login__account--signup, .login__signin--signin, .login__signin--signup, .login__signup--signin, .login__signup--signup {
+  color: #4ad395;
+  cursor: pointer;
+}
+
+@keyframes animateLogin {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media screen and (width >= 576px) {
+  .login__forms {
+    justify-self: center;
+    width: 348px;
+  }
+}
+
+@media screen and (width >= 1024px) {
+  .login {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .login__content {
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login__register, .login__create {
+    position: relative;
+    bottom: 0;
+  }
+}
+
+
+/*# sourceMappingURL=public_styles_login1_71f1ce64.css.map*/
