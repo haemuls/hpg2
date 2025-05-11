@@ -17,6 +17,7 @@ __turbopack_context__.v({
   "commentSection": "ProblemDetail-module__k9Mj0W__commentSection",
   "commentTitle": "ProblemDetail-module__k9Mj0W__commentTitle",
   "container": "ProblemDetail-module__k9Mj0W__container",
+  "deleteButton": "ProblemDetail-module__k9Mj0W__deleteButton",
   "disabled": "ProblemDetail-module__k9Mj0W__disabled",
   "downloadButton": "ProblemDetail-module__k9Mj0W__downloadButton",
   "errorMessage": "ProblemDetail-module__k9Mj0W__errorMessage",
@@ -597,7 +598,7 @@ const CTFProblemPage = ()=>{
                                 vmAddress && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleDeleteVm,
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f5b$id$5d2f$ProblemDetail$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].deleteButton,
-                                    children: "VM 삭제"
+                                    children: "삭제"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
                                     lineNumber: 453,

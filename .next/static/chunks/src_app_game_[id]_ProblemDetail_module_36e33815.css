@@ -275,6 +275,17 @@
   box-shadow: 0 6px 12px #0003;
 }
 
+.ProblemDetail-module__k9Mj0W__deleteButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #e53e3e;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  transition: background-color .3s, transform .2s;
+}
+
 .ProblemDetail-module__k9Mj0W__downloadButton:disabled {
   cursor: not-allowed;
   background-color: #ccc;

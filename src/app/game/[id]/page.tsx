@@ -454,7 +454,7 @@ const CTFProblemPage = () => {
               onClick={handleDeleteVm}
               className={styles.deleteButton}
             >
-              VM 삭제
+              삭제
             </button>
           )}
         </div>
