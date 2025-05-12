@@ -7,10 +7,7 @@ const nextConfig: NextConfig = {
   },
   publicRuntimeConfig: {
     GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-L24YB6S0E7', // 런타임 환경 변수
-  },
-  experimental: {
-    allowedDevOrigins: ['http://127.0.0.1:3000'], // 허용할 개발 출처를 추가
-  },
+  }
 };
 
 export default nextConfig;
