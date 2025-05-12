@@ -332,7 +332,6 @@ const GamePage = () => {
             type="button"
             className={styles.writeButton}
             onClick={handleCreateButtonClick}
-            disabled={!isLoggedIn}
           >
             문제 만들기
           </button>

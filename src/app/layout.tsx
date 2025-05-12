@@ -6,6 +6,7 @@ import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 import { getToken, clearTokens } from '../../token';
 import getConfig from 'next/config';
+import Modal from './myPage/page';
 
 const { publicRuntimeConfig } = getConfig() || {};
 const GA_MEASUREMENT_ID = publicRuntimeConfig?.GA_MEASUREMENT_ID || '';
@@ -16,6 +17,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [activeUsersProblems, setActiveUsersProblems] = useState<Record<number, string[]>>({});
   const [problemTitles, setProblemTitles] = useState<Record<number, string>>({});
   const [isClient, setIsClient] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  /* modal 코드 */
+  const handleProfileClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
 
   const fetchUserProblemsTitles = useCallback(
     async (token: string, activeUsersData: { userId: string; problemId: string }[]) => {
@@ -310,6 +317,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                           {nickname}
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
+                          <Dropdown.Item href="/Mypage" onClick={handleProfileClick}>
+                            Profile
+                          </Dropdown.Item>
                           <Dropdown.Item href="/" onClick={handleLogout}>
                             Logout
                           </Dropdown.Item>
@@ -330,6 +340,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
         <main>{children}</main>
 
+        {showModal && <Modal isOpen={showModal} onClose={() => setShowModal(false)} />}
         <footer>
           <div className="container-fluid text-center">
             <p>Hacker Playground</p>

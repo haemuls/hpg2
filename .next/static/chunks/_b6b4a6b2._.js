@@ -615,7 +615,6 @@ const GamePage = ()=>{
                         type: "button",
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].writeButton,
                         onClick: handleCreateButtonClick,
-                        disabled: !isLoggedIn,
                         children: "문제 만들기"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",

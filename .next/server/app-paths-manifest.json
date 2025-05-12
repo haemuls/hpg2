@@ -1,9 +1,7 @@
 {
-  "/board/page": "app/board/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/game/page": "app/game/page.js",
+  "/game/[id]/page": "app/game/[id]/page.js",
   "/login/page": "app/login/page.js",
-  "/notice/page": "app/notice/page.js",
-  "/page": "app/page.js",
-  "/ranking/page": "app/ranking/page.js"
+  "/page": "app/page.js"
 }
