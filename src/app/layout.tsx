@@ -6,7 +6,7 @@ import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 import { getToken, clearTokens } from '../../token';
 import getConfig from 'next/config';
-import Modal from './myPage/page';
+import Modal from './components/Modal';
 
 const { publicRuntimeConfig } = getConfig() || {};
 const GA_MEASUREMENT_ID = publicRuntimeConfig?.GA_MEASUREMENT_ID || '';
@@ -23,6 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     e.preventDefault();
     setShowModal(true);
   };
+
 
   const fetchUserProblemsTitles = useCallback(
     async (token: string, activeUsersData: { userId: string; problemId: string }[]) => {
