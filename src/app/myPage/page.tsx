@@ -66,7 +66,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   return (
     <div
       className={styles["modal-overlay"]}
-      onClick={onClose} // 배경 클릭 시 모달 닫기
+      onClick={onClose}
     >
       <div
         className={styles["modal-content"]}
@@ -98,7 +98,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           )}
         </div>
         <div className={styles["modal-footer"]}>
-          <button onClick={onClose}>닫기</button> {/* 닫기 버튼 */}
+          <button onClick={onClose}>닫기</button>
         </div>
       </div>
     </div>
