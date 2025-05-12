@@ -1,0 +1,226 @@
+/* [project]/src/app/game/[id]/game_start.module.css [app-client] (css) */
+.game_start-module__Qcqx3q__container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.game_start-module__Qcqx3q__titleRow {
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.game_start-module__Qcqx3q__title {
+  color: #333;
+  max-width: 80%;
+  margin: 0;
+  padding-bottom: 10px;
+  font-size: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.game_start-module__Qcqx3q__metaInfo {
+  color: #666;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.game_start-module__Qcqx3q__metaInfo span {
+  margin-right: 10px;
+}
+
+.game_start-module__Qcqx3q__metaInfo:after {
+  content: "";
+  background-color: #007bff;
+  width: 100%;
+  height: 2px;
+  margin-top: 5px;
+  display: block;
+}
+
+.game_start-module__Qcqx3q__viewerContainer {
+  border-bottom: 2px solid #ccc;
+  margin-top: 40px;
+  padding-bottom: 30px;
+}
+
+.game_start-module__Qcqx3q__btnDelete {
+  color: #fff;
+  cursor: pointer;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 4px;
+  margin-left: auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background-color .3s;
+}
+
+.game_start-module__Qcqx3q__btnDelete:hover {
+  background-color: #c82333;
+}
+
+.game_start-module__Qcqx3q__commentSection {
+  margin-top: 60px;
+}
+
+.game_start-module__Qcqx3q__commentTitle {
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  font-size: 20px;
+}
+
+.game_start-module__Qcqx3q__formGroup {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.game_start-module__Qcqx3q__formGroup textarea {
+  resize: vertical;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 15px 100px 15px 15px;
+  font-size: 16px;
+}
+
+.game_start-module__Qcqx3q__btnPrimary {
+  color: #fff;
+  cursor: pointer;
+  background-color: #495057;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 80px;
+  font-size: 14px;
+  display: flex;
+  position: absolute;
+  bottom: 7px;
+  right: 0;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.game_start-module__Qcqx3q__btnPrimary:hover {
+  background-color: #495057;
+}
+
+.game_start-module__Qcqx3q__commentItem p {
+  margin: 3px;
+  padding: 0;
+}
+
+.game_start-module__Qcqx3q__commentItem p.game_start-module__Qcqx3q__commentContent {
+  text-indent: 10px;
+}
+
+.game_start-module__Qcqx3q__commentItem strong {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.game_start-module__Qcqx3q__commentMeta {
+  color: #777;
+  margin-top: 5px;
+  font-size: .9em;
+}
+
+.game_start-module__Qcqx3q__commentEdit {
+  color: #00f;
+  cursor: pointer;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.game_start-module__Qcqx3q__commentEdit:hover {
+  color: #00008b;
+}
+
+.game_start-module__Qcqx3q__commentDelete {
+  color: red;
+  cursor: pointer;
+  margin-left: 1px;
+  text-decoration: underline;
+}
+
+.game_start-module__Qcqx3q__commentDelete:hover {
+  color: #8b0000;
+}
+
+@media (width <= 768px) {
+  .game_start-module__Qcqx3q__title {
+    font-size: 22px;
+  }
+
+  .game_start-module__Qcqx3q__viewerContainer {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .game_start-module__Qcqx3q__commentSection {
+    margin-top: 40px;
+  }
+
+  .game_start-module__Qcqx3q__commentTitle {
+    font-size: 18px;
+  }
+
+  .game_start-module__Qcqx3q__formGroup textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .game_start-module__Qcqx3q__btnPrimary {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .game_start-module__Qcqx3q__commentMeta {
+    font-size: .7em;
+  }
+}
+
+@media (width <= 480px) {
+  .game_start-module__Qcqx3q__title {
+    font-size: 18px;
+  }
+
+  .game_start-module__Qcqx3q__viewerContainer {
+    margin-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .game_start-module__Qcqx3q__commentSection {
+    margin-top: 30px;
+  }
+
+  .game_start-module__Qcqx3q__formGroup textarea {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .game_start-module__Qcqx3q__btnPrimary {
+    width: 70px;
+    font-size: 11px;
+  }
+
+  .game_start-module__Qcqx3q__commentMeta {
+    font-size: .65em;
+  }
+}
+
+
+/*# sourceMappingURL=src_app_game_%5Bid%5D_game_start_module_985c671c.css.map*/

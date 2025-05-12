@@ -1,0 +1,226 @@
+/* [project]/public/styles/game_start.css [app-client] (css) */
+.container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.titleRow {
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.title {
+  color: #333;
+  max-width: 80%;
+  margin: 0;
+  padding-bottom: 10px;
+  font-size: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.metaInfo {
+  color: #666;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.metaInfo span {
+  margin-right: 10px;
+}
+
+.metaInfo:after {
+  content: "";
+  background-color: #007bff;
+  width: 100%;
+  height: 2px;
+  margin-top: 5px;
+  display: block;
+}
+
+.viewerContainer {
+  border-bottom: 2px solid #ccc;
+  margin-top: 40px;
+  padding-bottom: 30px;
+}
+
+.btnDelete {
+  color: #fff;
+  cursor: pointer;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 4px;
+  margin-left: auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  transition: background-color .3s;
+}
+
+.btnDelete:hover {
+  background-color: #c82333;
+}
+
+.commentSection {
+  margin-top: 60px;
+}
+
+.commentTitle {
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  font-size: 20px;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 15px 100px 15px 15px;
+  font-size: 16px;
+}
+
+.btnPrimary {
+  color: #fff;
+  cursor: pointer;
+  background-color: #495057;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 80px;
+  font-size: 14px;
+  display: flex;
+  position: absolute;
+  bottom: 7px;
+  right: 0;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.btnPrimary:hover {
+  background-color: #495057;
+}
+
+.commentItem p {
+  margin: 3px;
+  padding: 0;
+}
+
+.commentItem p.commentContent {
+  text-indent: 10px;
+}
+
+.commentItem strong {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.commentMeta {
+  color: #777;
+  margin-top: 5px;
+  font-size: .9em;
+}
+
+.commentEdit {
+  color: #00f;
+  cursor: pointer;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+.commentEdit:hover {
+  color: #00008b;
+}
+
+.commentDelete {
+  color: red;
+  cursor: pointer;
+  margin-left: 1px;
+  text-decoration: underline;
+}
+
+.commentDelete:hover {
+  color: #8b0000;
+}
+
+@media (width <= 768px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .viewerContainer {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .commentSection {
+    margin-top: 40px;
+  }
+
+  .commentTitle {
+    font-size: 18px;
+  }
+
+  .formGroup textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btnPrimary {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .commentMeta {
+    font-size: .7em;
+  }
+}
+
+@media (width <= 480px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .viewerContainer {
+    margin-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .commentSection {
+    margin-top: 30px;
+  }
+
+  .formGroup textarea {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .btnPrimary {
+    width: 70px;
+    font-size: 11px;
+  }
+
+  .commentMeta {
+    font-size: .65em;
+  }
+}
+
+
+/*# sourceMappingURL=public_styles_game_start_1dab4bc7.css.map*/

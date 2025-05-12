@@ -1,0 +1,98 @@
+/* [project]/src/app/login/login.module.css [app-client] (css) */
+.login-module__WEZH7G__container {
+  background-color: #fff;
+  width: 80%;
+  max-width: 680px;
+  margin: 120px auto;
+  font-family: Montserrat, sans-serif;
+  display: block;
+}
+
+.login-module__WEZH7G__heading {
+  color: #28a745;
+  letter-spacing: -3px;
+  text-align: center;
+  margin: 120px 0 80px;
+  font-size: 48px;
+}
+
+.login-module__WEZH7G__links {
+  text-align: center;
+  padding: 0;
+  list-style-type: none;
+}
+
+.login-module__WEZH7G__links li {
+  margin-right: 20px;
+  transition: all .2s linear;
+  display: inline-block;
+}
+
+.login-module__WEZH7G__links li:last-child {
+  margin-right: 0;
+}
+
+.login-module__WEZH7G__links a {
+  color: #0f132a;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-module__WEZH7G__input__block {
+  margin: 20px auto;
+  display: block;
+  position: relative;
+}
+
+.login-module__WEZH7G__input {
+  color: #0f132a4d;
+  background: #0f132a1a;
+  border: none;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 680px;
+  height: 50px;
+  margin: 0 auto;
+  padding-left: 15px;
+  font-size: 14px;
+  display: block;
+}
+
+.login-module__WEZH7G__signin__btn {
+  color: #fff;
+  cursor: pointer;
+  background: #218838;
+  border: none;
+  border-radius: 8px;
+  width: 92.5%;
+  max-width: 680px;
+  height: 50px;
+  margin: 20px auto 0;
+  font-size: 14px;
+  transition: all .2s linear;
+  display: block;
+  box-shadow: 0 15px 30px #2188385c;
+}
+
+.login-module__WEZH7G__separator {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.login-module__WEZH7G__google__btn, .login-module__WEZH7G__github__btn {
+  color: #fff;
+  cursor: pointer;
+  background: #0f132a;
+  border: none;
+  border-radius: 8px;
+  width: 92.5%;
+  max-width: 680px;
+  height: 50px;
+  margin: 10px auto;
+  font-size: 14px;
+  display: block;
+}
+
+
+/*# sourceMappingURL=src_app_login_login_module_ced82644.css.map*/

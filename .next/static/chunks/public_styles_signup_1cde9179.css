@@ -1,0 +1,166 @@
+@import "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap";
+/* [project]/public/styles/signup.css [app-client] (css) */
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+body {
+  color: #23004d;
+  margin: 0;
+  padding: 0;
+  font-family: Open Sans, sans-serif;
+  font-size: .938rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.signup {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 1.5rem;
+  display: flex;
+}
+
+.signup__content {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.signup__forms {
+  text-align: center;
+  background-color: #f2f2f2;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 348px;
+  margin-top: 2rem;
+  padding: 2rem 1.5rem;
+  animation-name: animateSignup;
+  animation-duration: .4s;
+  position: relative;
+  box-shadow: 0 8px 20px #23004d33;
+}
+
+.signup__title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.signup__box {
+  background-color: #fff;
+  border-radius: .5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 1.125rem 1rem;
+  display: flex;
+}
+
+.signup__icon {
+  color: #4ad395;
+  margin-right: .5rem;
+  font-size: 1.5rem;
+}
+
+.signup__input {
+  color: #23004d;
+  text-align: center;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: .938rem;
+  font-weight: 700;
+}
+
+.signup__input::placeholder {
+  color: #a49eac;
+  font-family: Open Sans, sans-serif;
+  font-size: .938rem;
+}
+
+.signup__button {
+  color: #fff;
+  text-align: center;
+  background-color: #4ad395;
+  border-radius: .5rem;
+  margin: 2rem 0;
+  padding: 1rem;
+  font-weight: 600;
+  transition: all .3s;
+  display: block;
+}
+
+.signup__button:hover {
+  background-color: #65bf97;
+}
+
+.signup__account, .signup__signin, .signup__signup {
+  font-size: .813rem;
+  font-weight: 600;
+}
+
+.signup__account--account, .signup__signin--account, .signup__signup--account {
+  color: #23004d;
+}
+
+.signup__account--signin, .signup__account--signup, .signup__signin--signin, .signup__signin--signup, .signup__signup--signin, .signup__signup--signup {
+  color: #4ad395;
+  cursor: pointer;
+}
+
+.block {
+  display: block;
+}
+
+.none {
+  display: none;
+}
+
+@keyframes animateSignup {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media screen and (width >= 576px) {
+  .signup__forms {
+    justify-self: center;
+    width: 500px;
+  }
+}
+
+@media screen and (width >= 1024px) {
+  .signup {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .signup__content {
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .signup__forms {
+    justify-self: center;
+    width: 500px;
+  }
+}
+
+
+/*# sourceMappingURL=public_styles_signup_1cde9179.css.map*/
