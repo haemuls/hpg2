@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import {useRouter, useParams} from "next/navigation";
 import styles from './ProblemDetail.module.css';
-import {getToken, getUserNickname} from '../../../../token';  // 최신 코드에서 제공한 함수 사용
+import {getToken, getUserNickname} from '../../../../token';
 import {format} from 'date-fns'
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
 const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
@@ -109,38 +109,6 @@ const CTFProblemPage = () => {
 
     fetchData();
   }, [problemId]);
-
-  const handleDeleteVm = async () => {
-  const token = await getToken();
-  if (!token) {
-    alert("로그인 후 이용할 수 있습니다.");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `${FILE_BASE_URL}/api/pods/delete?problemId=${problemId}`,
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("VM 삭제에 실패했습니다.");
-    }
-
-    // VM 주소 삭제 후 상태 초기화
-    setVmAddress("");
-    alert("VM이 성공적으로 삭제되었습니다.");
-  } catch (error) {
-    console.error("VM 삭제 실패:", error);
-    alert("VM 삭제 중 오류가 발생했습니다.");
-  }
-};
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -448,14 +416,6 @@ const CTFProblemPage = () => {
                 {vmAddress}
               </span>
             )
-          )}
-          {vmAddress && (
-            <button
-              onClick={handleDeleteVm}
-              className={styles.deleteButton}
-            >
-              삭제
-            </button>
           )}
         </div>
       </div>

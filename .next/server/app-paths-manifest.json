@@ -1,7 +1,10 @@
 {
+  "/board/page": "app/board/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/game/game_create/page": "app/game/game_create/page.js",
+  "/game/[id]/page": "app/game/[id]/page.js",
   "/game/page": "app/game/page.js",
   "/login/page": "app/login/page.js",
-  "/page": "app/page.js"
+  "/notice/page": "app/notice/page.js",
+  "/page": "app/page.js",
+  "/ranking/page": "app/ranking/page.js"
 }
