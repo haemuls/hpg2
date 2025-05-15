@@ -42,14 +42,21 @@ const GamePage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 여부 상태
   const router = useRouter();
 
-  const membershipId = typeof window !== "undefined" ? localStorage.getItem("membershipId") || "99999" : "99999";
+  const membershipId =
+    typeof window !== "undefined" ? localStorage.getItem("membershipId") || "99999" : "99999";
 
   const handleSort = (column: string) => {
     if (column === "correctRate" || column === "lastModified") {
       setSortKind(column);
-      setDesc(prevDesc => (prevDesc && column === sortKind) ? !prevDesc : true);
+      setDesc((prevDesc) => (prevDesc && column === sortKind ? !prevDesc : true));
     }
   };
+
+  useEffect(() => {
+    // 로그인 여부 확인
+    const token = localStorage.getItem("jwtToken");
+    setIsLoggedIn(!!token); // jwtToken이 존재하면 true
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -73,7 +80,7 @@ const GamePage = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
           },
         });
 
@@ -128,8 +135,8 @@ const GamePage = () => {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Accept": "*/*",
-          "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`,
+          Accept: "*/*",
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
       });
 
