@@ -90,6 +90,13 @@ const GamePage = ()=>{
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "GamePage.useEffect": ()=>{
+            // 로그인 여부 확인
+            const token = localStorage.getItem("jwtToken");
+            setIsLoggedIn(!!token); // jwtToken이 존재하면 true
+        }
+    }["GamePage.useEffect"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "GamePage.useEffect": ()=>{
             const fetchPosts = {
                 "GamePage.useEffect.fetchPosts": async ()=>{
                     setLoading(true);
@@ -109,7 +116,7 @@ const GamePage = ()=>{
                             method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
-                                "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`
+                                Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
                             }
                         });
                         if (!response.ok) {
@@ -166,8 +173,8 @@ const GamePage = ()=>{
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
-                    "Accept": "*/*",
-                    "Authorization": `Bearer ${localStorage.getItem("jwtToken")}`
+                    Accept: "*/*",
+                    Authorization: `Bearer ${localStorage.getItem("jwtToken")}`
                 }
             });
             if (!response.ok) {
@@ -232,17 +239,17 @@ const GamePage = ()=>{
                         children: "문제"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
-                        lineNumber: 200,
+                        lineNumber: 207,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
-                    lineNumber: 199,
+                    lineNumber: 206,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
-                lineNumber: 198,
+                lineNumber: 205,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -256,7 +263,7 @@ const GamePage = ()=>{
                             children: "문제 종류 :"
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/page.tsx",
-                            lineNumber: 206,
+                            lineNumber: 213,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -270,7 +277,7 @@ const GamePage = ()=>{
                                     children: "전체"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 215,
+                                    lineNumber: 222,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -278,7 +285,7 @@ const GamePage = ()=>{
                                     children: "webhacking"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 216,
+                                    lineNumber: 223,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -286,7 +293,7 @@ const GamePage = ()=>{
                                     children: "pwnable"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 217,
+                                    lineNumber: 224,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -294,7 +301,7 @@ const GamePage = ()=>{
                                     children: "reversing"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 218,
+                                    lineNumber: 225,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -302,24 +309,24 @@ const GamePage = ()=>{
                                     children: "crypto"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 219,
+                                    lineNumber: 226,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/page.tsx",
-                            lineNumber: 209,
+                            lineNumber: 216,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/page.tsx",
-                    lineNumber: 205,
+                    lineNumber: 212,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
-                lineNumber: 204,
+                lineNumber: 211,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -331,7 +338,7 @@ const GamePage = ()=>{
                         children: "문제를 불러오는 중입니다..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
-                        lineNumber: 227,
+                        lineNumber: 234,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].boardTable,
@@ -344,7 +351,7 @@ const GamePage = ()=>{
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].thNum
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
-                                            lineNumber: 232,
+                                            lineNumber: 239,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -353,7 +360,7 @@ const GamePage = ()=>{
                                             children: "문제 번호"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
-                                            lineNumber: 233,
+                                            lineNumber: 240,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -362,7 +369,7 @@ const GamePage = ()=>{
                                             children: "난이도"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 243,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -371,7 +378,7 @@ const GamePage = ()=>{
                                             children: "문제 제목"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
-                                            lineNumber: 239,
+                                            lineNumber: 246,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -384,7 +391,7 @@ const GamePage = ()=>{
                                             children: "정답율"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
-                                            lineNumber: 242,
+                                            lineNumber: 249,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -397,18 +404,18 @@ const GamePage = ()=>{
                                             children: "마지막 수정일"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
-                                            lineNumber: 250,
+                                            lineNumber: 257,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 231,
+                                    lineNumber: 238,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/page.tsx",
-                                lineNumber: 230,
+                                lineNumber: 237,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -419,12 +426,12 @@ const GamePage = ()=>{
                                         children: error
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 270,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 262,
+                                    lineNumber: 269,
                                     columnNumber: 19
                                 }, this) : posts.length > 0 ? posts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         children: [
@@ -432,21 +439,21 @@ const GamePage = ()=>{
                                                 children: post.solved ? "✅" : ""
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
-                                                lineNumber: 270,
+                                                lineNumber: 277,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: post.id
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
-                                                lineNumber: 271,
+                                                lineNumber: 278,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: getLevelIcon(post.level)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
-                                                lineNumber: 272,
+                                                lineNumber: 279,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -455,19 +462,19 @@ const GamePage = ()=>{
                                                     children: post.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/game/page.tsx",
-                                                    lineNumber: 274,
+                                                    lineNumber: 281,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
-                                                lineNumber: 273,
+                                                lineNumber: 280,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: post.correctRate !== null ? `${post.correctRate.toFixed(0)}%` : "-"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
-                                                lineNumber: 276,
+                                                lineNumber: 283,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -475,18 +482,18 @@ const GamePage = ()=>{
                                                     date: post.lastModified
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/game/page.tsx",
-                                                    lineNumber: 278,
+                                                    lineNumber: 285,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
-                                                lineNumber: 277,
+                                                lineNumber: 284,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, post.id, true, {
                                         fileName: "[project]/src/app/game/page.tsx",
-                                        lineNumber: 269,
+                                        lineNumber: 276,
                                         columnNumber: 21
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -494,33 +501,33 @@ const GamePage = ()=>{
                                         children: "문제가 없습니다. ㅠㅠ"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
-                                        lineNumber: 284,
+                                        lineNumber: 291,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
-                                    lineNumber: 283,
+                                    lineNumber: 290,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/page.tsx",
-                                lineNumber: 260,
+                                lineNumber: 267,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/game/page.tsx",
-                        lineNumber: 229,
+                        lineNumber: 236,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
-                    lineNumber: 225,
+                    lineNumber: 232,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
-                lineNumber: 224,
+                lineNumber: 231,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -533,12 +540,12 @@ const GamePage = ()=>{
                         children: index + 1
                     }, index, false, {
                         fileName: "[project]/src/app/game/page.tsx",
-                        lineNumber: 296,
+                        lineNumber: 303,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
-                lineNumber: 293,
+                lineNumber: 300,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -557,7 +564,7 @@ const GamePage = ()=>{
                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].blind
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
-                                        lineNumber: 311,
+                                        lineNumber: 318,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -569,7 +576,7 @@ const GamePage = ()=>{
                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].searchInput
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
-                                        lineNumber: 312,
+                                        lineNumber: 319,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -578,33 +585,33 @@ const GamePage = ()=>{
                                         children: "검색"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
-                                        lineNumber: 320,
+                                        lineNumber: 327,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/game/page.tsx",
-                                lineNumber: 310,
+                                lineNumber: 317,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/page.tsx",
-                            lineNumber: 309,
+                            lineNumber: 316,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
-                        lineNumber: 308,
+                        lineNumber: 315,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
-                    lineNumber: 307,
+                    lineNumber: 314,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
-                lineNumber: 306,
+                lineNumber: 313,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -618,27 +625,27 @@ const GamePage = ()=>{
                         children: "문제 만들기"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
-                        lineNumber: 331,
+                        lineNumber: 338,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
-                    lineNumber: 330,
+                    lineNumber: 337,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
-                lineNumber: 329,
+                lineNumber: 336,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/game/page.tsx",
-        lineNumber: 197,
+        lineNumber: 204,
         columnNumber: 5
     }, this);
 };
-_s1(GamePage, "XiYd6j3VmxZkuBqkq2bEjYz5Sl8=", false, function() {
+_s1(GamePage, "Qp2V3MAUe8VTiZ8OByvftrIYxLc=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
