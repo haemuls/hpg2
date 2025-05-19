@@ -35,7 +35,7 @@
 .page-module___8aEwW__imgBox img {
   object-fit: cover;
   border-radius: 8px;
-  max-width: 120%;
+  max-width: 140%;
   height: auto;
 }
 
@@ -99,6 +99,27 @@
   height: 3700px;
 }
 
+.page-module___8aEwW__centerSection {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 40px;
+}
+
+.page-module___8aEwW__centerTitle {
+  color: #444;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.page-module___8aEwW__centerImage {
+  object-fit: cover;
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
 @media screen and (width <= 1024px) {
   .page-module___8aEwW__statsBoxes {
     gap: 10px;
@@ -130,6 +151,10 @@
 
   .page-module___8aEwW__smallText {
     font-size: 1em;
+  }
+
+  .page-module___8aEwW__centerImage {
+    max-width: 100%;
   }
 }
 

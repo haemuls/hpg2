@@ -97,7 +97,6 @@ const CTFProblemPage = () => {
         });
         const rankingData: ApiResponse<Ranking[]> = await rankingRes.json();
         setRanking(rankingData.result);
-
         const nickname = await getUserNickname();
         setUserNickname(nickname);
       } catch (error) {
@@ -234,8 +233,8 @@ const CTFProblemPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          type: "PROBLEM",
-          problemId,
+          type: 'PROBLEM',
+          parentId: problemId,
           contents: newComment,
         }),
       });
@@ -318,8 +317,6 @@ const CTFProblemPage = () => {
       setError(error instanceof Error ? error.message : '댓글 수정 중 문제가 발생했습니다.');
     }
   };
-
-  if (loading) return <p>문제를 불러오는 중입니다...</p>;
 
   if (!problem) return <p>문제를 찾을 수 없습니다.</p>;
 

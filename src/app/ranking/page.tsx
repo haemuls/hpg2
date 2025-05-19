@@ -14,10 +14,10 @@ interface User {
 
 const RankingPage = () => {
   const [ranking, setRanking] = useState<User[]>([]);
-  const [selectedType, setSelectedType] = useState<string>("전체");
+  const [selectedKind, setSelectedKind] = useState<string>("전체");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const typeOptions = [
+  const kindOptions = [
     { value: "", label: "전체" },
     { value: "WEBHACKING", label: "웹해킹" },
     { value: "REVERSING", label: "리버싱" },
@@ -25,7 +25,7 @@ const RankingPage = () => {
     { value: "PWNABLE", label: "암호학" },
   ];
 
-  const fetchAllRankingData = async (type: string) => {
+  const fetchAllRankingData = async (kind: string) => {
     setIsLoading(true);
     let allUsers: User[] = [];
     let currentPage = 0;
@@ -33,7 +33,7 @@ const RankingPage = () => {
 
     while (true) {
       try {
-        const res = await fetch(`${API_BASE_URL}?type=${type}&page=${currentPage}&size=${pageSize}`, {
+        const res = await fetch(`${API_BASE_URL}?type=WARGAME&kind=${kind}&page=${currentPage}&size=${pageSize}`, {
           method: 'GET',
           headers: {
             'Accept': '*/*',
@@ -65,19 +65,19 @@ const RankingPage = () => {
   };
 
   useEffect(() => {
-    fetchAllRankingData(selectedType === "전체" ? "" : selectedType);
-  }, [selectedType]);
+    fetchAllRankingData(selectedKind === "전체" ? "" : selectedKind);
+  }, [selectedKind]);
 
   return (
     <div className={styles.ranking}>
       <div className={styles.rankingTitle}>
         <h3>랭킹</h3>
         <div className={styles.buttonGroup}>
-          {typeOptions.map((option) => (
+          {kindOptions.map((option) => (
             <button
               key={option.value}
-              className={`${styles.filterButton} ${selectedType === option.value ? styles.activeButton : ''}`}
-              onClick={() => setSelectedType(option.value)}
+              className={`${styles.filterButton} ${selectedKind === option.value ? styles.activeButton : ''}`}
+              onClick={() => setSelectedKind(option.value)}
             >
               {option.label}
             </button>

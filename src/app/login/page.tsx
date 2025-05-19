@@ -62,7 +62,6 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
-    // 페이지가 로드될 때 기본적으로 로그인 폼으로 설정
     toggleForm('signin');
 
     // Cleanup the event listeners when the component is unmounted
@@ -72,7 +71,7 @@ const SignUpPage = () => {
   return (
     <div className={styles.container}>
       {/* Heading */}
-      <h1 className={styles.heading}>{isSignUp ? 'SIGN UP' : 'SIGN IN'}</h1>
+      <h1 className={styles.heading}>{isSignUp ? '회원가입' : '로그인'}</h1>
 
       {/* Links */}
       <ul className={styles.links}>
@@ -131,7 +130,7 @@ const SignUpPage = () => {
           </div>
         )}
         <button className={styles.signin__btn} type="submit">
-          {isSignUp ? 'Sign up' : 'Sign in'}
+          {isSignUp ? '회원가입' : '로그인'}
         </button>
       </form>
 
@@ -140,10 +139,20 @@ const SignUpPage = () => {
       </div>
 
       {/* 소셜 로그인 */}
-      <button className={styles.google__btn}>
+      <button
+        className={styles.google__btn}
+        onClick={() => {
+          window.location.href = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google';
+        }}
+      >
         Google로 로그인
       </button>
-      <button className={styles.github__btn}>
+      <button
+        className={styles.github__btn}
+        onClick={() => {
+          window.location.href = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github';
+        }}
+      >
         Github로 로그인
       </button>
     </div>

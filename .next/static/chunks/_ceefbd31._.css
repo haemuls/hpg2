@@ -1565,7 +1565,10 @@ table.ProseMirror-selectednode, .html-block.ProseMirror-selectednode {
 }
 
 .BoardDetail-module__4Bv4dq__formGroup {
+  align-items: center;
+  height: 80px;
   margin-bottom: 20px;
+  display: flex;
   position: relative;
 }
 
@@ -1576,8 +1579,9 @@ table.ProseMirror-selectednode, .html-block.ProseMirror-selectednode {
   word-wrap: break-word;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%;
-  padding: 15px 100px 15px 15px;
+  width: calc(100% - 90px);
+  height: 100%;
+  padding: 15px;
   font-size: 16px;
   overflow-y: auto;
 }
@@ -1592,12 +1596,9 @@ table.ProseMirror-selectednode, .html-block.ProseMirror-selectednode {
   justify-content: center;
   align-items: center;
   width: 90px;
-  height: 80px;
+  height: 100%;
   font-size: 14px;
   display: flex;
-  position: absolute;
-  bottom: 7px;
-  right: 0;
   box-shadow: 0 2px 4px #0000001a;
 }
 

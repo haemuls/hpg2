@@ -314,18 +314,52 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                       </Dropdown>
 
                       <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          {nickname}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item href="/Mypage" onClick={handleProfileClick}>
-                            Profile
-                          </Dropdown.Item>
-                          <Dropdown.Item href="/" onClick={handleLogout}>
-                            Logout
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    {nickname}
+  </Dropdown.Toggle>
+  <Dropdown.Menu>
+    <Dropdown.Item
+      href="/Mypage"
+      onClick={handleProfileClick}
+      style={{
+        width: '100%',
+        padding: '10px',
+        boxSizing: 'border-box',
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+      }}
+      onMouseOver={(e) => {
+        e.target.style.backgroundColor = '#c0c0cb';
+        e.target.style.color = '#fff';
+      }}
+      onMouseOut={(e) => {
+        e.target.style.backgroundColor = '';
+        e.target.style.color = '';
+      }}
+    >
+      Profile
+    </Dropdown.Item>
+    <Dropdown.Item
+      href="/"
+      onClick={handleLogout}
+      style={{
+        width: '100%',
+        padding: '10px',
+        boxSizing: 'border-box',
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+      }}
+      onMouseOver={(e) => {
+        e.target.style.backgroundColor = '#c0c0cb';
+        e.target.style.color = '#fff';
+      }}
+      onMouseOut={(e) => {
+        e.target.style.backgroundColor = '';
+        e.target.style.color = '';
+      }}
+    >
+      Logout
+    </Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>
                     </>
                   ) : (
                     <Link href="/login">

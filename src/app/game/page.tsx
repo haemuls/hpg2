@@ -14,7 +14,7 @@ interface Post {
   level: string | null;
   correctRate: number | null;
   creator: string;
-  Wargametype: string | null;
+  type: string | null;
   lastModified: string;
 }
 
@@ -101,7 +101,7 @@ const GamePage = () => {
           level: post.level,
           correctRate: post.correctRate,
           creator: post.creator,
-          type: post.Wargametype,
+          type: post.type,
           lastModified: post.lastModified,
         }));
 
@@ -123,8 +123,8 @@ const GamePage = () => {
 
     try {
       const params = new URLSearchParams({
-        problemType: "WARGAME",
-        WargameKind: selectedType === "전체" ? "" : selectedType,
+        type: "WARGAME",
+        kind: selectedType === "전체" ? "" : selectedType,
         keyword: searchTerm,
         page: currentPage.toString(),
         size: size.toString(),
@@ -148,16 +148,16 @@ const GamePage = () => {
       }
 
       const data = await response.json();
-      setTotalPages(data.totalPages);
+      setTotalPages(data.result.totalPages);
 
-      const formattedPosts = data.content.map((post: Post) => ({
+      const formattedPosts = data.result.content.map((post: Post) => ({
         id: post.id,
         solved: post.solved,
         title: post.title,
         level: post.level,
         correctRate: post.correctRate,
         creator: post.creator,
-        type: post.Wargametype,
+        type: post.type,
         lastModified: post.lastModified,
       }));
 
@@ -184,21 +184,25 @@ const GamePage = () => {
   };
 
   const getLevelIcon = (level: string | null) => {
-    if (!level) {
-      return "❓";
-    }
-
-    const levelNumber = parseInt(level, 10);
-    if (levelNumber === 1) {
-      return "⭐";
-    } else if (levelNumber === 2) {
-      return "⭐⭐";
-    } else if (levelNumber === 3) {
-      return "⭐⭐⭐";
-    }
-
+  if (!level) {
     return "❓";
-  };
+  }
+
+  if (/^\d+$/.test(level)) {
+    const levelNumber = parseInt(level, 10);
+    if (levelNumber === 1) return "⭐";
+    if (levelNumber === 2) return "⭐⭐";
+    if (levelNumber === 3) return "⭐⭐⭐";
+    return "❓";
+  }
+
+
+  if (/⭐+/.test(level)) {
+    return level;
+  }
+
+  return "❓";
+};
 
   return (
     <section className={styles.game}>

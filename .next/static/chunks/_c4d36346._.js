@@ -118,7 +118,6 @@ function WargameForm() {
                 formData.append("file", file);
             }
             console.log("handleSubmit: FormData with file created:", formData);
-            // 헤더에서 Content-Type을 제거하고, FormData를 body로 전송
             const response = await fetch(API_BASE_URL, {
                 method: "POST",
                 headers,
@@ -146,7 +145,7 @@ function WargameForm() {
                 children: "문제 제출"
             }, void 0, false, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 148,
+                lineNumber: 147,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -156,7 +155,7 @@ function WargameForm() {
                         children: "제목"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 150,
+                        lineNumber: 149,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -166,13 +165,13 @@ function WargameForm() {
                         className: "problemSelector"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 151,
+                        lineNumber: 150,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 149,
+                lineNumber: 148,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -182,7 +181,7 @@ function WargameForm() {
                         children: "문제 설명"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 154,
+                        lineNumber: 153,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -192,13 +191,13 @@ function WargameForm() {
                         className: "textarea problemSelector"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 155,
+                        lineNumber: 154,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 153,
+                lineNumber: 152,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -208,7 +207,7 @@ function WargameForm() {
                         children: "문제 종류"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 163,
+                        lineNumber: 162,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -222,7 +221,7 @@ function WargameForm() {
                                 children: "문제 종류를 선택하세요"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 165,
+                                lineNumber: 164,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -230,7 +229,7 @@ function WargameForm() {
                                 children: "웹해킹"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 166,
+                                lineNumber: 165,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -238,7 +237,7 @@ function WargameForm() {
                                 children: "포너블"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 167,
+                                lineNumber: 166,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -246,7 +245,7 @@ function WargameForm() {
                                 children: "리버싱"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 168,
+                                lineNumber: 167,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -254,19 +253,19 @@ function WargameForm() {
                                 children: "암호학"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 169,
+                                lineNumber: 168,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 164,
+                        lineNumber: 163,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 162,
+                lineNumber: 161,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -276,7 +275,7 @@ function WargameForm() {
                         children: "난이도"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 173,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -290,7 +289,7 @@ function WargameForm() {
                                 children: "⭐ (쉬움)"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 175,
+                                lineNumber: 174,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -298,7 +297,7 @@ function WargameForm() {
                                 children: "⭐⭐ (보통)"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 176,
+                                lineNumber: 175,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -306,19 +305,19 @@ function WargameForm() {
                                 children: "⭐⭐⭐ (어려움)"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                                lineNumber: 177,
+                                lineNumber: 176,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 174,
+                        lineNumber: 173,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 172,
+                lineNumber: 171,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -328,7 +327,7 @@ function WargameForm() {
                         children: "정답 플래그"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 181,
+                        lineNumber: 180,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -338,13 +337,13 @@ function WargameForm() {
                         className: "problemSelector"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 182,
+                        lineNumber: 181,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 180,
+                lineNumber: 179,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -354,7 +353,7 @@ function WargameForm() {
                         children: "Dockerfile 링크"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 185,
+                        lineNumber: 184,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -364,13 +363,13 @@ function WargameForm() {
                         className: "problemSelector"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 186,
+                        lineNumber: 185,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 184,
+                lineNumber: 183,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -380,7 +379,7 @@ function WargameForm() {
                         children: "파일 업로드"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 189,
+                        lineNumber: 188,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -389,13 +388,13 @@ function WargameForm() {
                         className: "problemSelector"
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/game_create/page.tsx",
-                        lineNumber: 190,
+                        lineNumber: 189,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 188,
+                lineNumber: 187,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -406,18 +405,18 @@ function WargameForm() {
                     children: "문제 제출"
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/game_create/page.tsx",
-                    lineNumber: 193,
+                    lineNumber: 192,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
-                lineNumber: 192,
+                lineNumber: 191,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/game/game_create/page.tsx",
-        lineNumber: 147,
+        lineNumber: 146,
         columnNumber: 5
     }, this);
 }

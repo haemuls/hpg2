@@ -72,9 +72,7 @@ const BoardDetailPage = () => {
       }
     };
 
-    // fetchUserNickname 함수 호출
     fetchUserNickname().catch((error) => {
-      // 프로미스가 실패할 경우 처리
       console.error('닉네임을 가져오는 중 에러 발생:', error);
     });
   }, []);

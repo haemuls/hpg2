@@ -98,7 +98,7 @@ export default function WargameForm() {
         type: "WARGAME",
         detail: problem.detail,
         source: problem.source,
-        tags: [], // tags는 빈 배열로 처리됨
+        tags: [],
         kind: problem.kind ? problem.kind.toUpperCase() : "",
         level: levelMap[problem.level] ?? 1,
         flag: problem.flag,
@@ -120,10 +120,9 @@ export default function WargameForm() {
 
       console.log("handleSubmit: FormData with file created:", formData);
 
-      // 헤더에서 Content-Type을 제거하고, FormData를 body로 전송
       const response = await fetch(API_BASE_URL, {
         method: "POST",
-        headers, // headers만 사용하고 Content-Type은 제거
+        headers,
         body: formData,
       });
 

@@ -12,8 +12,8 @@
   justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
   align-items: center; /* 수직 정렬 */
   margin-bottom: 10px;
-  width: 100%; /* 추가된 속성 */
-  flex-grow: 1; /* 추가된 속성 */
+  width: 100%;
+  flex-grow: 1;
 }
 
 .title {
@@ -22,8 +22,8 @@
   padding-bottom: 10px;
   position: relative;
   color: #333;
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
-  max-width: 80%; /* 최대 너비 제한 */
+  overflow: hidden;
+  max-width: 80%;
 }
 
 .metaInfo {
@@ -50,7 +50,6 @@
   margin-top: 40px;
   padding-bottom: 30px;
   border-bottom: 2px solid #ccc;
-
 }
 
 .largeFont {
@@ -66,7 +65,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-left: auto; /* 버튼을 우측으로 정렬 */
+  margin-left: auto;
 }
 
 .btnDelete:hover {
@@ -88,28 +87,27 @@
 .formGroup {
   position: relative;
   margin-bottom: 20px;
+  height: 80px; /* 높이 설정 */
+  display: flex; /* 버튼과 텍스트 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
 }
 
 .formGroup textarea {
-  width: 100%;
+  width: calc(100% - 90px); /* 버튼의 너비를 제외한 공간 채우기 */
+  height: 100%; /* formGroup 높이에 맞춤 */
   padding: 15px;
-  padding-right: 100px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  resize: vertical; /* 크기 조정 가능하도록 설정 */
+  resize: vertical;
   box-sizing: border-box;
-  white-space: pre-wrap; /* 줄바꿈 처리 */
-  word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 처리 */
-  overflow-y: auto; /* 세로 스크롤을 자동으로 추가 */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-y: auto;
 }
 
-/* 댓글 입력 버튼 스타일 */
 .btnPrimary {
-  position: absolute;
-  right: 0;
-  bottom: 7px;
-  height: 80px;
+  height: 100%; /* formGroup 높이에 맞춤 */
   width: 90px;
   border: none;
   border-top-right-radius: 4px;
@@ -134,14 +132,14 @@
 }
 
 .commentItem p.commentContent {
-  text-indent: 10px; /* 댓글 내용에만 들여쓰기 적용 */
-  white-space: pre-wrap; /* 줄바꿈 처리 */
-  word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 처리 */
+  text-indent: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .commentItem strong {
-  display: block; /* 닉네임을 블록 요소로 처리하여 새로운 줄에서 시작하도록 설정 */
-  margin-bottom: 5px; /* 닉네임과 콘텐츠 간에 간격 추가 */
+  display: block;
+  margin-bottom: 5px;
 }
 
 .commentMeta {
@@ -150,45 +148,45 @@
   margin-top: 5px;
 }
 
-/* 수정 버튼 스타일 */
 .commentEdit {
-  color: blue; /* 수정 버튼 색상 */
-  cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
-  text-decoration: underline; /* 하이퍼링크 스타일 */
-  margin-right: 10px; /* 버튼 간격 추가 */
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: 10px;
   margin-left: 10px;
 }
 
 .commentEdit:hover {
-  color: darkblue; /* 마우스를 올릴 때 색상 변경 */
+  color: darkblue;
 }
 
-/* 삭제 버튼 스타일 */
 .commentDelete {
-  color: red; /* 삭제 버튼 색상 */
-  cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 변경 */
-  text-decoration: underline; /* 하이퍼링크 스타일 */
-  margin-left: 1px; /* 버튼 간격 추가 */
+  color: red;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 1px;
 }
 
 .commentDelete:hover {
-  color: darkred; /* 마우스를 올릴 때 색상 변경 */
+  color: darkred;
 }
+
 .commentEditTextarea {
   width: 80%;
   white-space: nowrap;
   overflow-x: auto;
   text-overflow: ellipsis;
-  resize: none; /* 크기 조정 비활성화 */
+  resize: none;
   border: 1px solid #ccc;
   padding: 8px;
   font-size: 14px;
 }
+
 .commentEditButton {
   padding: 5px 10px;
   margin: 5px;
-  background-color: #4caf50; /* 녹색 배경 */
-  color: white; /* 흰색 글씨 */
+  background-color: #4caf50;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -197,15 +195,15 @@
 }
 
 .commentEditButton:hover {
-  background-color: #45a049; /* 호버 시 더 진한 녹색 */
+  background-color: #45a049;
 }
 
 .commentEditButton.cancel {
-  background-color: #f44336; /* 빨간색 배경 */
+  background-color: #f44336;
 }
 
 .commentEditButton.cancel:hover {
-  background-color: #d32f2f; /* 호버 시 더 진한 빨간색 */
+  background-color: #d32f2f;
 }
 
 @media (max-width: 768px) {
