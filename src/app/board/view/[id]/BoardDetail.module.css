@@ -1,0 +1,269 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titleRow {
+  display: flex; /* 플렉스를 사용하여 삭제 버튼 배치 */
+  justify-content: space-between; /* 제목과 버튼을 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 정렬 */
+  margin-bottom: 10px;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 28px;
+  margin: 0;
+  padding-bottom: 10px;
+  position: relative;
+  color: #333;
+  overflow: hidden;
+  max-width: 80%;
+}
+
+.metaInfo {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.metaInfo span {
+  margin-right: 10px;
+}
+
+.metaInfo::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #007bff;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.viewerContainer {
+  margin-top: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #ccc;
+}
+
+.largeFont {
+  font-size: 20px;
+}
+
+.btnDelete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+}
+
+.btnDelete:hover {
+  background-color: #c82333;
+}
+
+.commentSection {
+  margin-top: 60px;
+}
+
+.commentTitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #007bff;
+  color: #333;
+}
+
+.formGroup {
+  position: relative;
+  margin-bottom: 20px;
+  height: 80px; /* 높이 설정 */
+  display: flex; /* 버튼과 텍스트 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.formGroup textarea {
+  width: calc(100% - 90px); /* 버튼의 너비를 제외한 공간 채우기 */
+  height: 100%; /* formGroup 높이에 맞춤 */
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-y: auto;
+}
+
+.btnPrimary {
+  height: 100%; /* formGroup 높이에 맞춤 */
+  width: 90px;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #495057;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnPrimary:hover {
+  background-color: #495057;
+}
+
+.commentItem p {
+  margin: 3px;
+  padding: 0;
+}
+
+.commentItem p.commentContent {
+  text-indent: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.commentItem strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.commentMeta {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 5px;
+}
+
+.commentEdit {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.commentEdit:hover {
+  color: darkblue;
+}
+
+.commentDelete {
+  color: red;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 1px;
+}
+
+.commentDelete:hover {
+  color: darkred;
+}
+
+.commentEditTextarea {
+  width: 80%;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-overflow: ellipsis;
+  resize: none;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.commentEditButton {
+  padding: 5px 10px;
+  margin: 5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  transform: translateY(-10px);
+}
+
+.commentEditButton:hover {
+  background-color: #45a049;
+}
+
+.commentEditButton.cancel {
+  background-color: #f44336;
+}
+
+.commentEditButton.cancel:hover {
+  background-color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .viewerContainer {
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .commentSection {
+    margin-top: 40px;
+  }
+
+  .commentTitle {
+    font-size: 18px;
+  }
+
+  .formGroup textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btnPrimary {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .commentMeta {
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .viewerContainer {
+    margin-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .commentSection {
+    margin-top: 30px;
+  }
+
+  .formGroup textarea {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .btnPrimary {
+    width: 70px;
+    font-size: 11px;
+  }
+
+  .commentMeta {
+    font-size: 0.65em;
+  }
+}
