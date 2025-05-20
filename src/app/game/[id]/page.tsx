@@ -37,7 +37,7 @@ interface Comment {
   id: number;
   creator: { nickname: string };
   createdAt: string;
-  content: string;
+  contents: string;
   isEditing?: boolean;
 }
 
@@ -108,6 +108,7 @@ const CTFProblemPage = () => {
 
     fetchData();
   }, [problemId]);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -462,12 +463,12 @@ const CTFProblemPage = () => {
               </p>
               {c.isEditing ? (
                 <textarea
-                  value={c.content}
+                  value={c.contents}
                   onChange={(e) =>
                     setComments((prev) =>
                       prev.map((comment) =>
                         comment.id === c.id
-                          ? { ...comment, content: e.target.value }
+                          ? { ...comment, contents: e.target.value }
                           : comment
                       )
                     )
@@ -475,7 +476,7 @@ const CTFProblemPage = () => {
                   placeholder="댓글을 수정하세요..."
                 />
               ) : (
-                <p className={styles.commentContent}>{c.content}</p>
+                <p className={styles.commentContent}>{c.contents}</p>
               )}
               <span className={styles.commentMeta}>
                 | {new Date(c.createdAt).toLocaleDateString()}

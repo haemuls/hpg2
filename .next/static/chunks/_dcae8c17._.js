@@ -329,7 +329,7 @@ const CTFProblemPage = ()=>{
         children: "문제를 찾을 수 없습니다."
     }, void 0, false, {
         fileName: "[project]/src/app/game/[id]/page.tsx",
-        lineNumber: 321,
+        lineNumber: 322,
         columnNumber: 24
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -345,14 +345,14 @@ const CTFProblemPage = ()=>{
                             children: problem.kind.slice(0, 3).toUpperCase()
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 327,
+                            lineNumber: 328,
                             columnNumber: 9
                         }, this),
                         problem.title
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 326,
+                    lineNumber: 327,
                     columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -368,7 +368,7 @@ const CTFProblemPage = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 333,
+                            lineNumber: 334,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -381,7 +381,7 @@ const CTFProblemPage = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 334,
+                            lineNumber: 335,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -391,13 +391,13 @@ const CTFProblemPage = ()=>{
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 335,
+                            lineNumber: 336,
                             columnNumber: 9
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 332,
+                    lineNumber: 333,
                     columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -413,7 +413,7 @@ const CTFProblemPage = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 338,
+                    lineNumber: 339,
                     columnNumber: 7
                 }, this),
                 problem.tags?.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -424,7 +424,7 @@ const CTFProblemPage = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 344,
+                    lineNumber: 345,
                     columnNumber: 9
                 }, this),
                 problem.source && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -435,7 +435,7 @@ const CTFProblemPage = ()=>{
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 350,
+                    lineNumber: 351,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -446,12 +446,12 @@ const CTFProblemPage = ()=>{
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/[id]/page.tsx",
-                        lineNumber: 357,
+                        lineNumber: 358,
                         columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 356,
+                    lineNumber: 357,
                     columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -462,7 +462,7 @@ const CTFProblemPage = ()=>{
                             children: "정답 제출"
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 362,
+                            lineNumber: 363,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -480,7 +480,7 @@ const CTFProblemPage = ()=>{
                                             placeholder: "flag는 HPG{...} 형식입니다."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 365,
+                                            lineNumber: 366,
                                             columnNumber: 13
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -489,13 +489,13 @@ const CTFProblemPage = ()=>{
                                             children: "제출"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 372,
+                                            lineNumber: 373,
                                             columnNumber: 13
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 364,
+                                    lineNumber: 365,
                                     columnNumber: 11
                                 }, this),
                                 message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -505,24 +505,24 @@ const CTFProblemPage = ()=>{
                                         children: message
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/[id]/page.tsx",
-                                        lineNumber: 376,
+                                        lineNumber: 377,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 375,
+                                    lineNumber: 376,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 363,
+                            lineNumber: 364,
                             columnNumber: 9
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 361,
+                    lineNumber: 362,
                     columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -537,12 +537,12 @@ const CTFProblemPage = ()=>{
                                 children: "파일 다운로드"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/[id]/page.tsx",
-                                lineNumber: 388,
+                                lineNumber: 389,
                                 columnNumber: 11
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 387,
+                            lineNumber: 388,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -554,7 +554,7 @@ const CTFProblemPage = ()=>{
                                     children: "컨테이너 생성하기"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 398,
+                                    lineNumber: 399,
                                     columnNumber: 11
                                 }, this),
                                 vmAddress && (isValidUrl(vmAddress) ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -565,26 +565,26 @@ const CTFProblemPage = ()=>{
                                     children: vmAddress
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 403,
+                                    lineNumber: 404,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f5b$id$5d2f$ProblemDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].vmAddress} ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f5b$id$5d2f$ProblemDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].disabled}`,
                                     children: vmAddress
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 412,
+                                    lineNumber: 413,
                                     columnNumber: 15
                                 }, this))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 397,
+                            lineNumber: 398,
                             columnNumber: 9
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 386,
+                    lineNumber: 387,
                     columnNumber: 7
                 }, this),
                 ranking && ranking.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -595,7 +595,7 @@ const CTFProblemPage = ()=>{
                             children: "🏆 랭킹"
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 423,
+                            lineNumber: 424,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -608,7 +608,7 @@ const CTFProblemPage = ()=>{
                                             children: index + 1
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 427,
+                                            lineNumber: 428,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -616,7 +616,7 @@ const CTFProblemPage = ()=>{
                                             children: rank.nickname
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 428,
+                                            lineNumber: 429,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -626,24 +626,24 @@ const CTFProblemPage = ()=>{
                                             }), 'yyyy-MM-dd HH:mm') : "문제를 푼 사람이 없습니다."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 429,
+                                            lineNumber: 430,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, rank.id, true, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 426,
+                                    lineNumber: 427,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 424,
+                            lineNumber: 425,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 422,
+                    lineNumber: 423,
                     columnNumber: 9
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f5b$id$5d2f$ProblemDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].rankingBox,
@@ -653,7 +653,7 @@ const CTFProblemPage = ()=>{
                             children: "🏆 랭킹"
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 440,
+                            lineNumber: 441,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -661,13 +661,13 @@ const CTFProblemPage = ()=>{
                             children: "아직 문제를 푼 사람이 없습니다."
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 441,
+                            lineNumber: 442,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 439,
+                    lineNumber: 440,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -678,7 +678,7 @@ const CTFProblemPage = ()=>{
                             children: "댓글"
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 446,
+                            lineNumber: 447,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -691,7 +691,7 @@ const CTFProblemPage = ()=>{
                                     placeholder: "댓글을 입력하세요"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 448,
+                                    lineNumber: 449,
                                     columnNumber: 11
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -701,13 +701,13 @@ const CTFProblemPage = ()=>{
                                     children: isSubmitting ? '등록 중...' : '등록'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 453,
+                                    lineNumber: 454,
                                     columnNumber: 11
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 447,
+                            lineNumber: 448,
                             columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -719,31 +719,31 @@ const CTFProblemPage = ()=>{
                                                 children: c.creator?.nickname || '익명 사용자'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/[id]/page.tsx",
-                                                lineNumber: 461,
+                                                lineNumber: 462,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 460,
+                                            lineNumber: 461,
                                             columnNumber: 15
                                         }, this),
                                         c.isEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                            value: c.content,
+                                            value: c.contents,
                                             onChange: (e)=>setComments((prev)=>prev.map((comment)=>comment.id === c.id ? {
                                                             ...comment,
-                                                            content: e.target.value
+                                                            contents: e.target.value
                                                         } : comment)),
                                             placeholder: "댓글을 수정하세요..."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 464,
+                                            lineNumber: 465,
                                             columnNumber: 17
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f5b$id$5d2f$ProblemDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentContent,
-                                            children: c.content
+                                            children: c.contents
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 478,
+                                            lineNumber: 479,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -754,7 +754,7 @@ const CTFProblemPage = ()=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                                            lineNumber: 480,
+                                            lineNumber: 481,
                                             columnNumber: 15
                                         }, this),
                                         c.creator?.nickname === userNickname && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -765,7 +765,7 @@ const CTFProblemPage = ()=>{
                                                     children: c.isEditing ? '저장' : '수정'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                                    lineNumber: 485,
+                                                    lineNumber: 486,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -774,7 +774,7 @@ const CTFProblemPage = ()=>{
                                                     children: "삭제"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                                    lineNumber: 491,
+                                                    lineNumber: 492,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
@@ -782,29 +782,29 @@ const CTFProblemPage = ()=>{
                                     ]
                                 }, c.id, true, {
                                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                                    lineNumber: 459,
+                                    lineNumber: 460,
                                     columnNumber: 13
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/[id]/page.tsx",
-                            lineNumber: 457,
+                            lineNumber: 458,
                             columnNumber: 9
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/[id]/page.tsx",
-                    lineNumber: 445,
+                    lineNumber: 446,
                     columnNumber: 7
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/game/[id]/page.tsx",
-            lineNumber: 325,
+            lineNumber: 326,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/game/[id]/page.tsx",
-        lineNumber: 324,
+        lineNumber: 325,
         columnNumber: 3
     }, this);
 };

@@ -21,7 +21,7 @@ interface Post {
 
 interface Comment {
   id: number;
-  content: string;
+  contents: string;
   creator?: { nickname: string };
   createdAt: string;
   isEditing: boolean;
@@ -97,7 +97,7 @@ const BoardDetailPage = () => {
             commentsData.result
               .map((c: Comment) => ({
                 id: c.id,
-                content: c.content,
+                contents: c.contents,
                 creator: c.creator || { nickname: '익명 사용자' },
                 createdAt: c.createdAt,
                 isEditing: false,
@@ -147,7 +147,7 @@ const BoardDetailPage = () => {
 
     setComments((prev) =>
       prev.map((comment) =>
-        comment.id === commentId ? { ...comment, content: formattedContent, isEditing: false } : comment
+        comment.id === commentId ? { ...comment, contents: formattedContent, isEditing: false } : comment
       )
     );
 
@@ -163,7 +163,7 @@ const BoardDetailPage = () => {
     if (!response) {
       setComments((prev) =>
         prev.map((comment) =>
-          comment.id === commentId ? { ...comment, content: prev.find((c) => c.id === commentId)?.content, isEditing: false } : comment
+          comment.id === commentId ? { ...comment, contents: prev.find((c) => c.id === commentId)?.contents, isEditing: false } : comment
         )
       );
     }
@@ -189,7 +189,7 @@ const BoardDetailPage = () => {
       setComments((prev) => [
         {
           id: response.result.id,
-          content: response.result.content,
+          contents: response.result.contents,
           creator: { nickname: response.result.creator.nickname },
           createdAt: response.result.createdAt,
           isEditing: false,
@@ -244,11 +244,11 @@ const BoardDetailPage = () => {
                 {c.isEditing ? (
                   <div>
                     <textarea
-                      value={c.content}
+                      value={c.contents}
                       onChange={(e) =>
                         setComments((prev) =>
                           prev.map((comment) =>
-                            comment.id === c.id ? { ...comment, content: e.target.value } : comment
+                            comment.id === c.id ? { ...comment, contents: e.target.value } : comment
                           )
                         )
                       }
@@ -256,7 +256,7 @@ const BoardDetailPage = () => {
                       className={styles.commentEditTextarea}
                     />
                     <button
-                      onClick={() => handleCommentEdit(c.id, c.content)}
+                      onClick={() => handleCommentEdit(c.id, c.contents)}
                       className={styles.commentEditButton}
                     >
                       저장
@@ -272,7 +272,7 @@ const BoardDetailPage = () => {
                   <p
                     className={styles.commentContent}
                     style={{ whiteSpace: 'pre-wrap' }}  // 줄바꿈 스타일 적용
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.content) }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.contents) }}
                   />
                 )}
                 <span className={styles.commentMeta}>

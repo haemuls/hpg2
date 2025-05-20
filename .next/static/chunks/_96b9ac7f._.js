@@ -136,7 +136,7 @@ const BoardDetailPage = ()=>{
                             setComments(commentsData.result.map({
                                 "BoardDetailPage.useEffect.loadParams": (c)=>({
                                         id: c.id,
-                                        content: c.content,
+                                        contents: c.contents,
                                         creator: c.creator || {
                                             nickname: '익명 사용자'
                                         },
@@ -185,7 +185,7 @@ const BoardDetailPage = ()=>{
         const formattedContent = newContent.replace(/\n/g, '<br />');
         setComments((prev)=>prev.map((comment)=>comment.id === commentId ? {
                     ...comment,
-                    content: formattedContent,
+                    contents: formattedContent,
                     isEditing: false
                 } : comment));
         const response = await fetchData(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`, {
@@ -201,7 +201,7 @@ const BoardDetailPage = ()=>{
         if (!response) {
             setComments((prev)=>prev.map((comment)=>comment.id === commentId ? {
                         ...comment,
-                        content: prev.find((c)=>c.id === commentId)?.content,
+                        contents: prev.find((c)=>c.id === commentId)?.contents,
                         isEditing: false
                     } : comment));
         }
@@ -226,7 +226,7 @@ const BoardDetailPage = ()=>{
             setComments((prev)=>[
                     {
                         id: response.result.id,
-                        content: response.result.content,
+                        contents: response.result.contents,
                         creator: {
                             nickname: response.result.creator.nickname
                         },
@@ -383,10 +383,10 @@ const BoardDetailPage = ()=>{
                                         c.isEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                                    value: c.content,
+                                                    value: c.contents,
                                                     onChange: (e)=>setComments((prev)=>prev.map((comment)=>comment.id === c.id ? {
                                                                     ...comment,
-                                                                    content: e.target.value
+                                                                    contents: e.target.value
                                                                 } : comment)),
                                                     autoFocus: true,
                                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentEditTextarea
@@ -396,7 +396,7 @@ const BoardDetailPage = ()=>{
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    onClick: ()=>handleCommentEdit(c.id, c.content),
+                                                    onClick: ()=>handleCommentEdit(c.id, c.contents),
                                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentEditButton,
                                                     children: "저장"
                                                 }, void 0, false, {
@@ -424,7 +424,7 @@ const BoardDetailPage = ()=>{
                                                 whiteSpace: 'pre-wrap'
                                             },
                                             dangerouslySetInnerHTML: {
-                                                __html: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$dompurify$2f$dist$2f$purify$2e$es$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].sanitize(c.content)
+                                                __html: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$dompurify$2f$dist$2f$purify$2e$es$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].sanitize(c.contents)
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
