@@ -97,7 +97,7 @@ const BoardWritePage = () => {
 
       setTitle('');
       editorRef.current?.getInstance().setMarkdown('');
-      router.push('/board');
+      router.push('/notice');
     } catch (error) {
       console.error('공지사항 등록 오류:', error);
       alert('공지사항 등록에 실패했습니다. 다시 시도해 주세요.');

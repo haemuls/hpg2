@@ -10,6 +10,7 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
+
   const toggleForm = (type: "signin" | "signup") => {
     setIsSignUp(type === "signup");
   };
@@ -40,6 +41,7 @@ const SignUpPage = () => {
 
         if (response.ok) {
           alert("회원가입 성공!");
+          setIsSignUp(false); // 로그인 페이지로 전환
         } else {
           const errorMessage = await response.text();
           alert(`회원가입 실패: ${errorMessage}`);
@@ -58,28 +60,6 @@ const SignUpPage = () => {
     } catch (error) {
       console.error("Error during submission:", error);
       alert("요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
-    }
-  };
-
-  const handleSocialLogin = async (provider: "google" | "github") => {
-    try {
-      const response = await fetch(
-        `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${provider}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(`${provider} login successful:`, data);
-        window.location.href = "/";
-      } else {
-        console.error(`${provider} login failed`);
-      }
-    } catch (error) {
-      console.error("Error during social login API call:", error);
     }
   };
 
@@ -166,13 +146,13 @@ const SignUpPage = () => {
       {/* 소셜 로그인 */}
       <button
         className={styles.google__btn}
-        onClick={() => handleSocialLogin("google")}
+        onClick={() => (window.location.href = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google")}
       >
         Google로 로그인
       </button>
       <button
         className={styles.github__btn}
-        onClick={() => handleSocialLogin("github")}
+        onClick={() => (window.location.href = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github")}
       >
         Github로 로그인
       </button>
