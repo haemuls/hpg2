@@ -60,29 +60,19 @@ const HomePage = () => {
             <div className={styles.column}>
               <div className={styles.detailBox}>
                 <h3 className={styles.smallText}>
-                  워게임 문제 서비스 HPlayground는 보안 관련 교육 및 커뮤니티 형성을 목표로 하고 있습니다.
+                  CTF 문제를 풀고, 직접 출제할 수 있는 정보보안 교육 생태계 형성을 목표로 하고 있습니다.
                   <br />
-                  현재 문제제작에 참여하실 동아리들을 모집하고 있습니다.
+
                 </h3>
                 <div className={styles.statsBoxes}>
                   <div className={styles.statsBox}>
-                    <h4>문제 개수</h4>
+                    <h6>전체 문제</h6>
                     <p>{isLoading ? '로딩 중...' : solvedProblems}</p>
                   </div>
                   <div className={styles.statsBox}>
-                    <h4>최근 출제된 문제</h4>
+                    <h6>최근 한달간 출제된 문제</h6>
                     <p>{isLoading ? '로딩 중...' : newProblems}</p>
                   </div>
-                </div>
-
-                {/* 새로운 섹션 */}
-                <div className={styles.centerSection}>
-                  <h4 className={styles.centerTitle}>현재 참여 동아리</h4>
-                  <img
-                    src="/images/clubs2.png"
-                    alt="참여 동아리 이미지"
-                    className={styles.centerImage}
-                  />
                 </div>
               </div>
             </div>
@@ -94,8 +84,12 @@ const HomePage = () => {
         <iframe
           src="https://lake-middle-d9f.notion.site/ebd/1db0ebc77a6b80fba6faff7068412a7c"
           allowFullScreen
-          style={{
-            height: '350vh',
+          scrolling="no"
+          style = {{
+            maxHeight: "100%",
+            height: "4000px",
+            border: "none",
+            overflow: "hidden",
           }}
         />
       </section>

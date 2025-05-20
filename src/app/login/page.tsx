@@ -86,7 +86,6 @@ const SignUpPage = () => {
   useEffect(() => {
     toggleForm("signin");
 
-    // Cleanup the event listeners when the component is unmounted
     return () => {};
   }, []);
 

@@ -256,7 +256,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" href="/board">
-                      자유 게시판
+                      Community
                     </Link>
                   </li>
                 </ul>
