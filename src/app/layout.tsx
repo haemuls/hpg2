@@ -5,11 +5,10 @@ import Script from 'next/script';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 import { getToken, clearTokens } from '../../token';
-import getConfig from 'next/config';
+import HeadContent from './HeadContent';
 import Modal from './components/Modal';
-
-const { publicRuntimeConfig } = getConfig() || {};
-const GA_MEASUREMENT_ID = publicRuntimeConfig?.GA_MEASUREMENT_ID || '';
+import ActiveUsersDropdown from './ActiveUsersDropdown';
+import UserDropdown from './UserDropdown';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [nickname, setNickname] = useState<string | null>(null);
@@ -157,67 +156,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
       <head>
-        <title>Hack Playground - CTF 사이트</title>
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="keywords" content="CTF, 해킹, 보안, 문제 풀이" />
-        <meta name="description" content="CTF 사이트 테스트용 페이지" />
-        <link rel="icon" href="/images/test_sione.jpeg" type="image/gif" />
-        <link rel="stylesheet" href="/styles/bootstrap.css" />
-        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="/styles/font-awesome.min.css" />
-        <link rel="stylesheet" href="/styles/style.css" />
-        <link rel="stylesheet" href="/styles/responsive.css" />
-        <link rel="stylesheet" href="/styles/navbar-hover.css" />
-
-        <style>{`
-          .nav-link {
-            position: relative;
-            display: inline-block;
-            text-decoration: none;
-            color: inherit;
-            padding-bottom: 5px;
-            transition: color 0.3s ease, transform 0.3s ease;
-          }
-          .nav-link:hover {
-            color: #007bff;
-            transform: scale(1.1);
-          }
-          .nav-link::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background: #007bff;
-            transition: width 0.3s ease;
-          }
-          .nav-link:hover::after {
-            width: 100%;
-          }
-        `}</style>
-
-        {GA_MEASUREMENT_ID && (
-          <>
-            <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
-            <Script
-              id="google-analytics"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}', {
-                  page_path: window.location.pathname,
-                });
-              `,
-              }}
-            />
-          </>
-        )}
+        <HeadContent />
       </head>
 
       <body className="sub_page">
@@ -228,7 +167,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                 <span>Hack Playground</span>
               </Link>
 
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+              >
                 <span> </span>
               </button>
 
@@ -263,115 +207,23 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
                 <div className="quote_btn-container d-flex align-items-center">
                   {nickname ? (
-                    <>
-                      <Dropdown className="mr-3">
-                        <Dropdown.Toggle
-                          id="dropdown-active-users"
-                          style={{
-                            backgroundColor: "transparent",
-                            border: "none",
-                            color: "#000",
-                            fontSize: "16px",
-                            padding: "0 10px",
-                          }}
-                        >
-                          {activeUserCount !== null
-                            ? `현재 접속인원: ${activeUserCount}명`
-                            : "접속 중 사용자 수"}
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{ background: "transparent" }}>
-                          {Object.keys(activeUsersProblems || {}).map((problemId) => {
-                            const problemIdNumber = Number(problemId);
-                            const problemTitle = problemTitles?.[problemIdNumber];
-
-                            if (activeUsersProblems?.[problemId]?.length > 0) {
-                              return (
-                                <Dropdown.Item
-                                  key={problemId}
-                                  style={{
-                                    width: "100%",
-                                    padding: "10px",
-                                    boxSizing: "border-box",
-                                    transition: "background-color 0.3s ease, color 0.3s ease",
-                                  }}
-                                  onMouseOver={(e) => {
-                                    const target = e.target as HTMLElement;
-                                    target.style.backgroundColor = "#c0c0cb";
-                                    target.style.color = "#fff";
-                                  }}
-                                  onMouseOut={(e) => {
-                                    const target = e.target as HTMLElement;
-                                    target.style.backgroundColor = "";
-                                    target.style.color = "";
-                                  }}
-                                >
-                                  {problemTitle || `문제 ID ${problemId}`} : {activeUsersProblems[problemId].length}명
-                                </Dropdown.Item>
-                              );
-                            }
-                            return null;
-                          })}
-                        </Dropdown.Menu>
-                      </Dropdown>
-
-                      <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          {nickname}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item
-                            href="/Mypage"
-                            onClick={handleProfileClick}
-                            style={{
-                              width: "100%",
-                              padding: "10px",
-                              boxSizing: "border-box",
-                              transition: "background-color 0.3s ease, color 0.3s ease",
-                            }}
-                            onMouseOver={(e) => {
-                              const target = e.target as HTMLElement;
-                              target.style.backgroundColor = "#c0c0cb";
-                              target.style.color = "#fff";
-                            }}
-                            onMouseOut={(e) => {
-                              const target = e.target as HTMLElement;
-                              target.style.backgroundColor = "";
-                              target.style.color = "";
-                            }}
-                          >
-                            Profile
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="/"
-                            onClick={handleLogout}
-                            style={{
-                              width: "100%",
-                              padding: "10px",
-                              boxSizing: "border-box",
-                              transition: "background-color 0.3s ease, color 0.3s ease",
-                            }}
-                            onMouseOver={(e) => {
-                              const target = e.target as HTMLElement;
-                              target.style.backgroundColor = "#c0c0cb";
-                              target.style.color = "#fff";
-                            }}
-                            onMouseOut={(e) => {
-                              const target = e.target as HTMLElement;
-                              target.style.backgroundColor = "";
-                              target.style.color = "";
-                            }}
-                          >
-                            Logout
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </>
+                      <>
+                        <ActiveUsersDropdown
+                            activeUserCount={activeUserCount}
+                            activeUsersProblems={activeUsersProblems}
+                            problemTitles={problemTitles}
+                        />
+                        <UserDropdown
+                            nickname={nickname}
+                            onProfileClick={handleProfileClick}
+                            onLogout={handleLogout}
+                        />
+                      </>
                   ) : (
-                    <Link href="/login">
-                      <span>Login</span>
-                      <i className="fa fa-user" aria-hidden="true"></i>
-                    </Link>
+                      <Link href="/login">
+                        <span>Login</span>
+                        <i className="fa fa-user" aria-hidden="true"></i>
+                      </Link>
                   )}
                 </div>
               </div>
@@ -381,7 +233,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
         <main>{children}</main>
 
-        {showModal && <Modal isOpen={showModal} onClose={() => setShowModal(false)} />}
+        {showModal && <Modal isOpen={showModal} onClose={() => setShowModal(false)}/>}
 
         <footer>
           <div className="container-fluid text-center">
@@ -389,13 +241,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </footer>
 
-        <Script src="/js/jquery-3.4.1.min.js" strategy="beforeInteractive" />
-        <Script src="/js/bootstrap.js" strategy="beforeInteractive" />
+        <Script src="/js/jquery-3.4.1.min.js" strategy="beforeInteractive"/>
+        <Script src="/js/bootstrap.js" strategy="beforeInteractive"/>
         <Script src="/js/navbar-hover.js" strategy="beforeInteractive" />
         <Script src="/js/custom.js" strategy="lazyOnload" />
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;

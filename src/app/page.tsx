@@ -87,7 +87,7 @@ const HomePage = () => {
           scrolling="no"
           style = {{
             maxHeight: "100%",
-            height: "4000px",
+            height: "3800px",
             border: "none",
             overflow: "hidden",
           }}
