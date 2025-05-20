@@ -136,6 +136,16 @@
   display: block;
   margin-bottom: 5px;
 }
+.commentEditTextarea{
+  width: 80%;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-overflow: ellipsis;
+  resize: none;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+}
 
 .commentMeta {
   font-size: 0.9em;
@@ -174,6 +184,7 @@
 
 .formGroup textarea {
   width: 100%;
+  height: 80px;
   padding: 15px;
   padding-right: 100px; /* 버튼 공간 확보 */
   border: 1px solid #ccc;
@@ -182,6 +193,7 @@
   resize: vertical;
   box-sizing: border-box;
   height: 80px; /* 버튼 높이와 동일하게 설정 */
+  transform: translateY(7px); /* 아래로 5px 이동 */
 }
 
 /* Flag Section */

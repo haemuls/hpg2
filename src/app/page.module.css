@@ -26,13 +26,35 @@
 }
 
 .imgBox {
+  margin-top: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
 }
 
 .imgBox img {
   max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.imgBox1 {
+  width: 100%;
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.imgBox1 img {
+  margin-top: -30px;
+  max-width: 130%;
+  max-height: 90%;
   height: auto;
   border-radius: 8px;
   object-fit: cover;

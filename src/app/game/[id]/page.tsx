@@ -463,6 +463,7 @@ const CTFProblemPage = () => {
               </p>
               {c.isEditing ? (
                 <textarea
+                    className={styles.commentEditTextarea}
                   value={c.contents}
                   onChange={(e) =>
                     setComments((prev) =>

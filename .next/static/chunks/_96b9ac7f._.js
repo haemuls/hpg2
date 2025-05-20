@@ -13,6 +13,7 @@ __turbopack_context__.v({
   "commentEdit": "BoardDetail-module__4Bv4dq__commentEdit",
   "commentEditButton": "BoardDetail-module__4Bv4dq__commentEditButton",
   "commentEditTextarea": "BoardDetail-module__4Bv4dq__commentEditTextarea",
+  "commentEditTextareaContainer": "BoardDetail-module__4Bv4dq__commentEditTextareaContainer",
   "commentItem": "BoardDetail-module__4Bv4dq__commentItem",
   "commentMeta": "BoardDetail-module__4Bv4dq__commentMeta",
   "commentSection": "BoardDetail-module__4Bv4dq__commentSection",
@@ -268,7 +269,7 @@ const BoardDetailPage = ()=>{
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                     lineNumber: 211,
-                    columnNumber: 9
+                    columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].metaInfo,
@@ -281,7 +282,7 @@ const BoardDetailPage = ()=>{
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                             lineNumber: 213,
-                            columnNumber: 11
+                            columnNumber: 9
                         }, this),
                         " | ",
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -292,13 +293,13 @@ const BoardDetailPage = ()=>{
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                             lineNumber: 213,
-                            columnNumber: 55
+                            columnNumber: 53
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                     lineNumber: 212,
-                    columnNumber: 9
+                    columnNumber: 7
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].viewerContainer} ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].largeFont}`,
@@ -307,12 +308,12 @@ const BoardDetailPage = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/view/[id]/page.tsx",
                         lineNumber: 216,
-                        columnNumber: 11
+                        columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                     lineNumber: 215,
-                    columnNumber: 9
+                    columnNumber: 7
                 }, this),
                 post.creator.nickname === userNickname && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: handleDelete,
@@ -321,7 +322,7 @@ const BoardDetailPage = ()=>{
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                     lineNumber: 220,
-                    columnNumber: 13
+                    columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentSection,
@@ -332,7 +333,7 @@ const BoardDetailPage = ()=>{
                         }, void 0, false, {
                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                             lineNumber: 226,
-                            columnNumber: 11
+                            columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                             onSubmit: handleCommentSubmit,
@@ -345,7 +346,7 @@ const BoardDetailPage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                     lineNumber: 228,
-                                    columnNumber: 5
+                                    columnNumber: 11
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     type: "submit",
@@ -355,13 +356,13 @@ const BoardDetailPage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                     lineNumber: 233,
-                                    columnNumber: 13
+                                    columnNumber: 11
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                             lineNumber: 227,
-                            columnNumber: 11
+                            columnNumber: 9
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
                             children: comments.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -373,14 +374,15 @@ const BoardDetailPage = ()=>{
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                                 lineNumber: 242,
-                                                columnNumber: 21
+                                                columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                             lineNumber: 241,
-                                            columnNumber: 19
+                                            columnNumber: 15
                                         }, this),
                                         c.isEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentEditTextareaContainer,
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
                                                     value: c.contents,
@@ -393,7 +395,7 @@ const BoardDetailPage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                                     lineNumber: 246,
-                                                    columnNumber: 13
+                                                    columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>handleCommentEdit(c.id, c.contents),
@@ -402,7 +404,7 @@ const BoardDetailPage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                                     lineNumber: 258,
-                                                    columnNumber: 25
+                                                    columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>handleCommentEditToggle(c.id),
@@ -411,13 +413,13 @@ const BoardDetailPage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                                     lineNumber: 264,
-                                                    columnNumber: 25
+                                                    columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                             lineNumber: 245,
-                                            columnNumber: 23
+                                            columnNumber: 17
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentContent,
                                             style: {
@@ -429,7 +431,7 @@ const BoardDetailPage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                             lineNumber: 272,
-                                            columnNumber: 23
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$board$2f$view$2f5b$id$5d2f$BoardDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].commentMeta,
@@ -440,7 +442,7 @@ const BoardDetailPage = ()=>{
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                             lineNumber: 278,
-                                            columnNumber: 19
+                                            columnNumber: 15
                                         }, this),
                                         !c.isEditing && c.creator?.nickname === userNickname && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                             children: [
@@ -451,7 +453,7 @@ const BoardDetailPage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                                     lineNumber: 283,
-                                                    columnNumber: 13
+                                                    columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     onClick: ()=>handleCommentDelete(c.id),
@@ -459,8 +461,8 @@ const BoardDetailPage = ()=>{
                                                     children: "삭제"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
-                                                    lineNumber: 289,
-                                                    columnNumber: 25
+                                                    lineNumber: 286,
+                                                    columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true)
@@ -468,29 +470,29 @@ const BoardDetailPage = ()=>{
                                 }, c.id, true, {
                                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                                     lineNumber: 240,
-                                    columnNumber: 17
+                                    columnNumber: 13
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/board/view/[id]/page.tsx",
                             lineNumber: 238,
-                            columnNumber: 11
+                            columnNumber: 9
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/board/view/[id]/page.tsx",
                     lineNumber: 225,
-                    columnNumber: 9
+                    columnNumber: 7
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/board/view/[id]/page.tsx",
             lineNumber: 210,
-            columnNumber: 7
+            columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/board/view/[id]/page.tsx",
         lineNumber: 209,
-        columnNumber: 5
+        columnNumber: 3
     }, this);
 };
 _s(BoardDetailPage, "2+VUZ1/mNKDxU/b31Ejn12/k4DI=", false, function() {

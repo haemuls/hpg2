@@ -53,9 +53,13 @@ const HomePage = () => {
         <div className={styles.container}>
           <div className={styles.row}>
             <div className={styles.column}>
-              <div className={styles.imgBox}>
-                <img src="/images/hpg.png" alt="CTF 사이트 테스트용 이미지" />
+              <div className={styles.imgBox1}>
+                <img src="/images/banner.png" alt="banner"/>
               </div>
+              <div className={styles.imgBox}>
+                <img src="/images/hpg1.png" alt="CTF 사이트 테스트용 이미지"/>
+              </div>
+
             </div>
             <div className={styles.column}>
               <div className={styles.detailBox}>
@@ -73,12 +77,15 @@ const HomePage = () => {
                     <h6>최근 한달간 출제된 문제</h6>
                     <p>{isLoading ? '로딩 중...' : newProblems}</p>
                   </div>
+
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       </section>
+
 
       <section className={styles.notionsSection}>
         <iframe
@@ -87,7 +94,7 @@ const HomePage = () => {
           scrolling="no"
           style = {{
             maxHeight: "100%",
-            height: "3800px",
+            height: "4000px",
             border: "none",
             overflow: "hidden",
           }}

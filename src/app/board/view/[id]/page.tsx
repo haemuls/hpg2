@@ -206,101 +206,95 @@ const BoardDetailPage = () => {
   if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
 
   return (
-    <section className={styles.container}>
-      <div>
-        <h3 className={styles.title}>{post.title}</h3>
-        <p className={styles.metaInfo}>
-          <span>작성자: {post.creator.nickname}</span> | <span>작성일: {post.formattedDate}</span>
-        </p>
-        <div className={`${styles.viewerContainer} ${styles.largeFont}`}>
-          <Viewer initialValue={post.contents}/>
-        </div>
-
-        {post.creator.nickname === userNickname && (
-            <button onClick={handleDelete} className={styles.btnDelete}>
-              삭제
-            </button>
-        )}
-
-        <div className={styles.commentSection}>
-          <h4 className={styles.commentTitle}>댓글</h4>
-          <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
-    <textarea
-        value={newComment}
-        onChange={(e) => setNewComment(e.target.value)}
-        placeholder="댓글을 입력하세요..."
-    />
-            <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
-              {isSubmitting ? '등록 중...' : '등록'}
-            </button>
-          </form>
-
-          <ul>
-            {comments.map((c: Comment) => (
-                <li key={c.id} className={styles.commentItem}>
-                  <p>
-                    <strong>{c.creator?.nickname || '익명 사용자'}</strong>
-                  </p>
-                  {c.isEditing ? (
-                      <div>
-            <textarea
-                value={c.contents}
-                onChange={(e) =>
-                    setComments((prev) =>
-                        prev.map((comment) =>
-                            comment.id === c.id ? {...comment, contents: e.target.value} : comment
-                        )
-                    )
-                }
-                autoFocus
-                className={styles.commentEditTextarea}
-            />
-                        <button
-                            onClick={() => handleCommentEdit(c.id, c.contents)}
-                            className={styles.commentEditButton}
-                        >
-                          저장
-                        </button>
-                        <button
-                            onClick={() => handleCommentEditToggle(c.id)}
-                            className={`${styles.commentEditButton} ${styles.cancel}`}
-                        >
-                          취소
-                        </button>
-                      </div>
-                  ) : (
-                      <p
-                          className={styles.commentContent}
-                          style={{whiteSpace: 'pre-wrap'}} // 줄바꿈 스타일 적용
-                          dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(c.contents)}}
-                      />
-                  )}
-                  <span className={styles.commentMeta}>
-          | 작성일: {new Date(c.createdAt).toLocaleDateString()}
-        </span>
-                  {!c.isEditing && c.creator?.nickname === userNickname && (
-                      <>
-            <span
-                onClick={() => handleCommentEditToggle(c.id)}
-                className={styles.commentEdit}
-            >
-              수정
-            </span>
-                        <span
-                            onClick={() => handleCommentDelete(c.id)}
-                            className={styles.commentDelete}
-                        >
-              삭제
-            </span>
-                      </>
-                  )}
-                </li>
-            ))}
-          </ul>
-        </div>
+  <section className={styles.container}>
+    <div>
+      <h3 className={styles.title}>{post.title}</h3>
+      <p className={styles.metaInfo}>
+        <span>작성자: {post.creator.nickname}</span> | <span>작성일: {post.formattedDate}</span>
+      </p>
+      <div className={`${styles.viewerContainer} ${styles.largeFont}`}>
+        <Viewer initialValue={post.contents} />
       </div>
-    </section>
-  );
+
+      {post.creator.nickname === userNickname && (
+        <button onClick={handleDelete} className={styles.btnDelete}>
+          삭제
+        </button>
+      )}
+
+      <div className={styles.commentSection}>
+        <h4 className={styles.commentTitle}>댓글</h4>
+        <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요..."
+          />
+          <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
+            {isSubmitting ? '등록 중...' : '등록'}
+          </button>
+        </form>
+
+        <ul>
+          {comments.map((c: Comment) => (
+            <li key={c.id} className={styles.commentItem}>
+              <p>
+                <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+              </p>
+              {c.isEditing ? (
+                <div className={styles.commentEditTextareaContainer}>
+                  <textarea
+                    value={c.contents}
+                    onChange={(e) =>
+                      setComments((prev) =>
+                        prev.map((comment) =>
+                          comment.id === c.id ? { ...comment, contents: e.target.value } : comment
+                        )
+                      )
+                    }
+                    autoFocus
+                    className={styles.commentEditTextarea}
+                  />
+                  <button
+                    onClick={() => handleCommentEdit(c.id, c.contents)}
+                    className={styles.commentEditButton}
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={() => handleCommentEditToggle(c.id)}
+                    className={`${styles.commentEditButton} ${styles.cancel}`}
+                  >
+                    취소
+                  </button>
+                </div>
+              ) : (
+                <p
+                  className={styles.commentContent}
+                  style={{ whiteSpace: 'pre-wrap' }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.contents) }}
+                />
+              )}
+              <span className={styles.commentMeta}>
+                | 작성일: {new Date(c.createdAt).toLocaleDateString()}
+              </span>
+              {!c.isEditing && c.creator?.nickname === userNickname && (
+                <>
+                  <span onClick={() => handleCommentEditToggle(c.id)} className={styles.commentEdit}>
+                    수정
+                  </span>
+                  <span onClick={() => handleCommentDelete(c.id)} className={styles.commentDelete}>
+                    삭제
+                  </span>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
 };
 
 export default BoardDetailPage;
