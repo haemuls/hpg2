@@ -148,7 +148,7 @@ export default function WargameForm() {
       <p className="noticeText">
         주의사항
         <br/>
-        !!! 문제를 제출하시기 전에 꼭 공지사항의 "문제 제출시 주의사항"을 확인하여 주세요. !!!
+        !!! 문제를 제출하시기 전에 꼭 공지사항의 문제 제출시 주의사항을 확인하여 주세요. !!!
       </p>
       <div className="form-group">
         <label>제목</label>
