@@ -15,6 +15,12 @@
 .game {
   padding: 80px 0 !important;
 }
+.noticeText {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 .pageTitle {
   margin-bottom: 60px;

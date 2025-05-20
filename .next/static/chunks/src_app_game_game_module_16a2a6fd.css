@@ -17,6 +17,13 @@
   padding: 80px 0 !important;
 }
 
+.game-module__h0mpaG__noticeText {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
 .game-module__h0mpaG__pageTitle {
   margin-bottom: 60px;
 }

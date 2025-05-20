@@ -1,42 +1,45 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { login } from '../../../token'; // token.ts에서 login 함수 import
-import styles from './login1.module.css';
+import React, { useState, useEffect } from "react";
+import { login } from "../../../token"; // token.ts에서 login 함수 import
+import styles from "./login1.module.css";
 
 const SignUpPage = () => {
-  const [id, setId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+  const [id, setId] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
-  const toggleForm = (type: 'signin' | 'signup') => {
-    setIsSignUp(type === 'signup');
+  const toggleForm = (type: "signin" | "signup") => {
+    setIsSignUp(type === "signup");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (isSignUp && password !== repeatPassword) {
-      alert('Passwords do not match!');
+      alert("Passwords do not match!");
       return;
     }
 
     try {
       if (isSignUp) {
         // 회원가입 처리
-        const response = await fetch('https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            account: id,
-            nickname: nickname,
-            password: password,
-          }),
-        });
+        const response = await fetch(
+          "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              account: id,
+              nickname: nickname,
+              password: password,
+            }),
+          }
+        );
 
         if (response.ok) {
-          alert('회원가입 성공!');
+          alert("회원가입 성공!");
         } else {
           const errorMessage = await response.text();
           alert(`회원가입 실패: ${errorMessage}`);
@@ -47,19 +50,41 @@ const SignUpPage = () => {
 
         if (response) {
           // 로그인 성공 시 메인 페이지로 리다이렉트
-          window.location.href = '/'; // 메인 페이지로 이동
+          window.location.href = "/"; // 메인 페이지로 이동
         } else {
-          alert('로그인 실패. 다시 시도해 주세요.');
+          alert("로그인 실패. 다시 시도해 주세요.");
         }
       }
     } catch (error) {
-      console.error('Error during submission:', error);
-      alert('요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error("Error during submission:", error);
+      alert("요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  const handleSocialLogin = async (provider: "google" | "github") => {
+    try {
+      const response = await fetch(
+        `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/${provider}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`${provider} login successful:`, data);
+        window.location.href = "/";
+      } else {
+        console.error(`${provider} login failed`);
+      }
+    } catch (error) {
+      console.error("Error during social login API call:", error);
     }
   };
 
   useEffect(() => {
-    toggleForm('signin');
+    toggleForm("signin");
 
     // Cleanup the event listeners when the component is unmounted
     return () => {};
@@ -68,15 +93,19 @@ const SignUpPage = () => {
   return (
     <div className={styles.container}>
       {/* Heading */}
-      <h1 className={styles.heading}>{isSignUp ? '회원가입' : '로그인'}</h1>
+      <h1 className={styles.heading}>{isSignUp ? "회원가입" : "로그인"}</h1>
 
       {/* Links */}
       <ul className={styles.links}>
         <li>
-          <a href="#" onClick={() => toggleForm('signin')}>로그인</a>
+          <a href="#" onClick={() => toggleForm("signin")}>
+            로그인
+          </a>
         </li>
         <li>
-          <a href="#" onClick={() => toggleForm('signup')}>회원가입</a>
+          <a href="#" onClick={() => toggleForm("signup")}>
+            회원가입
+          </a>
         </li>
       </ul>
 
@@ -127,7 +156,7 @@ const SignUpPage = () => {
           </div>
         )}
         <button className={styles.signin__btn} type="submit">
-          {isSignUp ? '회원가입' : '로그인'}
+          {isSignUp ? "회원가입" : "로그인"}
         </button>
       </form>
 
@@ -138,17 +167,13 @@ const SignUpPage = () => {
       {/* 소셜 로그인 */}
       <button
         className={styles.google__btn}
-        onClick={() => {
-          window.location.href = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google';
-        }}
+        onClick={() => handleSocialLogin("google")}
       >
         Google로 로그인
       </button>
       <button
         className={styles.github__btn}
-        onClick={() => {
-          window.location.href = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github';
-        }}
+        onClick={() => handleSocialLogin("github")}
       >
         Github로 로그인
       </button>

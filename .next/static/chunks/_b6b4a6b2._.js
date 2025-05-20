@@ -14,6 +14,7 @@ __turbopack_context__.v({
   "errorMessage": "game-module__h0mpaG__errorMessage",
   "game": "game-module__h0mpaG__game",
   "loadingMessage": "game-module__h0mpaG__loadingMessage",
+  "noticeText": "game-module__h0mpaG__noticeText",
   "pageNumber": "game-module__h0mpaG__pageNumber",
   "pageTitle": "game-module__h0mpaG__pageTitle",
   "pagination": "game-module__h0mpaG__pagination",
