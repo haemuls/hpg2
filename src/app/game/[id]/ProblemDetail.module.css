@@ -293,6 +293,10 @@
   margin-left: 10px;
 }
 
+.downloadButton {
+
+}
+
 .vmButton:hover {
   background: linear-gradient(90deg, #218838, #28a745);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);

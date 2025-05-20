@@ -155,6 +155,13 @@ const CTFProblemPage = () => {
       }
     );
 
+    const responseText = await response.text(); // 응답 메시지 추출
+
+    if (responseText === "Error creating pod") {
+      setVmAddress("가상환경이 필요 없는 문제입니다.");
+      return;
+    }
+
     if (!response.ok) {
       throw new Error("VM 주소 생성에 실패했습니다.");
     }
