@@ -132,8 +132,8 @@ const BoardPage = ()=>{
         "BoardPage.useEffect": ()=>{
             const fetchData = {
                 "BoardPage.useEffect.fetchData": ()=>{
-                    fetchPosts(); // 프로미스 반환값을 추적하지 않음
-                    checkLoginStatus(); // 로그인 상태 확인
+                    fetchPosts();
+                    checkLoginStatus();
                 }
             }["BoardPage.useEffect.fetchData"];
             fetchData(); // 비동기 작업을 직접 호출

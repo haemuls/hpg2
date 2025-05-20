@@ -289,6 +289,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                               return (
                                 <Dropdown.Item
                                   key={problemId}
+                                  style={{
+                                    width: "100%",
+                                    padding: "10px",
+                                    boxSizing: "border-box",
+                                    transition: "background-color 0.3s ease, color 0.3s ease",
+                                  }}
                                   onMouseOver={(e) => {
                                     const target = e.target as HTMLElement;
                                     target.style.backgroundColor = "#c0c0cb";

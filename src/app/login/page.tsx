@@ -9,14 +9,11 @@ const SignUpPage = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false); // 회원가입 여부 상태
-
-  // 상태 변화에 따라 동적으로 텍스트를 변경하는 함수
+  const [isSignUp, setIsSignUp] = useState(false);
   const toggleForm = (type: 'signin' | 'signup') => {
     setIsSignUp(type === 'signup');
   };
 
-  // 폼 제출 처리
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

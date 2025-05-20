@@ -79,7 +79,7 @@ const HomePage = () => {
                 <div className={styles.centerSection}>
                   <h4 className={styles.centerTitle}>현재 참여 동아리</h4>
                   <img
-                    src="/images/clubs1.png"
+                    src="/images/clubs2.png"
                     alt="참여 동아리 이미지"
                     className={styles.centerImage}
                   />
