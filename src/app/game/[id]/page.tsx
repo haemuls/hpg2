@@ -368,7 +368,7 @@ const CTFProblemPage = () => {
               className={styles.flagInput}
               value={flag}
               onChange={(e) => setFlag(e.target.value)}
-              placeholder="flag는 HPG{...} 형식입니다."
+              placeholder="flag를 입력해주세요."
             />
             <button className={styles.flagButton} type="submit">제출</button>
           </div>

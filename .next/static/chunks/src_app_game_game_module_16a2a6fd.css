@@ -107,7 +107,7 @@
 
 .game-module__h0mpaG__writeButtonWrap {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .game-module__h0mpaG__btnDark {
@@ -117,6 +117,24 @@
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
+}
+
+.game-module__h0mpaG__buttonBox {
+  border: 1px solid #fbfcfc;
+  border-radius: 8px;
+  align-items: center;
+  gap: 12px;
+  max-width: fit-content;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+}
+
+.game-module__h0mpaG__description {
+  color: #000;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .game-module__h0mpaG__btnDark:hover {

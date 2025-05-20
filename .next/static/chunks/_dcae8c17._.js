@@ -478,7 +478,7 @@ const CTFProblemPage = ()=>{
                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f5b$id$5d2f$ProblemDetail$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].flagInput,
                                             value: flag,
                                             onChange: (e)=>setFlag(e.target.value),
-                                            placeholder: "flag는 HPG{...} 형식입니다."
+                                            placeholder: "flag를 입력해주세요."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/[id]/page.tsx",
                                             lineNumber: 366,

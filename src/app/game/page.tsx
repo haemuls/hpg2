@@ -205,150 +205,153 @@ const GamePage = () => {
 };
 
   return (
-    <section className={styles.game}>
-      <div className={styles.pageTitle}>
-        <div className={styles.container}>
-          <h3>문제</h3>
-        </div>
-      </div>
-
-      <div className={styles.problemTypeSelector}>
-        <div className={styles.container}>
-          <label htmlFor="problemType" className={styles.blind}>
-            문제 종류 :
-          </label>
-          <select
-            id="problemType"
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className={styles.problemSelector}
-          >
-            <option value="전체">전체</option>
-            <option value="WEBHACKING">webhacking</option>
-            <option value="SYSTEM">pwnable</option>
-            <option value="REVERSING">reversing</option>
-            <option value="CRYPTO">crypto</option>
-          </select>
-        </div>
-      </div>
-
-      <div id={styles.boardList}>
-        <div className={styles.container}>
-          {loading ? (
-            <p className={styles.loadingMessage}>문제를 불러오는 중입니다...</p>
-          ) : (
-            <table className={styles.boardTable}>
-              <thead>
-                <tr>
-                  <th scope="col" className={styles.thNum}></th>
-                  <th scope="col" className={styles.thNum}>
-                    문제 번호
-                  </th>
-                  <th scope="col" className={styles.thDifficulty}>
-                    난이도
-                  </th>
-                  <th scope="col" className={styles.thTitle}>
-                    문제 제목
-                  </th>
-                  <th
-                    scope="col"
-                    className={styles.thAccuracy}
-                    onClick={() => handleSort("correctRate")}
-                    style={{ cursor: "pointer" }}
-                  >
-                    정답율
-                  </th>
-                  <th
-                    scope="col"
-                    className={styles.thDate}
-                    onClick={() => handleSort("lastModified")}
-                    style={{ cursor: "pointer" }}
-                  >
-                    마지막 수정일
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {error ? (
-                  <tr>
-                    <td colSpan={6} className={styles.errorMessage}>
-                      {error}
-                    </td>
-                  </tr>
-                ) : posts.length > 0 ? (
-                  posts.map((post) => (
-                    <tr key={post.id}>
-                      <td>{post.solved ? "✅" : ""}</td>
-                      <td>{post.id}</td>
-                      <td>{getLevelIcon(post.level)}</td>
-                      <td>
-                        <Link href={`/game/${post.id}`}>{post.title}</Link>
-                      </td>
-                      <td>{post.correctRate !== null ? `${post.correctRate.toFixed(0)}%` : "-"}</td>
-                      <td>
-                        <ClientDate date={post.lastModified} />
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={6}>문제가 없습니다. ㅠㅠ</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
-
-      <div className={styles.pagination}>
-        {totalPages > 0 &&
-          Array.from({ length: totalPages }, (_, index) => (
-            <span
-              key={index}
-              className={`${styles.pageNumber} ${index === currentPage ? styles.active : ""}`}
-              onClick={() => goToPage(index)}
-            >
-              {index + 1}
-            </span>
-          ))}
-      </div>
-
-      <div className={styles.boardSearch}>
-        <div className={styles.container}>
-          <div className={styles.searchWindow}>
-            <form onSubmit={handleSearch}>
-              <div className={styles.searchWrap}>
-                <label htmlFor="search" className={styles.blind}></label>
-                <input
-                  id="search"
-                  type="search"
-                  placeholder="검색어를 입력해주세요."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className={styles.searchInput}
-                />
-                <button type="submit" className={styles.searchButton}>
-                  검색
-                </button>
-              </div>
-            </form>
+      <section className={styles.game}>
+        <div className={styles.pageTitle}>
+          <div className={styles.container}>
+            <h3>문제</h3>
           </div>
         </div>
-      </div>
 
-      <div className={styles.writeButtonWrap}>
-        <div className={styles.container}>
-          <button
-            type="button"
-            className={styles.writeButton}
-            onClick={handleCreateButtonClick}
-          >
-            문제 만들기
-          </button>
+        <div className={styles.problemTypeSelector}>
+          <div className={styles.container}>
+            <label htmlFor="problemType" className={styles.blind}>
+              문제 종류 :
+            </label>
+            <select
+                id="problemType"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className={styles.problemSelector}
+            >
+              <option value="전체">전체</option>
+              <option value="WEBHACKING">webhacking</option>
+              <option value="SYSTEM">pwnable</option>
+              <option value="REVERSING">reversing</option>
+              <option value="CRYPTO">crypto</option>
+            </select>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <div id={styles.boardList}>
+          <div className={styles.container}>
+            {loading ? (
+                <p className={styles.loadingMessage}>문제를 불러오는 중입니다...</p>
+            ) : (
+                <table className={styles.boardTable}>
+                  <thead>
+                  <tr>
+                    <th scope="col" className={styles.thNum}></th>
+                    <th scope="col" className={styles.thNum}>
+                      문제 번호
+                    </th>
+                    <th scope="col" className={styles.thDifficulty}>
+                      난이도
+                    </th>
+                    <th scope="col" className={styles.thTitle}>
+                      문제 제목
+                    </th>
+                    <th
+                        scope="col"
+                        className={styles.thAccuracy}
+                        onClick={() => handleSort("correctRate")}
+                        style={{cursor: "pointer"}}
+                    >
+                      정답율
+                    </th>
+                    <th
+                        scope="col"
+                        className={styles.thDate}
+                        onClick={() => handleSort("lastModified")}
+                        style={{cursor: "pointer"}}
+                    >
+                      마지막 수정일
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {error ? (
+                      <tr>
+                        <td colSpan={6} className={styles.errorMessage}>
+                          {error}
+                        </td>
+                      </tr>
+                  ) : posts.length > 0 ? (
+                      posts.map((post) => (
+                          <tr key={post.id}>
+                            <td>{post.solved ? "✅" : ""}</td>
+                            <td>{post.id}</td>
+                            <td>{getLevelIcon(post.level)}</td>
+                            <td>
+                              <Link href={`/game/${post.id}`}>{post.title}</Link>
+                            </td>
+                            <td>{post.correctRate !== null ? `${post.correctRate.toFixed(0)}%` : "-"}</td>
+                            <td>
+                              <ClientDate date={post.lastModified}/>
+                            </td>
+                          </tr>
+                      ))
+                  ) : (
+                      <tr>
+                        <td colSpan={6}>문제가 없습니다. ㅠㅠ</td>
+                      </tr>
+                  )}
+                  </tbody>
+                </table>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.pagination}>
+          {totalPages > 0 &&
+              Array.from({length: totalPages}, (_, index) => (
+                  <span
+                      key={index}
+                      className={`${styles.pageNumber} ${index === currentPage ? styles.active : ""}`}
+                      onClick={() => goToPage(index)}
+                  >
+              {index + 1}
+            </span>
+              ))}
+        </div>
+
+        <div className={styles.boardSearch}>
+          <div className={styles.container}>
+            <div className={styles.searchWindow}>
+              <form onSubmit={handleSearch}>
+                <div className={styles.searchWrap}>
+                  <label htmlFor="search" className={styles.blind}></label>
+                  <input
+                      id="search"
+                      type="search"
+                      placeholder="검색어를 입력해주세요."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className={styles.searchInput}
+                  />
+                  <button type="submit" className={styles.searchButton}>
+                    검색
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.writeButtonWrap}>
+          <div className={styles.container}>
+            <div className={styles.buttonBox}>
+              <p className={styles.description}>문제를 출제하고 싶다면?</p>
+              <button
+                  type="button"
+                  className={styles.writeButton}
+                  onClick={handleCreateButtonClick}
+              >
+                문제 만들기
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
   );
 };
 
