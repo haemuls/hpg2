@@ -10,7 +10,9 @@ __turbopack_context__.v({
   "boardTable": "game-module__h0mpaG__boardTable",
   "btn": "game-module__h0mpaG__btn",
   "btnDark": "game-module__h0mpaG__btnDark",
+  "buttonBox": "game-module__h0mpaG__buttonBox",
   "container": "game-module__h0mpaG__container",
+  "description": "game-module__h0mpaG__description",
   "errorMessage": "game-module__h0mpaG__errorMessage",
   "game": "game-module__h0mpaG__game",
   "loadingMessage": "game-module__h0mpaG__loadingMessage",
@@ -243,17 +245,17 @@ const GamePage = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
                         lineNumber: 211,
-                        columnNumber: 11
+                        columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
                     lineNumber: 210,
-                    columnNumber: 9
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
                 lineNumber: 209,
-                columnNumber: 7
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].problemTypeSelector,
@@ -267,7 +269,7 @@ const GamePage = ()=>{
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/page.tsx",
                             lineNumber: 217,
-                            columnNumber: 11
+                            columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                             id: "problemType",
@@ -281,7 +283,7 @@ const GamePage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 226,
-                                    columnNumber: 13
+                                    columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                     value: "WEBHACKING",
@@ -289,7 +291,7 @@ const GamePage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 227,
-                                    columnNumber: 13
+                                    columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                     value: "SYSTEM",
@@ -297,7 +299,7 @@ const GamePage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 228,
-                                    columnNumber: 13
+                                    columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                     value: "REVERSING",
@@ -305,7 +307,7 @@ const GamePage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 229,
-                                    columnNumber: 13
+                                    columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                     value: "CRYPTO",
@@ -313,24 +315,24 @@ const GamePage = ()=>{
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 230,
-                                    columnNumber: 13
+                                    columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/game/page.tsx",
                             lineNumber: 220,
-                            columnNumber: 11
+                            columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/game/page.tsx",
                     lineNumber: 216,
-                    columnNumber: 9
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
                 lineNumber: 215,
-                columnNumber: 7
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 id: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].boardList,
@@ -342,7 +344,7 @@ const GamePage = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
                         lineNumber: 238,
-                        columnNumber: 13
+                        columnNumber: 17
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].boardTable,
                         children: [
@@ -355,7 +357,7 @@ const GamePage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
                                             lineNumber: 243,
-                                            columnNumber: 19
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
@@ -364,7 +366,7 @@ const GamePage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
                                             lineNumber: 244,
-                                            columnNumber: 19
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
@@ -373,7 +375,7 @@ const GamePage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
                                             lineNumber: 247,
-                                            columnNumber: 19
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
@@ -382,7 +384,7 @@ const GamePage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
                                             lineNumber: 250,
-                                            columnNumber: 19
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
@@ -395,7 +397,7 @@ const GamePage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
                                             lineNumber: 253,
-                                            columnNumber: 19
+                                            columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
@@ -408,18 +410,18 @@ const GamePage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/game/page.tsx",
                                             lineNumber: 261,
-                                            columnNumber: 19
+                                            columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 242,
-                                    columnNumber: 17
+                                    columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/page.tsx",
                                 lineNumber: 241,
-                                columnNumber: 15
+                                columnNumber: 19
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                 children: error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -430,12 +432,12 @@ const GamePage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
                                         lineNumber: 274,
-                                        columnNumber: 21
+                                        columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 273,
-                                    columnNumber: 19
+                                    columnNumber: 23
                                 }, this) : posts.length > 0 ? posts.map((post)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -443,21 +445,21 @@ const GamePage = ()=>{
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
                                                 lineNumber: 281,
-                                                columnNumber: 23
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: post.id
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
                                                 lineNumber: 282,
-                                                columnNumber: 23
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: getLevelIcon(post.level)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
                                                 lineNumber: 283,
-                                                columnNumber: 23
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -466,19 +468,19 @@ const GamePage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/game/page.tsx",
                                                     lineNumber: 285,
-                                                    columnNumber: 25
+                                                    columnNumber: 31
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
                                                 lineNumber: 284,
-                                                columnNumber: 23
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: post.correctRate !== null ? `${post.correctRate.toFixed(0)}%` : "-"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
                                                 lineNumber: 287,
-                                                columnNumber: 23
+                                                columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ClientDate, {
@@ -486,18 +488,18 @@ const GamePage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/game/page.tsx",
                                                     lineNumber: 289,
-                                                    columnNumber: 25
+                                                    columnNumber: 31
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/game/page.tsx",
                                                 lineNumber: 288,
-                                                columnNumber: 23
+                                                columnNumber: 29
                                             }, this)
                                         ]
                                     }, post.id, true, {
                                         fileName: "[project]/src/app/game/page.tsx",
                                         lineNumber: 280,
-                                        columnNumber: 21
+                                        columnNumber: 27
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                         colSpan: 6,
@@ -505,33 +507,33 @@ const GamePage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
                                         lineNumber: 295,
-                                        columnNumber: 21
+                                        columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/game/page.tsx",
                                     lineNumber: 294,
-                                    columnNumber: 19
+                                    columnNumber: 23
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/game/page.tsx",
                                 lineNumber: 271,
-                                columnNumber: 15
+                                columnNumber: 19
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/game/page.tsx",
                         lineNumber: 240,
-                        columnNumber: 13
+                        columnNumber: 17
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
                     lineNumber: 236,
-                    columnNumber: 9
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
                 lineNumber: 235,
-                columnNumber: 7
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pagination,
@@ -544,12 +546,12 @@ const GamePage = ()=>{
                     }, index, false, {
                         fileName: "[project]/src/app/game/page.tsx",
                         lineNumber: 307,
-                        columnNumber: 13
+                        columnNumber: 19
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
                 lineNumber: 304,
-                columnNumber: 7
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].boardSearch,
@@ -568,7 +570,7 @@ const GamePage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
                                         lineNumber: 322,
-                                        columnNumber: 17
+                                        columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         id: "search",
@@ -580,7 +582,7 @@ const GamePage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
                                         lineNumber: 323,
-                                        columnNumber: 17
+                                        columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         type: "submit",
@@ -589,63 +591,80 @@ const GamePage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/game/page.tsx",
                                         lineNumber: 331,
-                                        columnNumber: 17
+                                        columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/game/page.tsx",
                                 lineNumber: 321,
-                                columnNumber: 15
+                                columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/game/page.tsx",
                             lineNumber: 320,
-                            columnNumber: 13
+                            columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/game/page.tsx",
                         lineNumber: 319,
-                        columnNumber: 11
+                        columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
                     lineNumber: 318,
-                    columnNumber: 9
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
                 lineNumber: 317,
-                columnNumber: 7
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].writeButtonWrap,
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].container,
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        type: "button",
-                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].writeButton,
-                        onClick: handleCreateButtonClick,
-                        children: "문제 만들기"
-                    }, void 0, false, {
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].buttonBox,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].description,
+                                children: "문제를 출제하고 싶다면?"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/game/page.tsx",
+                                lineNumber: 343,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].writeButton,
+                                onClick: handleCreateButtonClick,
+                                children: "문제 만들기"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/game/page.tsx",
+                                lineNumber: 344,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/app/game/page.tsx",
                         lineNumber: 342,
-                        columnNumber: 11
+                        columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/game/page.tsx",
                     lineNumber: 341,
-                    columnNumber: 9
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/game/page.tsx",
                 lineNumber: 340,
-                columnNumber: 7
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/game/page.tsx",
         lineNumber: 208,
-        columnNumber: 5
+        columnNumber: 7
     }, this);
 };
 _s1(GamePage, "Qp2V3MAUe8VTiZ8OByvftrIYxLc=", false, function() {
