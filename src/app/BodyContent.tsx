@@ -1,3 +1,5 @@
+// BodyContent.tsx 수정본
+
 'use client';
 
 import React from 'react';
@@ -30,7 +32,7 @@ const BodyContent: React.FC<BodyContentProps> = ({
   onCloseModal,
   children,
 }) => (
-  <body className="sub_page">
+  <div className="sub_page"> {/* 여기서 <body>를 <div>로 변경 */}
     <div className="hero_area">
       <header className="header_section long_section px-0">
         <nav className="navbar navbar-expand-lg custom_nav-container">
@@ -116,7 +118,7 @@ const BodyContent: React.FC<BodyContentProps> = ({
     <Script src="/js/bootstrap.js" strategy="beforeInteractive" />
     <Script src="/js/navbar-hover.js" strategy="beforeInteractive" />
     <Script src="/js/custom.js" strategy="lazyOnload" />
-  </body>
+  </div>
 );
 
 export default BodyContent;

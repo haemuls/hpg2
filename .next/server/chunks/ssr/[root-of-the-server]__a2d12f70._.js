@@ -34,7 +34,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$conf
 const { publicRuntimeConfig } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$config$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])() || {};
 const GA_MEASUREMENT_ID = publicRuntimeConfig?.GA_MEASUREMENT_ID || '';
 const HeadContent = ()=>{
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("head", {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
                 children: "Hack Playground - CTF 사이트"
@@ -187,23 +187,27 @@ const HeadContent = ()=>{
                         strategy: "afterInteractive",
                         dangerouslySetInnerHTML: {
                             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){window.dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_MEASUREMENT_ID}', {
-                page_path: window.location.pathname,
-              });
-            `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/app/HeadContent.tsx",
-                        lineNumber: 58,
+                        lineNumber: 61,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "[project]/src/app/HeadContent.tsx",
+        lineNumber: 12,
+        columnNumber: 5
+    }, this);
 };
 const __TURBOPACK__default__export__ = HeadContent;
 }}),
@@ -877,6 +881,7 @@ const __TURBOPACK__default__export__ = Modal;
 
 var { g: global, __dirname } = __turbopack_context__;
 {
+// BodyContent.tsx 수정본
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
 });
@@ -893,9 +898,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$components$2f$
 ;
 ;
 ;
-const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTitles, showModal, onProfileClick, onLogout, onCloseModal, children })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
+const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTitles, showModal, onProfileClick, onLogout, onCloseModal, children })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "sub_page",
         children: [
+            " ",
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "hero_area",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
@@ -910,12 +916,12 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                     children: "Hack Playground"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                    lineNumber: 38,
+                                    lineNumber: 40,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                lineNumber: 37,
+                                lineNumber: 39,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -927,12 +933,12 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                     children: " "
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                    lineNumber: 47,
+                                    lineNumber: 49,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                lineNumber: 41,
+                                lineNumber: 43,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -950,12 +956,12 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     children: "HOME"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 53,
+                                                    lineNumber: 55,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                                lineNumber: 52,
+                                                lineNumber: 54,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -966,12 +972,12 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     children: "Notice"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 58,
+                                                    lineNumber: 60,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                                lineNumber: 57,
+                                                lineNumber: 59,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -982,12 +988,12 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     children: "GAME"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 63,
+                                                    lineNumber: 65,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                                lineNumber: 62,
+                                                lineNumber: 64,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -998,12 +1004,12 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     children: "Ranking"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 68,
+                                                    lineNumber: 70,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                                lineNumber: 67,
+                                                lineNumber: 69,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1014,18 +1020,18 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     children: "Community"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 73,
+                                                    lineNumber: 75,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                                lineNumber: 72,
+                                                lineNumber: 74,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/BodyContent.tsx",
-                                        lineNumber: 51,
+                                        lineNumber: 53,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1038,7 +1044,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     problemTitles: problemTitles
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 82,
+                                                    lineNumber: 84,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$UserDropdown$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1047,7 +1053,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     onLogout: onLogout
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 87,
+                                                    lineNumber: 89,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
@@ -1058,7 +1064,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     children: "Login"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 95,
+                                                    lineNumber: 97,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("i", {
@@ -1066,47 +1072,47 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                                                     "aria-hidden": "true"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/BodyContent.tsx",
-                                                    lineNumber: 96,
+                                                    lineNumber: 98,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/BodyContent.tsx",
-                                            lineNumber: 94,
+                                            lineNumber: 96,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/BodyContent.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 81,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/BodyContent.tsx",
-                                lineNumber: 50,
+                                lineNumber: 52,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/BodyContent.tsx",
-                        lineNumber: 36,
+                        lineNumber: 38,
                         columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/BodyContent.tsx",
-                    lineNumber: 35,
+                    lineNumber: 37,
                     columnNumber: 7
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 34,
+                lineNumber: 36,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 children: children
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 105,
+                lineNumber: 107,
                 columnNumber: 5
             }, this),
             showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$components$2f$Modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1114,7 +1120,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                 onClose: onCloseModal
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 107,
+                lineNumber: 109,
                 columnNumber: 19
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -1124,17 +1130,17 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                         children: "Hacker Playground"
                     }, void 0, false, {
                         fileName: "[project]/src/app/BodyContent.tsx",
-                        lineNumber: 111,
+                        lineNumber: 113,
                         columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/BodyContent.tsx",
-                    lineNumber: 110,
+                    lineNumber: 112,
                     columnNumber: 7
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 109,
+                lineNumber: 111,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$script$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1142,7 +1148,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                 strategy: "beforeInteractive"
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 115,
+                lineNumber: 117,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$script$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1150,7 +1156,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                 strategy: "beforeInteractive"
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 116,
+                lineNumber: 118,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$script$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1158,7 +1164,7 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                 strategy: "beforeInteractive"
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 117,
+                lineNumber: 119,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$script$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1166,13 +1172,13 @@ const BodyContent = ({ nickname, activeUserCount, activeUsersProblems, problemTi
                 strategy: "lazyOnload"
             }, void 0, false, {
                 fileName: "[project]/src/app/BodyContent.tsx",
-                lineNumber: 118,
+                lineNumber: 120,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/BodyContent.tsx",
-        lineNumber: 33,
+        lineNumber: 35,
         columnNumber: 3
     }, this);
 const __TURBOPACK__default__export__ = BodyContent;
@@ -1331,30 +1337,30 @@ const RootLayout = ({ children })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("html", {
         lang: "ko",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("head", {
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$HeadContent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                    fileName: "[project]/src/app/layout.tsx",
-                    lineNumber: 104,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$HeadContent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
                 lineNumber: 103,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$BodyContent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                nickname: nickname,
-                activeUserCount: activeUserCount,
-                activeUsersProblems: activeUsersProblems,
-                problemTitles: problemTitles,
-                showModal: showModal,
-                onProfileClick: handleProfileClick,
-                onLogout: handleLogout,
-                onCloseModal: ()=>setShowModal(false),
-                children: children
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$BodyContent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    nickname: nickname,
+                    activeUserCount: activeUserCount,
+                    activeUsersProblems: activeUsersProblems,
+                    problemTitles: problemTitles,
+                    showModal: showModal,
+                    onProfileClick: handleProfileClick,
+                    onLogout: handleLogout,
+                    onCloseModal: ()=>setShowModal(false),
+                    children: children
+                }, void 0, false, {
+                    fileName: "[project]/src/app/layout.tsx",
+                    lineNumber: 105,
+                    columnNumber: 9
+                }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 106,
+                lineNumber: 104,
                 columnNumber: 7
             }, this)
         ]

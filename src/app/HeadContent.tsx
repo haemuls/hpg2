@@ -9,7 +9,7 @@ const GA_MEASUREMENT_ID = publicRuntimeConfig?.GA_MEASUREMENT_ID || '';
 
 const HeadContent = () => {
   return (
-    <>
+    <head>
       <title>Hack Playground - CTF 사이트</title>
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -54,24 +54,27 @@ const HeadContent = () => {
 
       {GA_MEASUREMENT_ID && (
         <>
-          <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          />
           <Script
             id="google-analytics"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){window.dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_MEASUREMENT_ID}', {
-                page_path: window.location.pathname,
-              });
-            `,
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `,
             }}
           />
         </>
       )}
-    </>
+    </head>
   );
 };
 
