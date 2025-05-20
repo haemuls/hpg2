@@ -150,7 +150,7 @@ function WargameForm() {
                         lineNumber: 150,
                         columnNumber: 9
                     }, this),
-                    '!!! 문제를 제출하시기 전에 꼭 공지사항의 "문제 제출시 주의사항"을 확인하여 주세요. !!!'
+                    "!!! 문제를 제출하시기 전에 꼭 공지사항을 확인하여 주세요. !!!"
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/game/game_create/page.tsx",
