@@ -76,7 +76,7 @@ const SignUpPage = ()=>{
                     alert(`회원가입 실패: ${errorMessage}`);
                 }
             } else {
-                // 로그인 처리
+                // 일반 로그인 처리
                 const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["login"])(id, password); // token.ts의 login 함수 사용
                 if (response) {
                     window.location.href = "/"; // 메인 페이지로 이동
@@ -92,12 +92,14 @@ const SignUpPage = ()=>{
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "SignUpPage.useEffect": ()=>{
             toggleForm("signin");
-            (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["parseAndStoreTokenFromURL"])();
-            // 토큰이 로컬스토리지에 있으면 자동 리다이렉트
-            const token = localStorage.getItem("jwtToken");
-            if (token) {
-                window.location.href = "/";
+            async function handleSocialLogin() {
+                // URL에 token 파라미터가 있으면 서버에 보내 로그인 처리 및 토큰 저장
+                const success = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["parseAndStoreTokenFromURL"])();
+                if (success) {
+                    window.location.href = "/";
+                }
             }
+            handleSocialLogin();
         }
     }["SignUpPage.useEffect"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -108,7 +110,7 @@ const SignUpPage = ()=>{
                 children: isSignUp ? "회원가입" : "로그인"
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 78,
+                lineNumber: 81,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -124,12 +126,12 @@ const SignUpPage = ()=>{
                             children: "로그인"
                         }, void 0, false, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 82,
+                            lineNumber: 85,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 81,
+                        lineNumber: 84,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -142,18 +144,18 @@ const SignUpPage = ()=>{
                             children: "회원가입"
                         }, void 0, false, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 93,
+                            lineNumber: 96,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 92,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 80,
+                lineNumber: 83,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -167,15 +169,16 @@ const SignUpPage = ()=>{
                             className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$login$2f$login1$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].input} first-input`,
                             value: id,
                             onChange: (e)=>setId(e.target.value),
-                            required: true
+                            required: true,
+                            autoComplete: "username"
                         }, void 0, false, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 107,
+                            lineNumber: 110,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 106,
+                        lineNumber: 109,
                         columnNumber: 9
                     }, this),
                     isSignUp && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -189,12 +192,12 @@ const SignUpPage = ()=>{
                             required: true
                         }, void 0, false, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 118,
+                            lineNumber: 122,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 117,
+                        lineNumber: 121,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -205,15 +208,16 @@ const SignUpPage = ()=>{
                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$login$2f$login1$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].input,
                             value: password,
                             onChange: (e)=>setPassword(e.target.value),
-                            required: true
+                            required: true,
+                            autoComplete: isSignUp ? "new-password" : "current-password"
                         }, void 0, false, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 129,
+                            lineNumber: 133,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 128,
+                        lineNumber: 132,
                         columnNumber: 9
                     }, this),
                     isSignUp && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -225,15 +229,16 @@ const SignUpPage = ()=>{
                             className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$login$2f$login1$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].input,
                             value: repeatPassword,
                             onChange: (e)=>setRepeatPassword(e.target.value),
-                            required: true
+                            required: true,
+                            autoComplete: "new-password"
                         }, void 0, false, {
                             fileName: "[project]/src/app/login/page.tsx",
-                            lineNumber: 140,
+                            lineNumber: 145,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 139,
+                        lineNumber: 144,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -242,13 +247,13 @@ const SignUpPage = ()=>{
                         children: isSignUp ? "회원가입" : "로그인"
                     }, void 0, false, {
                         fileName: "[project]/src/app/login/page.tsx",
-                        lineNumber: 150,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 105,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -257,12 +262,12 @@ const SignUpPage = ()=>{
                     children: "OR"
                 }, void 0, false, {
                     fileName: "[project]/src/app/login/page.tsx",
-                    lineNumber: 156,
+                    lineNumber: 162,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 155,
+                lineNumber: 161,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -271,7 +276,7 @@ const SignUpPage = ()=>{
                 children: "Google로 로그인"
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 159,
+                lineNumber: 165,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -280,13 +285,13 @@ const SignUpPage = ()=>{
                 children: "Github로 로그인"
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
-                lineNumber: 168,
+                lineNumber: 174,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/login/page.tsx",
-        lineNumber: 77,
+        lineNumber: 80,
         columnNumber: 5
     }, this);
 };

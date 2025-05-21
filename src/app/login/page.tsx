@@ -47,7 +47,7 @@ const SignUpPage = () => {
           alert(`회원가입 실패: ${errorMessage}`);
         }
       } else {
-        // 로그인 처리
+        // 일반 로그인 처리
         const response = await login(id, password); // token.ts의 login 함수 사용
 
         if (response) {
@@ -64,13 +64,16 @@ const SignUpPage = () => {
 
   useEffect(() => {
     toggleForm("signin");
-    parseAndStoreTokenFromURL();
 
-    // 토큰이 로컬스토리지에 있으면 자동 리다이렉트
-    const token = localStorage.getItem("jwtToken");
-    if (token) {
-      window.location.href = "/";
+    async function handleSocialLogin() {
+      // URL에 token 파라미터가 있으면 서버에 보내 로그인 처리 및 토큰 저장
+      const success = await parseAndStoreTokenFromURL();
+      if (success) {
+        window.location.href = "/";
+      }
     }
+
+    handleSocialLogin();
   }, []);
 
   return (
@@ -111,6 +114,7 @@ const SignUpPage = () => {
             value={id}
             onChange={(e) => setId(e.target.value)}
             required
+            autoComplete="username"
           />
         </div>
         {isSignUp && (
@@ -133,6 +137,7 @@ const SignUpPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            autoComplete={isSignUp ? "new-password" : "current-password"}
           />
         </div>
         {isSignUp && (
@@ -144,6 +149,7 @@ const SignUpPage = () => {
               value={repeatPassword}
               onChange={(e) => setRepeatPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
           </div>
         )}

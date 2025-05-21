@@ -535,6 +535,7 @@ var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "clearTokens": (()=>clearTokens),
+    "default": (()=>__TURBOPACK__default__export__),
     "getJwtToken": (()=>getJwtToken),
     "getMembershipId": (()=>getMembershipId),
     "getRefreshToken": (()=>getRefreshToken),
@@ -543,45 +544,36 @@ __turbopack_context__.s({
     "getUserNickname": (()=>getUserNickname),
     "login": (()=>login),
     "parseAndStoreTokenFromURL": (()=>parseAndStoreTokenFromURL),
+    "parseTokenFromURL": (()=>parseTokenFromURL),
     "refreshAccessToken": (()=>refreshAccessToken),
     "setAxiosDefaults": (()=>setAxiosDefaults),
     "setTokens": (()=>setTokens),
+    "socialLogin": (()=>socialLogin),
     "validateToken": (()=>validateToken)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 ;
-// API URLs
-const BASE_URL = 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
+// API 기본 URL
+const BASE_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
 const LOGIN_URL = `${BASE_URL}/login`;
 const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`;
 const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`;
 const USER_INFO_URL = `${BASE_URL}/api/users`;
-// Axios 인스턴스 생성
+// Axios 인스턴스 생성 및 기본 헤더 설정
 const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: BASE_URL,
     headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
     }
 });
-const parseAndStoreTokenFromURL = ()=>{
+const parseTokenFromURL = ()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-    if (token) {
-        try {
-            const payload = JSON.parse(atob(token.split(".")[1]));
-            const { nickname, userId } = payload;
-            // 로컬스토리지에 저장
-            setTokens(token, ""); // refreshToken은 빈 값으로 설정
-            localStorage.setItem("nickname", nickname);
-            localStorage.setItem("membershipId", userId.toString());
-            setAxiosDefaults(token);
-            console.log("토큰 및 사용자 정보가 저장되었습니다.");
-        } catch (error) {
-            console.error("토큰 파싱 중 오류 발생:", error);
-        }
-    } else {
+    if (!token) {
         console.warn("URL에 토큰이 포함되어 있지 않습니다.");
+        return null;
     }
+    return token;
 };
 const login = async (account, password)=>{
     try {
@@ -591,14 +583,52 @@ const login = async (account, password)=>{
         });
         const { jwtToken, refreshToken, nickName, membershipId } = response.data;
         setTokens(jwtToken, refreshToken);
-        localStorage.setItem('nickname', nickName);
-        localStorage.setItem('membershipId', membershipId);
+        localStorage.setItem("nickname", nickName);
+        localStorage.setItem("membershipId", membershipId);
         setAxiosDefaults(jwtToken);
-        return response.data;
+        return {
+            id: Number(membershipId),
+            name: "",
+            email: "",
+            nickname: nickName,
+            membershipId: membershipId
+        };
     } catch (error) {
-        console.error('로그인 실패:', error);
-        throw error;
+        console.error("로그인 실패:", error);
+        return null;
     }
+};
+const socialLogin = async (socialToken)=>{
+    try {
+        // 서버에 token 전달하여 로그인 처리 (서버가 소셜 토큰을 받아 인증)
+        const response = await axiosInstance.post(LOGIN_URL, {
+            token: socialToken
+        });
+        const { jwtToken, refreshToken, nickName, membershipId } = response.data;
+        setTokens(jwtToken, refreshToken);
+        localStorage.setItem("nickname", nickName);
+        localStorage.setItem("membershipId", membershipId);
+        setAxiosDefaults(jwtToken);
+        return {
+            id: Number(membershipId),
+            name: "",
+            email: "",
+            nickname: nickName,
+            membershipId: membershipId
+        };
+    } catch (error) {
+        console.error("소셜 로그인 실패:", error);
+        return null;
+    }
+};
+const parseAndStoreTokenFromURL = async ()=>{
+    const socialToken = parseTokenFromURL();
+    if (!socialToken) return false;
+    const userInfo = await socialLogin(socialToken);
+    if (!userInfo) return false;
+    // 로그인 성공 시 URL에서 토큰 쿼리 제거 (선택 사항)
+    window.history.replaceState(null, "", window.location.pathname);
+    return true;
 };
 const validateToken = async (jwtToken)=>{
     try {
@@ -607,7 +637,7 @@ const validateToken = async (jwtToken)=>{
         });
         return response.data === true;
     } catch (error) {
-        console.error('토큰 검증 실패:', error);
+        console.error("토큰 검증 실패:", error);
         return false;
     }
 };
@@ -623,20 +653,17 @@ const refreshAccessToken = async (membershipId, jwtToken, refreshToken)=>{
         setAxiosDefaults(newJwtToken);
         return newJwtToken;
     } catch (error) {
-        console.error('토큰 갱신 실패:', error);
+        console.error("토큰 갱신 실패:", error);
+        clearTokens(); // 토큰 갱신 실패 시 토큰 제거
         return null;
     }
 };
 const getUserInfo = async ()=>{
+    const membershipId = localStorage.getItem("membershipId");
+    if (!membershipId) throw new Error("Membership ID not found");
+    const jwtToken = await getToken();
+    if (!jwtToken) throw new Error("JWT 토큰이 없습니다");
     try {
-        const membershipId = localStorage.getItem('membershipId');
-        if (!membershipId) {
-            throw new Error('Membership ID not available');
-        }
-        const jwtToken = await getToken();
-        if (!jwtToken) {
-            throw new Error('JWT token not available');
-        }
         const response = await axiosInstance.get(`${USER_INFO_URL}/${membershipId}`, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`
@@ -644,43 +671,40 @@ const getUserInfo = async ()=>{
         });
         return response.data;
     } catch (error) {
-        console.error('사용자 정보 가져오기 실패:', error);
+        console.error("사용자 정보 가져오기 실패:", error);
         throw error;
     }
 };
 const getUserNickname = async ()=>{
-    const nickname = localStorage.getItem('nickname');
-    if (nickname) {
-        return nickname;
-    }
+    const nickname = localStorage.getItem("nickname");
+    if (nickname) return nickname;
     try {
         const userInfo = await getUserInfo();
         return userInfo.nickname;
     } catch (error) {
-        console.error('닉네임 가져오기 실패:', error);
+        console.error("닉네임 가져오기 실패:", error);
         return null;
     }
 };
 const setTokens = (jwtToken, refreshToken)=>{
-    localStorage.setItem('jwtToken', jwtToken);
-    if (refreshToken) {
-        localStorage.setItem('refreshToken', refreshToken);
-    }
+    localStorage.setItem("jwtToken", jwtToken);
+    if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 };
-const getJwtToken = ()=>localStorage.getItem('jwtToken');
-const getRefreshToken = ()=>localStorage.getItem('refreshToken');
-const getMembershipId = ()=>localStorage.getItem('membershipId');
+const getJwtToken = ()=>localStorage.getItem("jwtToken");
+const getRefreshToken = ()=>localStorage.getItem("refreshToken");
+const getMembershipId = ()=>localStorage.getItem("membershipId");
 const clearTokens = ()=>{
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('membershipId');
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("membershipId");
 };
 const getToken = async ()=>{
     let jwtToken = getJwtToken();
     const refreshToken = getRefreshToken();
     const membershipId = getMembershipId();
+    // jwtToken 없고 refreshToken 있으면 갱신 시도
     if (!jwtToken && refreshToken && membershipId) {
-        jwtToken = await refreshAccessToken(membershipId, '', refreshToken);
+        jwtToken = await refreshAccessToken(membershipId, "", refreshToken);
     }
     if (jwtToken) {
         const isValid = await validateToken(jwtToken);
@@ -689,13 +713,15 @@ const getToken = async ()=>{
         }
     }
     if (!jwtToken) {
+        clearTokens();
         return null;
     }
     return jwtToken;
 };
 const setAxiosDefaults = (jwtToken)=>{
-    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 };
+const __TURBOPACK__default__export__ = axiosInstance;
 }}),
 "[project]/src/app/components/Modal.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
