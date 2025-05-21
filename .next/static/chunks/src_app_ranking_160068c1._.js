@@ -32,7 +32,7 @@ var _s = __turbopack_context__.k.signature();
 'use client';
 ;
 ;
-const API_BASE_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/sorted-by-score";
+const API_BASE_URL = "https://api.hpground.xyz/api/users/sorted-by-score";
 const RankingPage = ()=>{
     _s();
     const [ranking, setRanking] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
