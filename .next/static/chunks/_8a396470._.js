@@ -416,6 +416,7 @@ __turbopack_context__.s({
     "getUserInfo": (()=>getUserInfo),
     "getUserNickname": (()=>getUserNickname),
     "login": (()=>login),
+    "parseAndStoreTokenFromURL": (()=>parseAndStoreTokenFromURL),
     "refreshAccessToken": (()=>refreshAccessToken),
     "setAxiosDefaults": (()=>setAxiosDefaults),
     "setTokens": (()=>setTokens),
@@ -436,6 +437,26 @@ const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modul
         'Content-Type': 'application/json'
     }
 });
+const parseAndStoreTokenFromURL = ()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (token) {
+        try {
+            const payload = JSON.parse(atob(token.split(".")[1])); // JWT payload 디코딩
+            const { nickname, userId } = payload;
+            // 로컬스토리지에 저장
+            setTokens(token, ""); // refreshToken은 빈 값으로 설정
+            localStorage.setItem("nickname", nickname);
+            localStorage.setItem("membershipId", userId.toString());
+            setAxiosDefaults(token);
+            console.log("토큰 및 사용자 정보가 저장되었습니다.");
+        } catch (error) {
+            console.error("토큰 파싱 중 오류 발생:", error);
+        }
+    } else {
+        console.warn("URL에 토큰이 포함되어 있지 않습니다.");
+    }
+};
 const login = async (account, password)=>{
     try {
         const response = await axiosInstance.post(LOGIN_URL, {
@@ -516,7 +537,9 @@ const getUserNickname = async ()=>{
 };
 const setTokens = (jwtToken, refreshToken)=>{
     localStorage.setItem('jwtToken', jwtToken);
-    localStorage.setItem('refreshToken', refreshToken);
+    if (refreshToken) {
+        localStorage.setItem('refreshToken', refreshToken);
+    }
 };
 const getJwtToken = ()=>localStorage.getItem('jwtToken');
 const getRefreshToken = ()=>localStorage.getItem('refreshToken');
