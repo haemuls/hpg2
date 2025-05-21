@@ -244,8 +244,7 @@ const HomePage = ()=>{
                     allowFullScreen: true,
                     scrolling: "no",
                     style: {
-                        maxHeight: "100%",
-                        height: "4000px",
+                        height: "250vh",
                         border: "none",
                         overflow: "hidden"
                     }

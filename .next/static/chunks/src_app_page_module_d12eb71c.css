@@ -107,9 +107,8 @@
 
 .page-module___8aEwW__notionsSection {
   justify-content: center;
-  align-items: center;
-  max-width: 50000px;
-  max-height: 10000vh;
+  align-items: flex-start;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   display: flex;
@@ -118,8 +117,7 @@
 
 .page-module___8aEwW__notionsSection iframe {
   border: none;
-  width: 70%;
-  height: 3700px;
+  width: 100%;
   margin: 0 auto;
   overflow: hidden;
 }
