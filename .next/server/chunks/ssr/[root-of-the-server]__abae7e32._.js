@@ -554,7 +554,7 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 ;
 // API 기본 URL
-const BASE_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+const BASE_URL = "https://api.hpground.xyz";
 const LOGIN_URL = `${BASE_URL}/login`;
 const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`;
 const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`;
