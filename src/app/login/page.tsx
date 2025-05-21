@@ -169,7 +169,7 @@ const SignUpPage = () => {
             "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google")
         }
       >
-        Google로 로그인
+        기능 구현중...
       </button>
       <button
         className={styles.github__btn}
@@ -178,7 +178,7 @@ const SignUpPage = () => {
             "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github")
         }
       >
-        Github로 로그인
+        기능 구현중...
       </button>
     </div>
   );
