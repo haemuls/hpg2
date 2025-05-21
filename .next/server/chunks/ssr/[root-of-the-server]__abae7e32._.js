@@ -559,13 +559,22 @@ const LOGIN_URL = `${BASE_URL}/login`;
 const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`;
 const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`;
 const USER_INFO_URL = `${BASE_URL}/api/users`;
-// Axios 인스턴스 생성
+// Axios 인스턴스 생성 및 기본 헤더 설정
 const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: BASE_URL,
     headers: {
         "Content-Type": "application/json"
     }
 });
+const parseTokenFromURL = ()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (!token) {
+        console.warn("URL에 토큰이 포함되어 있지 않습니다.");
+        return null;
+    }
+    return token;
+};
 const login = async (account, password)=>{
     try {
         const response = await axiosInstance.post(LOGIN_URL, {
@@ -582,7 +591,7 @@ const login = async (account, password)=>{
             name: "",
             email: "",
             nickname: nickName,
-            membershipId
+            membershipId: membershipId
         };
     } catch (error) {
         console.error("로그인 실패:", error);
@@ -604,7 +613,7 @@ const socialLogin = async (socialToken)=>{
             name: "",
             email: "",
             nickname: nickName,
-            membershipId
+            membershipId: membershipId
         };
     } catch (error) {
         console.error("소셜 로그인 실패:", error);
@@ -614,25 +623,25 @@ const socialLogin = async (socialToken)=>{
 const parseAndStoreTokenFromURL = async ()=>{
     try {
         const socialToken = parseTokenFromURL();
+        console.log("parseAndStoreTokenFromURL - socialToken:", socialToken);
         if (!socialToken) return false;
         const userInfo = await socialLogin(socialToken);
+        console.log("parseAndStoreTokenFromURL - userInfo:", userInfo);
         if (!userInfo) return false;
+        // 로그인 성공 시 URL에서 토큰 쿼리 제거 (주소창 정리)
         window.history.replaceState(null, "", window.location.pathname);
+        // 저장된 토큰들 확인용 로그
+        console.log("localStorage jwtToken:", localStorage.getItem("jwtToken"));
+        console.log("localStorage refreshToken:", localStorage.getItem("refreshToken"));
+        console.log("localStorage nickname:", localStorage.getItem("nickname"));
+        console.log("localStorage membershipId:", localStorage.getItem("membershipId"));
+        // 로그인 성공 후 메인 페이지로 리디렉션
         window.location.href = "/";
         return true;
     } catch (error) {
         console.error("parseAndStoreTokenFromURL error:", error);
         return false;
     }
-};
-const parseTokenFromURL = ()=>{
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-    if (!token) {
-        console.warn("URL에 토큰이 포함되어 있지 않습니다.");
-        return null;
-    }
-    return token;
 };
 const validateToken = async (jwtToken)=>{
     try {
@@ -658,7 +667,7 @@ const refreshAccessToken = async (membershipId, jwtToken, refreshToken)=>{
         return newJwtToken;
     } catch (error) {
         console.error("토큰 갱신 실패:", error);
-        clearTokens();
+        clearTokens(); // 토큰 갱신 실패 시 토큰 제거
         return null;
     }
 };
@@ -706,6 +715,7 @@ const getToken = async ()=>{
     let jwtToken = getJwtToken();
     const refreshToken = getRefreshToken();
     const membershipId = getMembershipId();
+    // jwtToken 없고 refreshToken 있으면 갱신 시도
     if (!jwtToken && refreshToken && membershipId) {
         jwtToken = await refreshAccessToken(membershipId, "", refreshToken);
     }
@@ -758,7 +768,7 @@ const Modal = ({ isOpen, onClose })=>{
                     console.error("정보가 없습니다...");
                     return;
                 }
-                const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/${membershipId}`, {
+                const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`https://api.hpground.xyz/api/users/${membershipId}`, {
                     headers: {
                         Authorization: `Bearer ${jwtToken}`
                     }
@@ -1248,7 +1258,7 @@ __turbopack_context__.s({
 async function fetchProblemTitles(token, problemIds, membershipId) {
     const titles = {};
     try {
-        const response = await fetch(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed?userId=${membershipId}&type=WARGAME&kind=&sortKind=&desc=true&page=0&size=25`, {
+        const response = await fetch(`https://api.hpground.xyz/api/problems/completed?userId=${membershipId}&type=WARGAME&kind=&sortKind=&desc=true&page=0&size=25`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -1272,7 +1282,7 @@ async function fetchProblemTitles(token, problemIds, membershipId) {
 }
 async function fetchActiveUsers(token) {
     try {
-        const response = await fetch('https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active?namespace=wargame', {
+        const response = await fetch('https://api.hpground.xyz/api/pods/active?namespace=wargame', {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,

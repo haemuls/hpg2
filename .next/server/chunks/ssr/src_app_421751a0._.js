@@ -38,7 +38,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$page$2e$module
 ;
 const fetchProblemStats = async ()=>{
     try {
-        const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
+        const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.hpground.xyz';
         const res = await fetch(`${BASE_URL}/api/problems/statistics`, {
             method: 'GET',
             headers: {

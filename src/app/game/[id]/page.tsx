@@ -5,8 +5,8 @@ import {useRouter, useParams} from "next/navigation";
 import styles from './ProblemDetail.module.css';
 import {getToken, getUserNickname} from '../../../../token';
 import {format} from 'date-fns'
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/wargame-problems";
-const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.hpground.xyz/api/wargame-problems";
+const FILE_BASE_URL = API_BASE_URL.replace('/api/wargame-problems', '') || "https://api.hpground.xyz";
 
 interface Problem {
   id: number;

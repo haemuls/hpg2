@@ -55,7 +55,7 @@ const SignUpPage = ()=>{
         try {
             if (isSignUp) {
                 // 회원가입 처리
-                const response = await fetch("https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users", {
+                const response = await fetch("https://api.hpground.xyz/api/users", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -268,7 +268,7 @@ const SignUpPage = ()=>{
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$login$2f$login1$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].google__btn,
-                onClick: ()=>window.location.href = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google",
+                onClick: ()=>window.location.href = "https://api.hpground.xyz/oauth2/authorization/google",
                 children: "기능 구현중..."
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",
@@ -277,7 +277,7 @@ const SignUpPage = ()=>{
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$login$2f$login1$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].github__btn,
-                onClick: ()=>window.location.href = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github",
+                onClick: ()=>window.location.href = "https://api.hpground.xyz/oauth2/authorization/github",
                 children: "기능 구현중..."
             }, void 0, false, {
                 fileName: "[project]/src/app/login/page.tsx",

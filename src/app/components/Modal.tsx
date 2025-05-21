@@ -42,7 +42,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         }
 
         const response = await axios.get(
-          `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users/${membershipId}`,
+          `https://api.hpground.xyz/api/users/${membershipId}`,
           {
             headers: {
               Authorization: `Bearer ${jwtToken}`,

@@ -27,7 +27,7 @@ const SignUpPage = () => {
       if (isSignUp) {
         // 회원가입 처리
         const response = await fetch(
-          "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/users",
+          "https://api.hpground.xyz/api/users",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -166,7 +166,7 @@ const SignUpPage = () => {
         className={styles.google__btn}
         onClick={() =>
           (window.location.href =
-            "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/google")
+            "https://api.hpground.xyz/oauth2/authorization/google")
         }
       >
         기능 구현중...
@@ -175,7 +175,7 @@ const SignUpPage = () => {
         className={styles.github__btn}
         onClick={() =>
           (window.location.href =
-            "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/oauth2/authorization/github")
+            "https://api.hpground.xyz/oauth2/authorization/github")
         }
       >
         기능 구현중...

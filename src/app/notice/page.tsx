@@ -8,7 +8,7 @@ import { getToken } from "../../../token";  // getValidJwtToken 대신
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+  "https://api.hpground.xyz";
 
 // 게시글 타입 정의
 interface Post {

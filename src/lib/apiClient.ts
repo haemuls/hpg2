@@ -14,7 +14,7 @@ export async function fetchProblemTitles(
 
   try {
     const response = await fetch(
-      `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed?userId=${membershipId}&type=WARGAME&kind=&sortKind=&desc=true&page=0&size=25`,
+      `https://api.hpground.xyz/api/problems/completed?userId=${membershipId}&type=WARGAME&kind=&sortKind=&desc=true&page=0&size=25`,
       {
         method: 'GET',
         headers: {
@@ -44,7 +44,7 @@ export async function fetchProblemTitles(
 export async function fetchActiveUsers(token: string): Promise<ActiveUserData[]> {
   try {
     const response = await fetch(
-      'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/pods/active?namespace=wargame',
+      'https://api.hpground.xyz/api/pods/active?namespace=wargame',
       {
         method: 'GET',
         headers: {

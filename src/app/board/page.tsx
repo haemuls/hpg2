@@ -9,7 +9,7 @@ import { getToken } from "../../../token";
 /* api 주소 명시 */
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+  "https://api.hpground.xyz";
 
 interface Post {
   id: number;

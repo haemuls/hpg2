@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./game.module.css";
 
-const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed"; // 기본 API URL
+const API_URL = "https://api.hpground.xyz/api/problems/completed"; // 기본 API URL
 
 interface Post {
   id: number;
@@ -130,7 +130,7 @@ const GamePage = () => {
         size: size.toString(),
       });
 
-      const url = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/search?${params.toString()}`;
+      const url = `https://api.hpground.xyz/api/problems/search?${params.toString()}`;
 
       const response = await fetch(url, {
         method: "GET",

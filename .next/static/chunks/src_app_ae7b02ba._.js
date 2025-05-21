@@ -40,7 +40,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 const fetchProblemStats = async ()=>{
     try {
-        const BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com';
+        const BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || 'https://api.hpground.xyz';
         const res = await fetch(`${BASE_URL}/api/problems/statistics`, {
             method: 'GET',
             headers: {
