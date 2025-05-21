@@ -24,6 +24,32 @@ const axiosInstance = axios.create({
   },
 });
 
+// URL에서 반환된 토큰을 파싱하여 로컬스토리지에 저장하는 함수
+export const parseAndStoreTokenFromURL = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1])); // JWT payload 디코딩
+      const { nickname, userId } = payload;
+
+      // 로컬스토리지에 저장
+      setTokens(token, ""); // refreshToken은 빈 값으로 설정
+      localStorage.setItem("nickname", nickname);
+      localStorage.setItem("membershipId", userId.toString());
+
+      setAxiosDefaults(token);
+
+      console.log("토큰 및 사용자 정보가 저장되었습니다.");
+    } catch (error) {
+      console.error("토큰 파싱 중 오류 발생:", error);
+    }
+  } else {
+    console.warn("URL에 토큰이 포함되어 있지 않습니다.");
+  }
+};
+
 // 로그인 요청
 export const login = async (account: string, password: string) => {
   try {
@@ -124,7 +150,9 @@ export const getUserNickname = async (): Promise<string | null> => {
 // 토큰 관리 함수
 export const setTokens = (jwtToken: string, refreshToken: string) => {
   localStorage.setItem('jwtToken', jwtToken);
-  localStorage.setItem('refreshToken', refreshToken);
+  if (refreshToken) {
+    localStorage.setItem('refreshToken', refreshToken);
+  }
 };
 
 export const getJwtToken = () => localStorage.getItem('jwtToken');
