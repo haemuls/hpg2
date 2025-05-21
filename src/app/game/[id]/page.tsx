@@ -25,6 +25,7 @@ interface Problem {
   entireCount: number;
   createdAt: string;
   updatedAt: string;
+  hasContainer: boolean;
 }
 
 interface Ranking {
@@ -141,6 +142,10 @@ const CTFProblemPage = () => {
   const token = await getToken();
   if (!token) {
     alert("로그인 후 이용할 수 있습니다.");
+    return;
+  }
+  if (problem && !problem.hasContainer) {
+    setVmAddress("가상환경이 필요 없는 문제입니다.");
     return;
   }
 
