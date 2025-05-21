@@ -52,7 +52,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$game$2f$game$2
 ;
 ;
 ;
-const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed"; // 기본 API URL
+const API_URL = "https://api.hpground.xyz/api/problems/completed"; // 기본 API URL
 const ClientDate = ({ date })=>{
     const [formattedDate, setFormattedDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
@@ -157,7 +157,7 @@ const GamePage = ()=>{
                 page: currentPage.toString(),
                 size: size.toString()
             });
-            const url = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/search?${params.toString()}`;
+            const url = `https://api.hpground.xyz/api/problems/search?${params.toString()}`;
             const response = await fetch(url, {
                 method: "GET",
                 headers: {

@@ -53,7 +53,7 @@ var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.sign
 ;
 ;
 ;
-const API_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/completed"; // 기본 API URL
+const API_URL = "https://api.hpground.xyz/api/problems/completed"; // 기본 API URL
 const ClientDate = ({ date })=>{
     _s();
     const [formattedDate, setFormattedDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
@@ -172,7 +172,7 @@ const GamePage = ()=>{
                 page: currentPage.toString(),
                 size: size.toString()
             });
-            const url = `https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/problems/search?${params.toString()}`;
+            const url = `https://api.hpground.xyz/api/problems/search?${params.toString()}`;
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
