@@ -144,40 +144,48 @@ const CTFProblemPage = () => {
     alert("로그인 후 이용할 수 있습니다.");
     return;
   }
+
   if (problem && !problem.hasContainer) {
     setVmAddress("가상환경이 필요 없는 문제입니다.");
     return;
   }
 
   try {
-    const response = await fetch(
-        `${FILE_BASE_URL}/api/pods/create?problemId=${problemId}`,
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      }
-    );
+    const url = `${FILE_BASE_URL}/api/pods/create?problemId=${problemId}`;
+    console.log("📡 요청 URL:", url);
 
-    const responseText = await response.text(); // 응답 메시지 추출
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Response 객체 복제
+    const clonedResponse = response.clone();
+
+    const responseText = await clonedResponse.text();
+    console.log("📨 응답 본문:", responseText);
+
+    if (!response.ok) {
+      console.error("❌ 응답 실패:", response.status, response.statusText);
+      throw new Error(`VM 주소 생성 실패: ${response.status}`);
+    }
 
     if (responseText === "Error creating pod") {
       setVmAddress("가상환경이 필요 없는 문제입니다.");
       return;
     }
 
-    if (!response.ok) {
-      throw new Error("VM 주소 생성에 실패했습니다.");
-    }
-
-    const text = await response.text();
-    setVmAddress(text || "VM 주소를 생성할 수 없습니다.");
+    setVmAddress(responseText || "VM 주소를 생성할 수 없습니다.");
   } catch (error) {
-    console.error("VM 주소 생성 실패:", error);
+    console.error("🚨 VM 주소 생성 실패:", error.stack || error);
     setVmAddress("VM 주소 생성 중 오류가 발생했습니다.");
   }
 };
+
+
 
   const isValidUrl = (string) => {
   try {
