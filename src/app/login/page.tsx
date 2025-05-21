@@ -64,7 +64,13 @@ const SignUpPage = () => {
 
   useEffect(() => {
     toggleForm("signin");
-    parseAndStoreTokenFromURL(); // URL에 토큰 있으면 파싱해서 저장
+    parseAndStoreTokenFromURL();
+
+    // 토큰이 로컬스토리지에 있으면 자동 리다이렉트
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      window.location.href = "/";
+    }
   }, []);
 
   return (
@@ -73,12 +79,24 @@ const SignUpPage = () => {
 
       <ul className={styles.links}>
         <li>
-          <a href="#" onClick={() => toggleForm("signin")}>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              toggleForm("signin");
+            }}
+          >
             로그인
           </a>
         </li>
         <li>
-          <a href="#" onClick={() => toggleForm("signup")}>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              toggleForm("signup");
+            }}
+          >
             회원가입
           </a>
         </li>
