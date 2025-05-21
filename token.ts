@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // API 기본 URL
-const BASE_URL = "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+const BASE_URL = "https://api.hpground.xyz";
 const LOGIN_URL = `${BASE_URL}/login`;
 const TOKEN_VALIDATE_URL = `${BASE_URL}/token-validate`;
 const TOKEN_REFRESH_URL = `${BASE_URL}/reissue`;
