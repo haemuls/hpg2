@@ -52,7 +52,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$token$2e$ts__$5b$app$2d$ssr$
 ;
 ;
 ;
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.hpground.xyz";
 const PAGE_SIZE = 25; // 페이지 크기를 상수로 관리
 const BoardPage = ()=>{
     const [posts, setPosts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
