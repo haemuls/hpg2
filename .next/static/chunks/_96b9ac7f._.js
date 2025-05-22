@@ -122,7 +122,7 @@ const BoardDetailPage = ()=>{
                     const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
                     if (id) {
                         setLoading(true);
-                        const postData = await fetchData(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards/${id}`);
+                        const postData = await fetchData(`https://api.hpground.xyz/api/boards/${id}`);
                         if (postData) {
                             setPost({
                                 ...postData.result,
@@ -132,7 +132,7 @@ const BoardDetailPage = ()=>{
                                 }
                             });
                         }
-                        const commentsData = await fetchData(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/board/${id}`);
+                        const commentsData = await fetchData(`https://api.hpground.xyz/api/comments/board/${id}`);
                         if (commentsData) {
                             setComments(commentsData.result.map({
                                 "BoardDetailPage.useEffect.loadParams": (c)=>({
@@ -159,7 +159,7 @@ const BoardDetailPage = ()=>{
     ]);
     const handleDelete = async ()=>{
         if (!post) return;
-        const response = await fetchData(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/boards/${post.id}`, {
+        const response = await fetchData(`https://api.hpground.xyz/api/boards/${post.id}`, {
             method: 'DELETE'
         });
         if (response) {
@@ -167,7 +167,7 @@ const BoardDetailPage = ()=>{
         }
     };
     const handleCommentDelete = async (commentId)=>{
-        const response = await fetchData(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`, {
+        const response = await fetchData(`https://api.hpground.xyz/api/comments/${commentId}`, {
             method: 'DELETE'
         });
         if (response) {
@@ -189,7 +189,7 @@ const BoardDetailPage = ()=>{
                     contents: formattedContent,
                     isEditing: false
                 } : comment));
-        const response = await fetchData(`https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments/${commentId}`, {
+        const response = await fetchData(`https://api.hpground.xyz/api/comments/${commentId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -212,7 +212,7 @@ const BoardDetailPage = ()=>{
         if (!newComment.trim()) return;
         const formattedContent = newComment.replace(/\n/g, '<br />');
         setIsSubmitting(true);
-        const response = await fetchData('https://ec2-3-34-134-27.ap-northeast-2.compute.amazonaws.com/api/comments', {
+        const response = await fetchData('https://api.hpground.xyz/api/comments', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -143,61 +143,73 @@ export default function WargameForm() {
   };
 
   return (
-    <div className="container">
-      <h3 className="pageTitle">문제 제출</h3>
-      <p className="noticeText">
-        주의사항
-        <br/>
-        !!! 문제를 제출하시기 전에 꼭 공지사항을 확인하여 주세요. !!!
-      </p>
-      <div className="form-group">
-        <label>제목</label>
-        <input name="title" value={problem.title} onChange={handleChange} className="problemSelector" />
+      <div className="container">
+        <h3 className="pageTitle">문제 제출</h3>
+        <p className="noticeText">
+          주의사항
+          <br/>
+          !!! 문제를 제출하시기 전에 꼭 공지사항을 확인하여 주세요. !!!
+        </p>
+        <div className="form-group">
+          <label>제목</label>
+          <input name="title" value={problem.title} onChange={handleChange} className="problemSelector"/>
+        </div>
+        <div className="form-group">
+          <label>문제 설명</label>
+          <textarea
+              name="detail"
+              value={problem.detail}
+              onChange={handleChange}
+              className="textarea problemSelector"
+          />
+        </div>
+        <div className="form-group">
+          <label>미리보기</label>
+          <div className="preview">
+            {problem.detail.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br/>
+                </React.Fragment>
+            ))}
+          </div>
+        </div>
+        <div className="form-group">
+          <label>문제 종류</label>
+          <select name="kind" value={problem.kind} onChange={handleChange} className="problemSelector">
+            <option value="">문제 종류를 선택하세요</option>
+            <option value="WEBHACKING">웹해킹</option>
+            <option value="SYSTEM">포너블</option>
+            <option value="REVERSING">리버싱</option>
+            <option value="CRYPTO">암호학</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>난이도</label>
+          <select name="level" value={problem.level} onChange={handleChange} className="problemSelector">
+            <option value="⭐">⭐ (쉬움)</option>
+            <option value="⭐⭐">⭐⭐ (보통)</option>
+            <option value="⭐⭐⭐">⭐⭐⭐ (어려움)</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>정답 플래그</label>
+          <input name="flag" value={problem.flag} onChange={handleChange} className="problemSelector"/>
+        </div>
+        <div className="form-group">
+          <label>Dockerfile 링크</label>
+          <input name="dockerfileLink" value={problem.dockerfileLink} onChange={handleChange}
+                 className="problemSelector"/>
+        </div>
+        <div className="form-group">
+          <label>파일 업로드</label>
+          <input type="file" onChange={handleFileChange} className="problemSelector"/>
+        </div>
+        <div className="writeButtonWrap">
+          <button className="btnDark" onClick={handleSubmit}>
+            문제 제출
+          </button>
+        </div>
       </div>
-      <div className="form-group">
-        <label>문제 설명</label>
-        <textarea
-          name="detail"
-          value={problem.detail}
-          onChange={handleChange}
-          className="textarea problemSelector"
-        />
-      </div>
-      <div className="form-group">
-        <label>문제 종류</label>
-        <select name="kind" value={problem.kind} onChange={handleChange} className="problemSelector">
-          <option value="">문제 종류를 선택하세요</option>
-          <option value="WEBHACKING">웹해킹</option>
-          <option value="SYSTEM">포너블</option>
-          <option value="REVERSING">리버싱</option>
-          <option value="CRYPTO">암호학</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label>난이도</label>
-        <select name="level" value={problem.level} onChange={handleChange} className="problemSelector">
-          <option value="⭐">⭐ (쉬움)</option>
-          <option value="⭐⭐">⭐⭐ (보통)</option>
-          <option value="⭐⭐⭐">⭐⭐⭐ (어려움)</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label>정답 플래그</label>
-        <input name="flag" value={problem.flag} onChange={handleChange} className="problemSelector" />
-      </div>
-      <div className="form-group">
-        <label>Dockerfile 링크</label>
-        <input name="dockerfileLink" value={problem.dockerfileLink} onChange={handleChange} className="problemSelector" />
-      </div>
-      <div className="form-group">
-        <label>파일 업로드</label>
-        <input type="file" onChange={handleFileChange} className="problemSelector" />
-      </div>
-      <div className="writeButtonWrap">
-        <button className="btnDark" onClick={handleSubmit}>
-          문제 제출
-        </button>
-      </div>
-    </div>
   );
 }
