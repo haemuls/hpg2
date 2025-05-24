@@ -57,7 +57,7 @@ const HomePage = () => {
                 <img src="/images/banner.png" alt="banner"/>
               </div>
               <div className={styles.imgBox}>
-                <img src="/images/hpg1.png" alt="CTF 사이트 테스트용 이미지"/>
+                <img src="/images/hpg1.png" alt="HPGround"/>
               </div>
 
             </div>
