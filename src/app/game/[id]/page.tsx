@@ -184,7 +184,9 @@ const CTFProblemPage = () => {
     setVmAddress("VM 주소 생성 중 오류가 발생했습니다.");
   }
 };
-
+const handleEditButtonClick = () => {
+  router.push(`/game/edit/${problemId}`);
+};
 
 
   const isValidUrl = (string) => {
@@ -297,6 +299,7 @@ const CTFProblemPage = () => {
     );
   };
 
+
   const handleCommentEdit = async (commentId: number, newContent: string) => {
     const token = await getToken();
     if (!token) {
@@ -349,6 +352,13 @@ const CTFProblemPage = () => {
           {problem.kind.slice(0, 3).toUpperCase()}
         </span>
         {problem.title}
+        <button
+            className={styles.editButton}
+            onClick={handleEditButtonClick}
+            style={{marginLeft: '10px', fontSize: '0.9rem'}}
+        >
+          수정
+        </button>
       </h3>
       <div className={styles.metaInfo}>
         <span style={{marginRight: '13px'}}>출제자: {problem.creator}</span>
@@ -381,6 +391,7 @@ const CTFProblemPage = () => {
               <br/>
             </React.Fragment>
         ))}
+
       </div>
 
       {/* 정답 제출 섹션 */}
