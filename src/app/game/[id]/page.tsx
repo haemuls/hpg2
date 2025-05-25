@@ -352,13 +352,15 @@ const handleEditButtonClick = () => {
           {problem.kind.slice(0, 3).toUpperCase()}
         </span>
         {problem.title}
-        <button
-            className={styles.editButton}
-            onClick={handleEditButtonClick}
-            style={{marginLeft: '10px', fontSize: '0.9rem'}}
-        >
-          수정
-        </button>
+        {localStorage.getItem("nickname") === problem.creator && (
+    <button
+      className={styles.editButton}
+      onClick={handleEditButtonClick}
+      style={{ marginLeft: '10px', fontSize: '0.9rem' }}
+    >
+      수정
+    </button>
+  )}
       </h3>
       <div className={styles.metaInfo}>
         <span style={{marginRight: '13px'}}>출제자: {problem.creator}</span>
