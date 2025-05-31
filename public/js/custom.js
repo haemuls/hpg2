@@ -6,7 +6,7 @@ function getYear() {
     if (yearElement) {
         yearElement.innerHTML = currentYear.toString(); // 문자열로 변환
     } else {
-        console.error("Element with id 'displayYear' not found.");
+        console.error("Element with [freeId] 'displayYear' not found.");
     }
 }
 

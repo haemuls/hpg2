@@ -3,137 +3,310 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import './BoardDetail.module.css';
+import styles from './BoardDetail.module.css';
+import { getToken, getUserNickname } from '../../../../../token';
+import { useParams, useRouter } from 'next/navigation';
+import DOMPurify from 'dompurify';
 
-const Viewer = dynamic(() => import('@toast-ui/react-editor').then(mod => mod.Viewer), { ssr: false });
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "https://api.hpground.xyz/api/boards";
-const COMMENT_API_URL = `https://api.hpground.xyz/api/comments`;
+const Viewer = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Viewer), { ssr: false });
 
 interface Post {
   id: number;
   title: string;
   contents: string;
-  creator: { nickname: string } | null;
+  creator: { nickname: string };
   createdAt: string;
   formattedDate: string;
-  type: 'notice' | 'default';
 }
 
 interface Comment {
   id: number;
-  content: string;
-  creator?: { nickname: string } | null;
+  contents: string;
+  creator?: { nickname: string };
   createdAt: string;
+  isEditing: boolean;
 }
 
-// BoardDetailPageProps 타입 수정
-interface BoardDetailPageProps {
-  params: Promise<{
-    id: string;  // 'id'는 string으로 정의
-  }>;
-}
+const BoardDetailPage = () => {
+  const params = useParams();
+  const router = useRouter();
+  const noticeId = Array.isArray(params?.id) ? params.id[0] : params?.id;
 
-const BoardDetailPage: React.FC<BoardDetailPageProps> = ({ params }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [userNickname, setUserNickname] = useState<string | null>(null);
+
+  const fetchData = async (url: string, options: RequestInit = {}) => {
+    const token = await getToken();
+    if (!token) {
+      setError('로그인이 필요합니다.');
+      router.push('/login');
+      return null;
+    }
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: { Authorization: `Bearer ${token}`, ...options.headers },
+      });
+
+      if (!response.ok) throw new Error('데이터 로딩 오류!');
+      return await response.json();
+    } catch (error) {
+      setError(error instanceof Error ? error.message : '데이터 로딩 오류!');
+      return null;
+    }
+  };
 
   useEffect(() => {
-    const fetchParams = async () => {
-      const { id } = await params;
-
-      if (!id) {
-        setError('잘못된 게시글 ID입니다.');
-        setLoading(false);
-        return;
+    const fetchUserNickname = async () => {
+      try {
+        const nickname = await getUserNickname();
+        setUserNickname(nickname);
+      } catch (error) {
+        console.error('닉네임을 가져오는 중 오류가 발생했습니다:', error);
+        setUserNickname(null);
       }
-
-      const fetchPost = async () => {
-        setLoading(true);
-        try {
-          const response = await fetch(`${API_BASE_URL}/${id}`);
-          if (!response.ok) throw new Error('네트워크 응답이 올바르지 않습니다.');
-
-          const data = await response.json();
-          const formattedPost = {
-            ...data.result,
-            id: Number(data.result.id),
-            formattedDate: data.result.createdAt ? new Date(data.result.createdAt).toLocaleDateString() : '날짜 없음',
-            creator: data.result.creator || { nickname: '알 수 없음' },
-            type: data.result.type || 'default',
-          };
-
-          setPost(formattedPost);
-          setError('');
-        } catch (error) {
-          console.error("❌ 오류 발생:", error);
-          setError('게시글을 불러오는 중 문제가 발생했습니다.');
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      const fetchComments = async () => {
-        try {
-          const response = await fetch(`${COMMENT_API_URL}?postId=${id}`);
-          if (!response.ok) throw new Error('댓글 데이터를 가져오는 중 오류 발생');
-
-          const data = await response.json();
-          setComments(data.result || []);
-        } catch (error) {
-          console.error('❌ 댓글 로드 오류:', error);
-          setError('댓글을 불러오는 중 문제가 발생했습니다.');
-        }
-      };
-
-      fetchPost();
-      fetchComments();
     };
 
-    fetchParams();
-  }, [params]);
+    fetchUserNickname().catch((error) => {
+      console.error('닉네임을 가져오는 중 에러 발생:', error);
+    });
+  }, []);
 
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <div className="spinner"></div>
-      </div>
+  useEffect(() => {
+    const loadParams = async () => {
+      const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
+      if (id) {
+        setLoading(true);
+        const postData = await fetchData(`https://api.hpground.xyz/api/boards/${id}`);
+        if (postData) {
+          setPost({
+            ...postData.result,
+            formattedDate: new Date(postData.result.createdAt).toLocaleDateString(),
+            creator: postData.result.creator || { nickname: '알 수 없음' },
+          });
+        }
+
+        const commentsData = await fetchData(`https://api.hpground.xyz/api/comments/board/${id}`);
+        if (commentsData) {
+          setComments(
+            commentsData.result
+              .map((c: Comment) => ({
+                id: c.id,
+                contents: c.contents,
+                creator: c.creator || { nickname: '익명 사용자' },
+                createdAt: c.createdAt,
+                isEditing: false,
+              }))
+              .sort((a: Comment, b: Comment) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          );
+        }
+        setLoading(false);
+      }
+    };
+
+    loadParams();
+  }, [params?.id]);
+
+  const handleDelete = async () => {
+    if (!post) return;
+
+    const response = await fetchData(`https://api.hpground.xyz/api/boards/${post.id}`, { method: 'DELETE' });
+    if (response) {
+      router.push('/board');
+    }
+  };
+
+  const handleCommentDelete = async (commentId: number) => {
+    const response = await fetchData(
+      `https://api.hpground.xyz/api/comments/${commentId}`,
+      { method: 'DELETE' }
     );
-  }
+    if (response) {
+      setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+    }
+  };
 
+  const handleCommentEditToggle = (commentId: number) => {
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId ? { ...comment, isEditing: !comment.isEditing } : comment
+      )
+    );
+  };
+
+  const handleCommentEdit = async (commentId: number, newContent: string) => {
+    if (!newContent.trim()) return;
+
+    // 줄바꿈을 <br />로 변환
+    const formattedContent = newContent.replace(/\n/g, '<br />');
+
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === commentId ? { ...comment, contents: formattedContent, isEditing: false } : comment
+      )
+    );
+
+    const response = await fetchData(
+      `https://api.hpground.xyz/api/comments/${commentId}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'NOTICE', contents: formattedContent }),
+      }
+    );
+
+    if (!response) {
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === commentId ? { ...comment, contents: prev.find((c) => c.id === commentId)?.contents, isEditing: false } : comment
+        )
+      );
+    }
+  };
+  const handleEditButtonClick = () => {
+  router.push(`/notice/edit/${noticeId}`);
+};
+
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
+
+    const formattedContent = newComment.replace(/\n/g, '<br />');
+
+    setIsSubmitting(true);
+    const response = await fetchData(
+      'https://api.hpground.xyz/api/comments',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'BOARD', parentId: post?.id || 0, contents: formattedContent }),
+      }
+    );
+
+    if (response) {
+      setComments((prev) => [
+        {
+          id: response.result.id,
+          contents: response.result.contents,
+          creator: { nickname: response.result.creator.nickname },
+          createdAt: response.result.createdAt,
+          isEditing: false,
+        },
+        ...prev,
+      ]);
+      setNewComment('');
+    }
+    setIsSubmitting(false);
+  };
+
+  if (loading) return <p></p>;
   if (error) return <p>{error}</p>;
-  if (!post || post.type !== "notice") return <p>해당 게시글은 표시할 수 없습니다.</p>;
+  if (!post) return <p>공지사항을 찾을 수 없습니다.</p>;
 
   return (
-    <section>
-      <div>
-        <h3>{post.title}</h3>
-        <p>작성자: {post.creator?.nickname}</p>
-        <p>등록일: {post.formattedDate}</p>
-        <div>
-          <Viewer initialValue={post.contents || "내용이 없습니다."} />
-        </div>
-        <div>
-          <h4>댓글</h4>
-          {comments.length === 0 ? (
-            <p>아직 댓글이 없습니다.</p>
-          ) : (
-            comments.map((c) => (
-              <div key={c.id} className="border-b border-gray-300 py-4">
-                <p className="font-semibold">{c.creator?.nickname || '익명 사용자'}</p>
-                <p>{c.content}</p>
-                <p className="text-sm text-gray-500">{new Date(c.createdAt).toLocaleString()}</p>
-              </div>
-            ))
-          )}
-        </div>
+  <section className={styles.container}>
+    <div>
+      <h3 className={styles.title}>{post.title}</h3>
+      <p className={styles.metaInfo}>
+        <span>작성자: {post.creator.nickname}</span> | <span>작성일: {post.formattedDate}</span>
+      </p>
+      <div className={`${styles.viewerContainer} ${styles.largeFont}`}>
+        <Viewer initialValue={post.contents} />
       </div>
-    </section>
-  );
+
+      {post.creator.nickname === userNickname && (
+  <div className={styles.actionButtons}>
+    <button onClick={handleDelete} className={styles.btnDelete}>
+      삭제
+    </button>
+    <button
+      onClick={handleEditButtonClick}
+      className={styles.editButton}
+    >
+      수정
+    </button>
+  </div>
+)}
+
+      <div className={styles.commentSection}>
+        <h4 className={styles.commentTitle}>댓글</h4>
+        <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요..."
+          />
+          <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
+            {isSubmitting ? '등록 중...' : '등록'}
+          </button>
+        </form>
+
+        <ul>
+          {comments.map((c: Comment) => (
+            <li key={c.id} className={styles.commentItem}>
+              <p>
+                <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+              </p>
+              {c.isEditing ? (
+                <div className={styles.commentEditTextareaContainer}>
+                  <textarea
+                    value={c.contents}
+                    onChange={(e) =>
+                      setComments((prev) =>
+                        prev.map((comment) =>
+                          comment.id === c.id ? { ...comment, contents: e.target.value } : comment
+                        )
+                      )
+                    }
+                    autoFocus
+                    className={styles.commentEditTextarea}
+                  />
+                  <button
+                    onClick={() => handleCommentEdit(c.id, c.contents)}
+                    className={styles.commentEditButton}
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={() => handleCommentEditToggle(c.id)}
+                    className={`${styles.commentEditButton} ${styles.cancel}`}
+                  >
+                    취소
+                  </button>
+                </div>
+              ) : (
+                <p
+                  className={styles.commentContent}
+                  style={{ whiteSpace: 'pre-wrap' }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.contents) }}
+                />
+              )}
+              <span className={styles.commentMeta}>
+                | 작성일: {new Date(c.createdAt).toLocaleDateString()}
+              </span>
+              {!c.isEditing && c.creator?.nickname === userNickname && (
+                <>
+                  <span onClick={() => handleCommentEditToggle(c.id)} className={styles.commentEdit}>
+                    수정
+                  </span>
+                  <span onClick={() => handleCommentDelete(c.id)} className={styles.commentDelete}>
+                    삭제
+                  </span>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
 };
 
 export default BoardDetailPage;
