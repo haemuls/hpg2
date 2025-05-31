@@ -1,0 +1,61 @@
+/* [project]/src/app/board/edit/[freeId]/BoardEditPage.module.css [app-client] (css) */
+.BoardEditPage-module__i68GYq__container {
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto 0;
+  padding: 20px;
+}
+
+.BoardEditPage-module__i68GYq__boardWrite h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.BoardEditPage-module__i68GYq__formGroup {
+  margin-bottom: 20px;
+}
+
+.BoardEditPage-module__i68GYq__formGroup label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  display: block;
+}
+
+.BoardEditPage-module__i68GYq__formGroup input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 95%;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.BoardEditPage-module__i68GYq__editorContainer {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  transform: translateX(-10px);
+}
+
+.BoardEditPage-module__i68GYq__btn {
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  background: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 400;
+  transition: background .3s;
+  display: inline-block;
+}
+
+.BoardEditPage-module__i68GYq__btn:hover {
+  background: #555;
+}
+
+/*# sourceMappingURL=src_app_board_edit_%5BfreeId%5D_BoardEditPage_module_css_f9ee138c._.single.css.map*/

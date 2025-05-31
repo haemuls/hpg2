@@ -569,6 +569,7 @@ const axiosInstance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modul
 const parseTokenFromURL = ()=>{
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
+    console.debug("parseTokenFromURL - Parsed token:", token);
     if (!token) {
         console.warn("URL에 토큰이 포함되어 있지 않습니다.");
         return null;
@@ -576,12 +577,15 @@ const parseTokenFromURL = ()=>{
     return token;
 };
 const login = async (account, password)=>{
+    console.debug("login - Login attempt with account:", account);
     try {
         const response = await axiosInstance.post(LOGIN_URL, {
             account,
             password
         });
+        console.debug("login - Response data:", response.data);
         const { jwtToken, refreshToken, nickName, membershipId } = response.data;
+        console.debug("login - Tokens received: jwtToken, refreshToken:", jwtToken, refreshToken);
         setTokens(jwtToken, refreshToken);
         localStorage.setItem("nickname", nickName);
         localStorage.setItem("membershipId", membershipId);
@@ -599,11 +603,14 @@ const login = async (account, password)=>{
     }
 };
 const socialLogin = async (socialToken)=>{
+    console.debug("socialLogin - Social token received:", socialToken);
     try {
         const response = await axiosInstance.post(LOGIN_URL, {
             token: socialToken
         });
+        console.debug("socialLogin - Response data:", response.data);
         const { jwtToken, refreshToken, nickName, membershipId } = response.data;
+        console.debug("socialLogin - Tokens received: jwtToken, refreshToken:", jwtToken, refreshToken);
         setTokens(jwtToken, refreshToken);
         localStorage.setItem("nickname", nickName);
         localStorage.setItem("membershipId", membershipId);
@@ -621,21 +628,22 @@ const socialLogin = async (socialToken)=>{
     }
 };
 const parseAndStoreTokenFromURL = async ()=>{
+    console.debug("parseAndStoreTokenFromURL - Start");
     try {
         const socialToken = parseTokenFromURL();
-        console.log("parseAndStoreTokenFromURL - socialToken:", socialToken);
+        console.debug("parseAndStoreTokenFromURL - Social token:", socialToken);
         if (!socialToken) return false;
         const userInfo = await socialLogin(socialToken);
-        console.log("parseAndStoreTokenFromURL - userInfo:", userInfo);
+        console.debug("parseAndStoreTokenFromURL - User info:", userInfo);
         if (!userInfo) return false;
-        // 로그인 성공 시 URL에서 토큰 쿼리 제거 (주소창 정리)
+        // URL에서 토큰 쿼리 제거 (주소창 정리)
         window.history.replaceState(null, "", window.location.pathname);
-        // 저장된 토큰들 확인용 로그
-        console.log("localStorage jwtToken:", localStorage.getItem("jwtToken"));
-        console.log("localStorage refreshToken:", localStorage.getItem("refreshToken"));
-        console.log("localStorage nickname:", localStorage.getItem("nickname"));
-        console.log("localStorage membershipId:", localStorage.getItem("membershipId"));
-        // 로그인 성공 후 메인 페이지로 리디렉션
+        console.debug("parseAndStoreTokenFromURL - Tokens in localStorage:", {
+            jwtToken: localStorage.getItem("jwtToken"),
+            refreshToken: localStorage.getItem("refreshToken"),
+            nickname: localStorage.getItem("nickname"),
+            membershipId: localStorage.getItem("membershipId")
+        });
         window.location.href = "/";
         return true;
     } catch (error) {
@@ -644,10 +652,12 @@ const parseAndStoreTokenFromURL = async ()=>{
     }
 };
 const validateToken = async (jwtToken)=>{
+    console.debug("validateToken - Validating JWT token:", jwtToken);
     try {
         const response = await axiosInstance.post(TOKEN_VALIDATE_URL, {
             jwtToken
         });
+        console.debug("validateToken - Response data:", response.data);
         return response.data === true;
     } catch (error) {
         console.error("토큰 검증 실패:", error);
@@ -655,26 +665,34 @@ const validateToken = async (jwtToken)=>{
     }
 };
 const refreshAccessToken = async (membershipId, jwtToken, refreshToken)=>{
+    console.debug("refreshAccessToken - Refreshing tokens:", {
+        membershipId,
+        jwtToken,
+        refreshToken
+    });
     try {
         const response = await axiosInstance.post(TOKEN_REFRESH_URL, {
             membershipId,
             jwtToken,
             refreshToken
         });
+        console.debug("refreshAccessToken - Response data:", response.data);
         const { jwtToken: newJwtToken, refreshToken: newRefreshToken } = response.data;
         setTokens(newJwtToken, newRefreshToken);
         setAxiosDefaults(newJwtToken);
         return newJwtToken;
     } catch (error) {
         console.error("토큰 갱신 실패:", error);
-        clearTokens(); // 토큰 갱신 실패 시 토큰 제거
+        clearTokens();
         return null;
     }
 };
 const getUserInfo = async ()=>{
     const membershipId = localStorage.getItem("membershipId");
+    console.debug("getUserInfo - Membership ID:", membershipId);
     if (!membershipId) throw new Error("Membership ID not found");
     const jwtToken = await getToken();
+    console.debug("getUserInfo - JWT token:", jwtToken);
     if (!jwtToken) throw new Error("JWT 토큰이 없습니다");
     try {
         const response = await axiosInstance.get(`${USER_INFO_URL}/${membershipId}`, {
@@ -682,6 +700,7 @@ const getUserInfo = async ()=>{
                 Authorization: `Bearer ${jwtToken}`
             }
         });
+        console.debug("getUserInfo - Response data:", response.data);
         return response.data;
     } catch (error) {
         console.error("사용자 정보 가져오기 실패:", error);
@@ -690,6 +709,7 @@ const getUserInfo = async ()=>{
 };
 const getUserNickname = async ()=>{
     const nickname = localStorage.getItem("nickname");
+    console.debug("getUserNickname - LocalStorage nickname:", nickname);
     if (nickname) return nickname;
     try {
         const userInfo = await getUserInfo();
@@ -700,6 +720,10 @@ const getUserNickname = async ()=>{
     }
 };
 const setTokens = (jwtToken, refreshToken)=>{
+    console.debug("setTokens - Storing tokens:", {
+        jwtToken,
+        refreshToken
+    });
     localStorage.setItem("jwtToken", jwtToken);
     if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 };
@@ -707,20 +731,23 @@ const getJwtToken = ()=>localStorage.getItem("jwtToken");
 const getRefreshToken = ()=>localStorage.getItem("refreshToken");
 const getMembershipId = ()=>localStorage.getItem("membershipId");
 const clearTokens = ()=>{
+    console.debug("clearTokens - Clearing tokens");
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("membershipId");
+    localStorage.removeItem("nickname");
 };
 const getToken = async ()=>{
+    console.debug("getToken - Fetching token");
     let jwtToken = getJwtToken();
     const refreshToken = getRefreshToken();
     const membershipId = getMembershipId();
-    // jwtToken 없고 refreshToken 있으면 갱신 시도
     if (!jwtToken && refreshToken && membershipId) {
         jwtToken = await refreshAccessToken(membershipId, "", refreshToken);
     }
     if (jwtToken) {
         const isValid = await validateToken(jwtToken);
+        console.debug("getToken - Token valid:", isValid);
         if (!isValid && refreshToken && membershipId) {
             jwtToken = await refreshAccessToken(membershipId, jwtToken, refreshToken);
         }
@@ -732,6 +759,7 @@ const getToken = async ()=>{
     return jwtToken;
 };
 const setAxiosDefaults = (jwtToken)=>{
+    console.debug("setAxiosDefaults - Setting default headers with JWT token:", jwtToken);
     axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
 };
 const __TURBOPACK__default__export__ = axiosInstance;
