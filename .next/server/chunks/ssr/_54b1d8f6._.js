@@ -106,6 +106,14 @@ const BoardEditPage = ()=>{
         router,
         freeId
     ]);
+    // 강제로 ToastEditor 내용 업데이트
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (editorRef.current) {
+            editorRef.current.getInstance().setMarkdown(contents);
+        }
+    }, [
+        contents
+    ]);
     const handleSubmit = async (e)=>{
         e.preventDefault();
         const markdown = editorRef.current?.getInstance().getMarkdown() || "";
@@ -162,7 +170,7 @@ const BoardEditPage = ()=>{
                     children: "게시글 수정"
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                    lineNumber: 145,
+                    lineNumber: 152,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -176,7 +184,7 @@ const BoardEditPage = ()=>{
                                     children: "제목"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                                    lineNumber: 148,
+                                    lineNumber: 155,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -187,13 +195,13 @@ const BoardEditPage = ()=>{
                                     required: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                                    lineNumber: 149,
+                                    lineNumber: 156,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                            lineNumber: 147,
+                            lineNumber: 154,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -207,7 +215,7 @@ const BoardEditPage = ()=>{
                                     children: "내용"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                                    lineNumber: 158,
+                                    lineNumber: 165,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToastEditor, {
@@ -221,13 +229,13 @@ const BoardEditPage = ()=>{
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                                    lineNumber: 159,
+                                    lineNumber: 166,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                            lineNumber: 157,
+                            lineNumber: 164,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -241,18 +249,18 @@ const BoardEditPage = ()=>{
                                 children: "게시글 수정"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                                lineNumber: 171,
+                                lineNumber: 178,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                            lineNumber: 170,
+                            lineNumber: 177,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                    lineNumber: 146,
+                    lineNumber: 153,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -265,23 +273,23 @@ const BoardEditPage = ()=>{
                         children: "게시판으로 이동"
                     }, void 0, false, {
                         fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                        lineNumber: 177,
+                        lineNumber: 184,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-                    lineNumber: 176,
+                    lineNumber: 183,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-            lineNumber: 144,
+            lineNumber: 151,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/board/edit/[freeId]/page.tsx",
-        lineNumber: 143,
+        lineNumber: 150,
         columnNumber: 5
     }, this);
 };

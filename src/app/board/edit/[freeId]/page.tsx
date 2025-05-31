@@ -90,6 +90,13 @@ const BoardEditPage = () => {
     initialize();
   }, [router, freeId]);
 
+  // 강제로 ToastEditor 내용 업데이트
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().setMarkdown(contents);
+    }
+  }, [contents]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const markdown = editorRef.current?.getInstance().getMarkdown() || "";
