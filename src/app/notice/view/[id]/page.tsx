@@ -27,10 +27,12 @@ interface Comment {
   isEditing: boolean;
 }
 
-const BoardDetailPage = () => {
+const NoticeDetailPage = () => {
   const params = useParams();
   const router = useRouter();
+
   const noticeId = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  console.log(noticeId)
 
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -80,10 +82,9 @@ const BoardDetailPage = () => {
 
   useEffect(() => {
     const loadParams = async () => {
-      const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
-      if (id) {
+      if (noticeId) {
         setLoading(true);
-        const postData = await fetchData(`https://api.hpground.xyz/api/boards/${id}`);
+        const postData = await fetchData(`https://api.hpground.xyz/api/boards/${noticeId}`);
         if (postData) {
           setPost({
             ...postData.result,
@@ -92,7 +93,7 @@ const BoardDetailPage = () => {
           });
         }
 
-        const commentsData = await fetchData(`https://api.hpground.xyz/api/comments/board/${id}`);
+        const commentsData = await fetchData(`https://api.hpground.xyz/api/comments/board/${noticeId}`);
         if (commentsData) {
           setComments(
             commentsData.result
@@ -111,14 +112,19 @@ const BoardDetailPage = () => {
     };
 
     loadParams();
-  }, [params?.id]);
+  }, [noticeId]);
+
+  const handleEditButtonClick = () => {
+    if (!post) return;
+    router.push(`/notice/edit/${noticeId}`);
+  };
 
   const handleDelete = async () => {
     if (!post) return;
 
     const response = await fetchData(`https://api.hpground.xyz/api/boards/${post.id}`, { method: 'DELETE' });
     if (response) {
-      router.push('/board');
+      router.push('/notice');
     }
   };
 
@@ -143,7 +149,6 @@ const BoardDetailPage = () => {
   const handleCommentEdit = async (commentId: number, newContent: string) => {
     if (!newContent.trim()) return;
 
-    // 줄바꿈을 <br />로 변환
     const formattedContent = newContent.replace(/\n/g, '<br />');
 
     setComments((prev) =>
@@ -157,7 +162,7 @@ const BoardDetailPage = () => {
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'NOTICE', contents: formattedContent }),
+        body: JSON.stringify({ type: 'ANNOUNCE', contents: formattedContent }),
       }
     );
 
@@ -169,9 +174,6 @@ const BoardDetailPage = () => {
       );
     }
   };
-  const handleEditButtonClick = () => {
-  router.push(`/notice/edit/${noticeId}`);
-};
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,7 +187,7 @@ const BoardDetailPage = () => {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'BOARD', parentId: post?.id || 0, contents: formattedContent }),
+        body: JSON.stringify({ type: 'ANNOUNCE', parentId: post?.id || 0, contents: formattedContent }),
       }
     );
 
@@ -210,103 +212,105 @@ const BoardDetailPage = () => {
   if (!post) return <p>공지사항을 찾을 수 없습니다.</p>;
 
   return (
-  <section className={styles.container}>
-    <div>
-      <h3 className={styles.title}>{post.title}</h3>
-      <p className={styles.metaInfo}>
-        <span>작성자: {post.creator.nickname}</span> | <span>작성일: {post.formattedDate}</span>
-      </p>
-      <div className={`${styles.viewerContainer} ${styles.largeFont}`}>
-        <Viewer initialValue={post.contents} />
-      </div>
+    <section className={styles.container}>
+      <div>
+        <h3 className={styles.title}>{post.title}</h3>
+        <p className={styles.metaInfo}>
+          <span>작성자: {post.creator.nickname}</span> | <span>작성일: {post.formattedDate}</span>
+        </p>
+        <div className={`${styles.viewerContainer} ${styles.largeFont}`}>
+          <Viewer initialValue={post.contents} />
+        </div>
 
-      {post.creator.nickname === userNickname && (
-  <div className={styles.actionButtons}>
-    <button onClick={handleDelete} className={styles.btnDelete}>
-      삭제
-    </button>
+            {userNickname === post.creator.nickname && (
+  <>
     <button
-      onClick={handleEditButtonClick}
       className={styles.editButton}
+      onClick={handleEditButtonClick}
+      style={{ marginLeft: '10px', fontSize: '0.9rem' }}
     >
       수정
     </button>
-  </div>
+    <button onClick={handleDelete} className={styles.btnDelete}>
+      삭제
+    </button>
+  </>
 )}
 
-      <div className={styles.commentSection}>
-        <h4 className={styles.commentTitle}>댓글</h4>
-        <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="댓글을 입력하세요..."
-          />
-          <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
-            {isSubmitting ? '등록 중...' : '등록'}
-          </button>
-        </form>
 
-        <ul>
-          {comments.map((c: Comment) => (
-            <li key={c.id} className={styles.commentItem}>
-              <p>
-                <strong>{c.creator?.nickname || '익명 사용자'}</strong>
-              </p>
-              {c.isEditing ? (
-                <div className={styles.commentEditTextareaContainer}>
-                  <textarea
-                    value={c.contents}
-                    onChange={(e) =>
-                      setComments((prev) =>
-                        prev.map((comment) =>
-                          comment.id === c.id ? { ...comment, contents: e.target.value } : comment
+        <div className={styles.commentSection}>
+          <h4 className={styles.commentTitle}>댓글</h4>
+          <form onSubmit={handleCommentSubmit} className={styles.formGroup}>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="댓글을 입력하세요..."
+            />
+            <button type="submit" disabled={isSubmitting} className={styles.btnPrimary}>
+              {isSubmitting ? '등록 중...' : '등록'}
+            </button>
+          </form>
+
+          <ul>
+            {comments.map((c: Comment) => (
+              <li key={c.id} className={styles.commentItem}>
+                <p>
+                  <strong>{c.creator?.nickname || '익명 사용자'}</strong>
+                </p>
+                {c.isEditing ? (
+                  <div className={styles.commentEditTextareaContainer}>
+                    <textarea
+                      value={c.contents}
+                      onChange={(e) =>
+                        setComments((prev) =>
+                          prev.map((comment) =>
+                            comment.id === c.id ? { ...comment, contents: e.target.value } : comment
+                          )
                         )
-                      )
-                    }
-                    autoFocus
-                    className={styles.commentEditTextarea}
+                      }
+                      autoFocus
+                      className={styles.commentEditTextarea}
+                    />
+                    <button
+                      onClick={() => handleCommentEdit(c.id, c.contents)}
+                      className={styles.commentEditButton}
+                    >
+                      저장
+                    </button>
+                    <button
+                      onClick={() => handleCommentEditToggle(c.id)}
+                      className={`${styles.commentEditButton} ${styles.cancel}`}
+                    >
+                      취소
+                    </button>
+                  </div>
+                ) : (
+                  <p
+                    className={styles.commentContent}
+                    style={{ whiteSpace: 'pre-wrap' }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.contents) }}
                   />
-                  <button
-                    onClick={() => handleCommentEdit(c.id, c.contents)}
-                    className={styles.commentEditButton}
-                  >
-                    저장
-                  </button>
-                  <button
-                    onClick={() => handleCommentEditToggle(c.id)}
-                    className={`${styles.commentEditButton} ${styles.cancel}`}
-                  >
-                    취소
-                  </button>
-                </div>
-              ) : (
-                <p
-                  className={styles.commentContent}
-                  style={{ whiteSpace: 'pre-wrap' }}
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(c.contents) }}
-                />
-              )}
-              <span className={styles.commentMeta}>
-                | 작성일: {new Date(c.createdAt).toLocaleDateString()}
-              </span>
-              {!c.isEditing && c.creator?.nickname === userNickname && (
-                <>
-                  <span onClick={() => handleCommentEditToggle(c.id)} className={styles.commentEdit}>
-                    수정
-                  </span>
-                  <span onClick={() => handleCommentDelete(c.id)} className={styles.commentDelete}>
-                    삭제
-                  </span>
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
+                )}
+                <span className={styles.commentMeta}>
+                  | 작성일: {new Date(c.createdAt).toLocaleDateString()}
+                </span>
+                {!c.isEditing && c.creator?.nickname === userNickname && (
+                  <>
+                    <span onClick={() => handleCommentEditToggle(c.id)} className={styles.commentEdit}>
+                      수정
+                    </span>
+                    <span onClick={() => handleCommentDelete(c.id)} className={styles.commentDelete}>
+                      삭제
+                    </span>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 };
 
-export default BoardDetailPage;
+export default NoticeDetailPage;

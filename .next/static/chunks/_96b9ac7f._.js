@@ -19,6 +19,7 @@ __turbopack_context__.v({
   "commentSection": "BoardDetail-module__4Bv4dq__commentSection",
   "commentTitle": "BoardDetail-module__4Bv4dq__commentTitle",
   "container": "BoardDetail-module__4Bv4dq__container",
+  "editButton": "BoardDetail-module__4Bv4dq__editButton",
   "formGroup": "BoardDetail-module__4Bv4dq__formGroup",
   "largeFont": "BoardDetail-module__4Bv4dq__largeFont",
   "metaInfo": "BoardDetail-module__4Bv4dq__metaInfo",
@@ -327,7 +328,7 @@ const BoardDetailPage = ()=>{
                             onClick: handleEditButtonClick,
                             style: {
                                 marginLeft: '10px',
-                                fontSize: '0.9rem'
+                                fontSize: '14px'
                             },
                             children: "수정"
                         }, void 0, false, {

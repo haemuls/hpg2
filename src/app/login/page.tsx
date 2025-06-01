@@ -164,19 +164,11 @@ const SignUpPage = () => {
 
       <button
         className={styles.google__btn}
-        onClick={() =>
-          (window.location.href =
-            "https://api.hpground.xyz/oauth2/authorization/google")
-        }
       >
         기능 구현중...
       </button>
       <button
         className={styles.github__btn}
-        onClick={() =>
-          (window.location.href =
-            "https://api.hpground.xyz/oauth2/authorization/github")
-        }
       >
         기능 구현중...
       </button>

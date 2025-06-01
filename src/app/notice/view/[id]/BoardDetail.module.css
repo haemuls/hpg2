@@ -92,6 +92,30 @@
   justify-content: center;
 }
 
+.btnDelete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+}
+
+.editButton {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+
 .btnPrimary:hover {
   background-color: #495057;
 }

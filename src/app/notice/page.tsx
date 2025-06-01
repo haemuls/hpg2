@@ -19,7 +19,7 @@ interface Post {
   formattedDate: string;
 }
 
-interface BoardResponse {
+interface NoticeResponse {
   result: {
     content: Post[];
     totalPages: number;
@@ -29,7 +29,7 @@ interface BoardResponse {
 
 const PAGE_SIZE = 25; // 페이지 크기를 상수로 관리
 
-const BoardPage = () => {
+const NoticePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -67,7 +67,7 @@ const BoardPage = () => {
         throw new Error("공지사항을 불러오는 데 실패했습니다.");
       }
 
-      const data: BoardResponse = await response.json();
+      const data: NoticeResponse = await response.json();
       const formattedPosts = data.result.content.map((post) => ({
         ...post,
         formattedDate: new Date(post.lastModified).toLocaleDateString(),
@@ -91,7 +91,6 @@ const BoardPage = () => {
     const token = await getToken();
     setIsLoggedIn(!!token);
 
-    // JWT 토큰에서 "role"을 추출하여 "ROLE_ADMIN"인지 확인
     if (token) {
       const role = JSON.parse(atob(token.split('.')[1])).role;
       setIsAdmin(role === "ROLE_ADMIN");
@@ -126,14 +125,13 @@ const BoardPage = () => {
       return;
     }
 
-    // JWT 토큰에서 "role"을 추출하여 "ROLE_ADMIN"인지 확인
     const role = JSON.parse(atob(token.split('.')[1])).role;
     if (role !== "ROLE_ADMIN") {
       alert("관리자만 공지사항을 작성할 수 있습니다.");
       return;
     }
 
-    router.push("/board/write");
+    router.push("/notice/write");
   };
 
   useEffect(() => {
@@ -185,7 +183,7 @@ const BoardPage = () => {
                             : currentPage * PAGE_SIZE + index + 1}
                         </td>
                         <td>
-                          <Link href={`/board/view/${post.id}`}>
+                          <Link href={`/notice/view/${post.id}`}>
                             {post.title}
                           </Link>
                         </td>
@@ -295,4 +293,4 @@ const BoardPage = () => {
   );
 };
 
-export default BoardPage;
+export default NoticePage;

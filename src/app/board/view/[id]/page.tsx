@@ -228,7 +228,7 @@ const BoardDetailPage = () => {
             <button
               className={styles.editButton}
               onClick={handleEditButtonClick}
-              style={{ marginLeft: '10px', fontSize: '0.9rem' }}
+              style={{ marginLeft: '10px', fontSize: '14px' }}
             >
               수정
             </button>
