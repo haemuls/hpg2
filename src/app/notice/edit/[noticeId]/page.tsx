@@ -139,7 +139,7 @@ const BoardEditPage = () => {
       }
 
       alert("게시글이 수정되었습니다.");
-      router.push("/board");
+      router.push("/notice");
     } catch (error) {
       alert("게시글 수정에 실패했습니다. 다시 시도해 주세요.");
     }

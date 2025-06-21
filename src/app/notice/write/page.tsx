@@ -8,7 +8,6 @@ import { getToken, clearTokens, getMembershipId, getUserNickname } from '../../.
 import styles from './BoardWritePage.module.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-// ToastEditor 타입을 가져오기
 import { Editor as ToastEditorInstance } from '@toast-ui/react-editor';
 
 const ToastEditor = dynamic(() => import('@toast-ui/react-editor').then((mod) => mod.Editor), {
@@ -19,8 +18,8 @@ const API_BASE_URL = 'https://api.hpground.xyz';
 
 const BoardWritePage = () => {
   const [title, setTitle] = useState('');
-  const editorRef = useRef<ToastEditorInstance>(null);  // 타입을 지정
-  const [nickname, setNickname] = useState<string | null>(null);  // 닉네임 상태 추가
+  const editorRef = useRef<ToastEditorInstance>(null);
+  const [nickname, setNickname] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const BoardWritePage = () => {
     }
 
     const loadToken = async () => {
-      const token = await getToken();  // getValidAccessToken 대신 getToken 사용
+      const token = await getToken();
       if (!token) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -65,7 +64,7 @@ const BoardWritePage = () => {
     const postData = { title, type: 'ANNOUNCE', contents, creator: nickname };
 
     try {
-      const accessToken = await getToken();  // getValidAccessToken 대신 getToken 사용
+      const accessToken = await getToken();
       if (!accessToken) {
         alert('로그인이 만료되었습니다. 다시 로그인 해주세요.');
         clearTokens();
@@ -125,7 +124,7 @@ const BoardWritePage = () => {
           </div>
           <div style={{ marginTop: '20px', textAlign: 'center' }}>
             <button type="submit" className={styles.btn}>
-              게시글 작성
+              공지사항 작성
             </button>
           </div>
         </form>
