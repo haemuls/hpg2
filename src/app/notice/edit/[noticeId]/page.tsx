@@ -180,7 +180,7 @@ const BoardEditPage = () => {
           </div>
         </form>
         <div style={{ marginTop: "20px", textAlign: "center" }}>
-          <Link href="/board">공지사항으로 이동</Link>
+          <Link href="/notice">공지사항으로 이동</Link>
         </div>
       </div>
     </div>
